@@ -27,7 +27,7 @@ class LLMResponseProcessor:
         CRITICAL RULE: You must base your answer EXCLUSIVELY on the Context provided below. 
         If the Context does not contain the necessary information to answer the question, 
         do NOT guess or make up an analogy. Reply EXACTLY with: 
-        "I do not have enough information in the syllabus to answer that.
+        "Sorry, there are no relevant documents in the Database to answer your query. :("
         '''
         user_instruction = f'''
         Please answer the user's question. Provide the answer at {detail_level} level.
@@ -52,7 +52,7 @@ class LLMResponseProcessor:
         db_search_result = self.search_db(embedded_user_query)
         context = self.stich_context(db_search_result)
         if not context:
-            return "Sorry, there are no relevant documents in the Database to answer your query :(."
+            return "Sorry, there are no relevant documents in the Database to answer your query. :("
         system_persona, user_instruction = self.LLM_prompt(user_prompt, detail_level, context)
         final_answer = self.generate_response(system_persona, user_instruction)
         return final_answer
