@@ -16,5 +16,5 @@ if __name__ == "__main__":
         if user_prompt.lower() == 'quit':
             break
         embedded_user_query = user_query_processing_init.vectorize_query(user_prompt)
-        final_answer = LLM_response_processing_init.respond_to_user(embedded_user_query, user_prompt, detail_level)
+        final_answer, context_list = LLM_response_processing_init.respond_to_user(embedded_user_query, user_prompt, detail_level)
         print(final_answer)

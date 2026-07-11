@@ -18,7 +18,7 @@ class PDFDocumentProcessor:
         return raw_text                                    
     
     def chunking(self, raw_text, chunk_size = 3):
-        # NOTE: I have dropped this so develop intuition for this: cleaned_text = raw_text.replace("(cid:415)", "ti")
+        raw_text = raw_text.replace("(cid:415)", "ti")
         raw_lines = [line.strip() for line in raw_text.split("\n") if line.strip()] 
         chunks, chunk_group = [], ""
         for i in range(0, len(raw_lines), chunk_size):

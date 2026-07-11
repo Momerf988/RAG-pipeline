@@ -19,7 +19,7 @@ class LLMResponseProcessor:
     def stich_context(self, matches):
         context_list = [match['metadata']['line'] for match in matches]
         stiched_context = " ".join(context_list)
-        return stiched_context
+        return stiched_context, context_list
     
     def LLM_prompt(self, user_prompt, detail_level, context_string):
         system_persona = "You are a highly intelligent, helpful university teaching assistant."
@@ -50,9 +50,11 @@ class LLMResponseProcessor:
     
     def respond_to_user(self, embedded_user_query, user_prompt, detail_level):
         db_search_result = self.search_db(embedded_user_query)
-        context = self.stich_context(db_search_result)
-        if not context:
+        stiched_context, context_list = self.stich_context(db_search_result)
+        if not stiched_context:
             return "Sorry, there are no relevant documents in the Database to answer your query. :("
-        system_persona, user_instruction = self.LLM_prompt(user_prompt, detail_level, context)
+        system_persona, user_instruction = self.LLM_prompt(user_prompt, detail_level, stiched_context)
         final_answer = self.generate_response(system_persona, user_instruction)
-        return final_answer
+        return final_answer, context_list
+if __name__ == "__main__":
+    generate_evaluation_dataset()
