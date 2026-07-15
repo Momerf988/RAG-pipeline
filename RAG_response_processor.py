@@ -56,5 +56,3 @@ class LLMResponseProcessor:
         system_persona, user_instruction = self.LLM_prompt(user_prompt, detail_level, stiched_context)
         final_answer = self.generate_response(system_persona, user_instruction)
         return final_answer, context_list
-if __name__ == "__main__":
-    generate_evaluation_dataset()
