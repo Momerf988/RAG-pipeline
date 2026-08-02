@@ -8,6 +8,8 @@ load_dotenv()
 LLM_API_KEY = os.getenv("LLM_API_KEY")
 LLM_SERVER_URL = os.getenv("LLM_SERVER_URL")
 DB_API_KEY = os.getenv("DB_API_KEY")
+JUDGE_MODEL_NAME = os.getenv("JUDGE_MODEL_NAME")
+OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 
 # Application Settings
 DB_INDEX_NAME = os.getenv("DB_INDEX_NAME")

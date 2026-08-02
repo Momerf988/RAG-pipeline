@@ -6,14 +6,14 @@ class LLMResponseProcessor:
         self.llm_client = llm_client
         self.index = db_index
 
-    def search_db(self, embedded_user_query, top_k = 3):
+    def search_db(self, embedded_user_query, top_k = 5):
         search_result = self.index.query(
             vector = embedded_user_query, 
-            top_k = 3, 
+            top_k = top_k, 
             include_metadata = True)
         matches = search_result['matches']
-        if not matches:
-            matches = []          # why not ''?
+#        if not matches:
+#            matches = []          # why not ''?
         return search_result['matches']
     
     def stich_context(self, matches):

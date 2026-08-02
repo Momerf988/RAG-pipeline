@@ -5,16 +5,16 @@ from crag_evaluator import CRAGEvaluator
 import config
 
 # --- THE CORRECTIVE ACTION ENGINE ---
-def rewrite_query(user_query):
-    """Rewrites a failed query into betteri w domain terminology."""
-    prompt = f"Rewrite the following user query to use more precise academic terminology suitable for searching a University AI and Python syllabus. Output ONLY the rewritten query, nothing else.\nQuery: {user_query}"
-    
-    response = llm_client.chat.completions.create(
-        model=config.LLM_MODEL_NAME,
-        messages=[{"role": "user", "content": prompt}],
-        temperature=0.2 # Slight creativity to allow good rewriting
-    )
-    return response.choices[0].message.content.strip()
+#def rewrite_query(user_query):
+#    """Rewrites a failed query into betteri w domain terminology."""
+#    prompt = f"Rewrite the following user query to use more precise academic terminology suitable for searching a University AI and Python syllabus. Output ONLY the rewritten query, nothing else.\nQuery: {user_query}"
+#    
+#    response = llm_client.chat.completions.create(
+#        model=config.LLM_MODEL_NAME,
+#        messages=[{"role": "user", "content": prompt}],
+#        temperature=0.2 # Slight creativity to allow good rewriting
+#    )
+#    return response.choices[0].message.content.strip()
 
 # --- THE SYSTEM B MAIN LOOP ---
 if __name__ == "__main__":
@@ -52,7 +52,7 @@ if __name__ == "__main__":
         elif eval_result == "INCORRECT":
             # Context is bad. Trip the interlock and rewrite!
             print(">> [System B] Context rejected. Initiating Corrective Action (Query Rewriting)...")
-            rewritten_query = rewrite_query(user_prompt)
+            rewritten_query = evaluator.rewrite_query(user_prompt)
             print(f">> [System B] Rewritten Query: {rewritten_query}")
 
             # Second Retrieval

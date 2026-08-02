@@ -93,9 +93,9 @@ def run_evaluation():
     print("3. Initializing Judges...")
     judge_llm = ChatGroq(
         api_key=config.LLM_API_KEY,
-        model_name=config.LLM_MODEL_NAME,
+        model_name=config.JUDGE_MODEL_NAME,  # changed instead of LLM_MODEL_NAME
         max_retries=3,
-        max_tokens=4096
+        max_tokens=8192
     )
     judge_embeddings = HuggingFaceEmbeddings(
         model_name=config.TRANSFORMER_MODEL

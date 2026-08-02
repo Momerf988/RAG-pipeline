@@ -51,6 +51,16 @@ CRITICAL: You must output ONLY one single word. No punctuation, no explanations.
             # If the API crashes, fail safely by tripping the interlock
             return "INCORRECT"
 
+    def rewrite_query(self, user_query):
+        prompt = f"Rewrite the following user query to use more precise academic terminology suitable for searching a University AI and Python syllabus. Output ONLY the rewritten query, nothing else.\nQuery: {user_query}"
+        response = self.llm_client.chat.completions.create(
+            model=config.LLM_MODEL_NAME,
+            messages=[{"role": "user", "content": prompt}],
+            temperature=0.2
+        )
+        return response.choices[0].message.content.strip()
+
+
 # ==========================================
 # QUICK TEST RIG
 # ==========================================
