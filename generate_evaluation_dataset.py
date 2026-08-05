@@ -95,7 +95,7 @@ import time
 import os
 import openpyxl
 from openai import RateLimitError
-from app_init import llm_client, db_index, embedder_model
+from app_init import llm_client, db_index, embedder_model, reranker_model
 from user_query_processor import UserQueryProcessor
 from RAG_response_processor import LLMResponseProcessor
 
@@ -105,7 +105,7 @@ OUTPUT_FILE = "System_A_eval_results.csv"
 SLEEP_BETWEEN_ROWS = 8    # seconds — llama-3.1-8b-instant is TPM-bottlenecked
 
 user_query_processing_init = UserQueryProcessor(embedder_model)
-LLM_response_processing_init = LLMResponseProcessor(llm_client, db_index)
+LLM_response_processing_init = LLMResponseProcessor(llm_client, db_index, reranker_model)
 
 # Resume: load already-processed spec_ids if the file exists
 if os.path.exists(OUTPUT_FILE):

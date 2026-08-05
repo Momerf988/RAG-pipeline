@@ -3,7 +3,7 @@ import time
 import os
 import openpyxl
 from openai import RateLimitError
-from app_init import llm_client, db_index, embedder_model
+from app_init import llm_client, db_index, embedder_model, reranker_model
 from user_query_processor import UserQueryProcessor
 from RAG_response_processor import LLMResponseProcessor
 from crag_evaluator import CRAGEvaluator
@@ -14,7 +14,7 @@ OUTPUT_FILE = "System_B_eval_results.csv"
 SLEEP_BETWEEN_ROWS = 12    # System B makes 2-4 LLM calls per row; give TPM more room
 
 query_processor = UserQueryProcessor(embedder_model)
-response_processor = LLMResponseProcessor(llm_client, db_index)
+response_processor = LLMResponseProcessor(llm_client, db_index, reranker_model)
 crag_evaluator = CRAGEvaluator(llm_client)
 
 FALLBACK_MSG = "I'm sorry, that concept is outside the scope of our current syllabus or I couldn't find reliable information in the database to answer you accurately."
@@ -41,7 +41,8 @@ def process_one_row(question):
     # 1. Standard retrieval
     embedded_query = query_processor.vectorize_query(question)
     matches = response_processor.search_db(embedded_query)
-    context_string, context_list = response_processor.stich_context(matches)
+    reranked_matches = response_processor.rerank(question, matches)
+    context_string, context_list = response_processor.stich_context(reranked_matches)
 
     # 2. First CRAG eval
     decision_1 = crag_evaluator.evaluate_context(question, context_string)
@@ -56,7 +57,8 @@ def process_one_row(question):
     rewritten = crag_evaluator.rewrite_query(question)
     embedded_rewritten = query_processor.vectorize_query(rewritten)
     matches_2 = response_processor.search_db(embedded_rewritten)
-    context_string_2, context_list_2 = response_processor.stich_context(matches_2)
+    reranked_matches_2 = response_processor.rerank(rewritten, matches_2)
+    context_string_2, context_list_2 = response_processor.stich_context(reranked_matches_2)
 
     # 4. Second CRAG eval
     decision_2 = crag_evaluator.evaluate_context(rewritten, context_string_2)

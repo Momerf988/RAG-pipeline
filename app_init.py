@@ -1,7 +1,8 @@
 import config
 from openai import OpenAI
 from pinecone import Pinecone
-from sentence_transformers import SentenceTransformer
+from sentence_transformers import SentenceTransformer, CrossEncoder
+
 
 # PHASE 0: Initialize the application configurations
 llm_client = OpenAI(
@@ -15,4 +16,5 @@ db_index = db_client.Index(
     config.DB_INDEX_NAME)
 
 embedder_model = SentenceTransformer(config.TRANSFORMER_MODEL)
+reranker_model = CrossEncoder('cross-encoder/ms-marco-MiniLM-L-6-v2')
 pdf_dir = config.PDF_DIRECTORY

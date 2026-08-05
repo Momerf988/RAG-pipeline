@@ -17,7 +17,7 @@ class PDFDocumentProcessor:
                     raw_text += extracted_text + "\n"  
         return raw_text                                    
 
-
+#First version of chunking method, which was replaced by a more advanced version that handles line breaks and overlaps.
 #    def chunking(self, raw_text, chunk_size = 3):
 #        raw_text = raw_text.replace("(cid:415)", "ti")
 #        raw_lines = [line.strip() for line in raw_text.split("\n") if line.strip()] 
@@ -26,7 +26,26 @@ class PDFDocumentProcessor:
 #            chunk_group = " ".join(raw_lines[i:i + chunk_size])
 #            chunks.append(chunk_group)
 #        return chunks 
-   
+
+# Second version of chunking method, which handles line breaks and overlaps.   
+#    def chunking(self, raw_text, chunk_size = 700, overlap = 100):
+#        raw_text = raw_text.replace("(cid:415)", "ti")
+#        chunks = []
+#        start = 0
+#        text_length = len(raw_text)
+#        while start < text_length:
+#            end = start + chunk_size
+#            if end < text_length:
+#                newline_pos = raw_text.rfind("\n", start, end)
+#                if newline_pos > start:
+#                    end = newline_pos  # snap to a line break so we don't cut a code line in half
+#            chunk_group = raw_text[start:end].strip("\n")
+#            if chunk_group.strip():
+#                chunks.append(chunk_group)
+#            start = end - overlap if end - overlap > start else end
+#        return chunks
+
+# Third version of chunking method, which handles line breaks, sentence ends, and overlaps.
     def chunking(self, raw_text, chunk_size = 700, overlap = 100):
         raw_text = raw_text.replace("(cid:415)", "ti")
         chunks = []
@@ -35,14 +54,36 @@ class PDFDocumentProcessor:
         while start < text_length:
             end = start + chunk_size
             if end < text_length:
+                # try snapping to a newline, then a sentence end, then a whitespace
                 newline_pos = raw_text.rfind("\n", start, end)
                 if newline_pos > start:
-                    end = newline_pos  # snap to a line break so we don't cut a code line in half
-            chunk_group = raw_text[start:end].strip("\n")
-            if chunk_group.strip():
+                    end = newline_pos
+                else:
+                    sentence_pos = raw_text.rfind(". ", start, end)
+                    if sentence_pos > start:
+                        end = sentence_pos + 1  # keep the period, break after the space
+                    else:
+                        space_pos = raw_text.rfind(" ", start, end)
+                        if space_pos > start:
+                            end = space_pos
+            chunk_group = raw_text[start:end].strip("\n").strip()
+            if chunk_group:
                 chunks.append(chunk_group)
-            start = end - overlap if end - overlap > start else end
+
+            next_start = end - overlap if end - overlap > start else end
+            # snap the next chunk's start forward to the next word boundary too,
+            # so overlap doesn't reintroduce a mid-word cut at the START of a chunk
+            if next_start < text_length:
+                space_pos = raw_text.find(" ", next_start)
+                newline_pos = raw_text.find("\n", next_start)
+                candidates = [p for p in (space_pos, newline_pos) if p != -1]
+                if candidates:
+                    boundary = min(candidates)
+                    if boundary - next_start < 50:  # don't skip too much of the overlap
+                        next_start = boundary + 1
+            start = next_start           
         return chunks
+
 
     def embeddings(self, chunks):
         embeddings = self.embedder.encode(chunks)

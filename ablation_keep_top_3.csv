@@ -1,0 +1,874 @@
+spec_id,topic_id,question,contexts,answer,ground_truth
+T1_001,T1,What is an f-string in Python?,"[""literals (also called f-strings for short) let you include the value of Python expressions in-\nside a string by prefixing the string with f or F and writing expressions as {expression}.\nAn optional format specifier can follow the expression. This allows greater control over how the value is\nformatted. The following example rounds pi to three places after the decimal:\n>>> import math\n>>> print(f'The value of pi is approximately {math.pi:.3f}.')\nThe value of pi is approximately 3.142.\nPassing an integer after the ':' will cause that field to be a minimum number of characters wide. This is\nuseful for making columns line up.\n>>> table = {'Sjoerd': 4127, 'Jack': 4098, 'Dcab': 7678}"", 'Strings support a large number of methods for basic transformations and searching.\nf-strings\nString literals that have embedded expressions.\nFormat string syntax\nInformation about string formatting with str.format().\nprintf-style String Formatting\nThe old formatting operations invoked when strings are the left operand of the % operator are de-\nscribed in more detail here.\nhttps://docs.python.org/3/tutorial/introduction.html 6/9\n28/07/2026, 14:07 3. An Informal Introduction to Python — Python 3.14.6 documentation\n3.1.3. Lists\nPython knows a number of compound data types, used to group together other values. The most versatile', ""been reached, f.read() will return an empty string\n('').\n>>> f.read()\n'This is the entire file.\\n'\n>>> f.read()\n''\nf.readline() reads a single line from the file; a newline character (\\n) is left at the end of the string,\nand is only omitted on the last line of the file if the file doesnʼt end in a newline. This makes the return val-\nue unambiguous; if f.readline() returns an empty string, the end of the file has been reached, while a\nblank line is represented by '\\n', a string containing only a single newline.\n>>> f.readline()\n'This is the first line of the file.\\n'\nhttps://docs.python.org/3/tutorial/inputoutput.html 6/8\n28/07/2026, 14:10 7. Input and Output — Python 3.14.6 documentation""]","An f-string in Python is a type of string literal that allows you to include the value of Python expressions inside a string by prefixing the string with 'f' or 'F' and writing expressions as {expression}. This feature provides a convenient way to embed expressions inside string literals, making it easier to create dynamic and flexible strings.
+
+For example, in the given context, the expression `f'The value of pi is approximately {math.pi:.3f}.'` is an f-string that includes the value of the mathematical constant pi inside a string, rounded to three decimal places.
+
+The use of f-strings in Python is a powerful tool for creating dynamic strings, and it is often used in conjunction with other string formatting methods, such as the `str.format()` method or the old `%` operator. However, f-strings are generally considered to be a more modern and Pythonic way of formatting strings, and they are widely used in Python programming.","An f-string is a string literal that allows embedded expressions. By prefixing the string with the letter f, you can include Python expressions inside curly braces {} which are evaluated and inserted into the resulting string."
+T1_002,T1,"In Python, what does the % operator do?","['to calculate the remainder you can use %:\nhttps://docs.python.org/3/tutorial/introduction.html 1/9\n28/07/2026, 14:07 3. An Informal Introduction to Python — Python 3.14.6 documentation\n>>> 17 / 3 # classic division returns a float\n5.666666666666667\n>>>\n>>> 17 // 3 # floor division discards the fractional part\n5\n>>> 17 % 3 # the % operator returns the remainder of the division\n2\n>>> 5 * 3 + 2 # floored quotient * divisor + remainder\n17\nWith Python, it is possible to use the ** operator to calculate powers [1]:\n>>> 5 ** 2 # 5 squared\n25\n>>> 2 ** 7 # 2 to the power of 7\n128\nThe equal sign (=) is used to assign a value to a variable. Afterwards, no result is displayed before the next', 'Strings support a large number of methods for basic transformations and searching.\nf-strings\nString literals that have embedded expressions.\nFormat string syntax\nInformation about string formatting with str.format().\nprintf-style String Formatting\nThe old formatting operations invoked when strings are the left operand of the % operator are de-\nscribed in more detail here.\nhttps://docs.python.org/3/tutorial/introduction.html 6/9\n28/07/2026, 14:07 3. An Informal Introduction to Python — Python 3.14.6 documentation\n3.1.3. Lists\nPython knows a number of compound data types, used to group together other values. The most versatile', 'syntax is straightforward: the operators +, -, * and / can be used to perform arithmetic;\nparentheses (()) can be used for grouping. For example:\n>>> 2 + 2\n4\n>>> 50 - 5*6\n20\n>>> (50 - 5*6) / 4\n5.0\n>>> 8 / 5 # division always returns a floating-point number\n1.6\nThe integer numbers (e.g. 2, 4, 20) have type int, the ones with a fractional part (e.g. 5.0, 1.6) have\ntype float. We will see more about numeric types later in the tutorial.\nDivision (/) always returns a float. To do floor division and get an integer result you can use the // opera-\ntor; to calculate the remainder you can use %:\nhttps://docs.python.org/3/tutorial/introduction.html 1/9']","The % operator in Python is used to calculate the remainder of the division. This is demonstrated in the provided code snippet:
+
+>>> 17 % 3 # the % operator returns the remainder of the division
+2
+
+In this example, the remainder of 17 divided by 3 is 2. The % operator is specifically used for this purpose, as opposed to the / operator which returns the quotient as a float, and the // operator which returns the floor of the quotient as an integer.",The % operator returns the remainder of the division of the left operand by the right operand.
+T1_011,T1,"Consider the following two code snippets that aim to compute the number of whole packages needed to hold a given number of items, where a partial package is not allowed.
+
+Snippet A:
+```python
+items = 17
+package_size = 3
+packages = int(items / package_size)
+print(packages)
+```
+
+Snippet B:
+```python
+items = 17
+package_size = 3
+packages = items // package_size
+print(packages)
+```
+
+Which snippet follows best practice for performing integer (floor) division in Python, and why? If you think a snippet should be revised, show the corrected line of code.","['syntax is straightforward: the operators +, -, * and / can be used to perform arithmetic;\nparentheses (()) can be used for grouping. For example:\n>>> 2 + 2\n4\n>>> 50 - 5*6\n20\n>>> (50 - 5*6) / 4\n5.0\n>>> 8 / 5 # division always returns a floating-point number\n1.6\nThe integer numbers (e.g. 2, 4, 20) have type int, the ones with a fractional part (e.g. 5.0, 1.6) have\ntype float. We will see more about numeric types later in the tutorial.\nDivision (/) always returns a float. To do floor division and get an integer result you can use the // opera-\ntor; to calculate the remainder you can use %:\nhttps://docs.python.org/3/tutorial/introduction.html 1/9', 'to calculate the remainder you can use %:\nhttps://docs.python.org/3/tutorial/introduction.html 1/9\n28/07/2026, 14:07 3. An Informal Introduction to Python — Python 3.14.6 documentation\n>>> 17 / 3 # classic division returns a float\n5.666666666666667\n>>>\n>>> 17 // 3 # floor division discards the fractional part\n5\n>>> 17 % 3 # the % operator returns the remainder of the division\n2\n>>> 5 * 3 + 2 # floored quotient * divisor + remainder\n17\nWith Python, it is possible to use the ** operator to calculate powers [1]:\n>>> 5 ** 2 # 5 squared\n25\n>>> 2 ** 7 # 2 to the power of 7\n128\nThe equal sign (=) is used to assign a value to a variable. Afterwards, no result is displayed before the next', ""'sorted', 'staticmethod', 'str', 'sum', 'super', 'tuple', 'type', 'vars',\n'zip']\n6.4. Packages\nPackages are a way of structuring Pythonʼs module namespace by using “dotted module names”. For ex-\nample, the module name A.B designates a submodule named B in a package named A. Just like the use\nof modules saves the authors of different modules from having to worry about each otherʼs global variable\nnames, the use of dotted module names saves the authors of multi-module packages like NumPy or Pillow\nfrom having to worry about each otherʼs module names.\nSuppose you want to design a collection of modules (a “package”) for the uniform handling of sound files""]","To determine which snippet follows best practice for performing integer (floor) division in Python, let's analyze both snippets.
+
+Snippet A uses the `int()` function to convert the result of the division to an integer:
+```python
+items = 17
+package_size = 3
+packages = int(items / package_size)
+print(packages)
+```
+However, this approach is not the most efficient or Pythonic way to perform floor division. The `int()` function is not necessary, as the `//` operator is specifically designed for floor division.
+
+Snippet B uses the `//` operator for floor division:
+```python
+items = 17
+package_size = 3
+packages = items // package_size
+print(packages)
+```
+This is the recommended way to perform floor division in Python, as it is more efficient and readable than using the `int()` function.
+
+Therefore, Snippet B follows best practice for performing integer (floor) division in Python.","Snippet B follows best practice. It uses the floor‑division operator (//) which directly yields an integer result by discarding the fractional part, as described in the context. This avoids the intermediate floating‑point division performed by the / operator and the subsequent conversion with int(), which can introduce unnecessary floating‑point rounding errors and is less efficient. Snippet A works but is sub‑optimal because it first computes a float (items / package_size) and then truncates it with int(). The corrected approach is to replace the line in Snippet A with `packages = items // package_size` (or simply use Snippet B)."
+T2_008,T2,"The following Python function is intended to return a human‑readable message for a given HTTP status code using a match statement. However, the code raises a SyntaxError when executed. Identify the exact line that contains the bug, explain why it is incorrect, and provide the corrected version of that line.
+
+```python
+def http_error(status):
+    match status:
+        case 400:
+            return ""Bad request""
+        case 404:
+            return ""Not found""
+        case 401 or 403 or 404:
+            return ""Not allowed""
+        case _:
+            return ""Something's wrong with the internet""
+```","['match status:\ncase 400:\nreturn ""Bad request""\ncase 404:\nreturn ""Not found""\ncase 418:\nreturn ""I\'m a teapot""\ncase _:\nreturn ""Something\'s wrong with the internet""\nNote the last block: the “variable name” _ acts as a wildcard and never fails to match.\nYou can combine several literals in a single pattern using | (“or”):\ncase 401 | 403 | 404:\nreturn ""Not allowed""\nPatterns can look like unpacking assignments, and can be used to bind variables:\n# point is an (x, y) tuple\nmatch point:\ncase (0, 0):\nprint(""Origin"")\ncase (0, y):\nprint(f""Y={y}"")\ncase (x, 0):\nprint(f""X={x}"")\ncase (x, y):\nprint(f""X={x}, Y={y}"")\ncase _:\nraise ValueError(""Not a point"")', ""number of arguments. There are three forms, which\ncan be combined.\n4.9.1. Default Argument Values\nThe most useful form is to specify a default value for one or more arguments. This creates a function that\ncan be called with fewer arguments than it is defined to allow. For example:\ndef ask_ok(prompt, retries=4, reminder='Please try again!'):\nwhile True:\nreply = input(prompt)\nif reply in {'y', 'ye', 'yes'}:\nreturn True\nif reply in {'n', 'no', 'nop', 'nope'}:\nreturn False\nretries = retries - 1\nif retries < 0:\nraise ValueError('invalid user response')\nprint(reminder)\nThis function can be called in several ways:\nhttps://docs.python.org/3/tutorial/controlflow.html#match-statements 9/18"", 'clauseʼs return statement, not the value from the try clauseʼs return statement. This can be con-\nfusing and is therefore discouraged. From version 3.14 the compiler emits a SyntaxWarning for it (see\nPEP 765).\nFor example:\n>>> def bool_return():\n... try:\n... return True\n... finally:\n... return False\n...\n>>> bool_return()\nFalse\nA more complicated example:\n>>> def divide(x, y):\n... try:\n... result = x / y\n... except ZeroDivisionError:\n... print(""division by zero!"")\n... else:\n... print(""result is"", result)\n... finally:\n... print(""executing finally clause"")\n...\n>>> divide(2, 1)\nresult is 2.0\nexecuting finally clause\nhttps://docs.python.org/3/tutorial/errors.html 7/11']","The exact line that contains the bug is:
+
+```python
+case 401 or 403 or 404:
+```
+
+This line is incorrect because it uses the bitwise OR operator (`or`) instead of the pattern matching operator (`|`). In Python, `or` is used for logical OR operations, whereas `|` is used for pattern matching.
+
+The corrected version of this line should be:
+
+```python
+case 401 | 403 | 404:
+```
+
+This uses the `|` operator to specify a pattern that matches any of the values 401, 403, or 404.","The bug is on the line `case 401 or 403 or 404:`. In a match statement, multiple literal patterns must be combined with the pipe operator (`|`). Using the logical operator `or` is evaluated at compile time, producing a single Boolean value, which is not a valid pattern and causes a SyntaxError. The corrected line is:
+```python
+        case 401 | 403 | 404:
+```"
+T2_009,T2,"The following Python function is intended to return a string describing a 2‑D point using the structural pattern‑matching features described in the context. However, the code contains a subtle bug that causes a `NameError` when the point lies on the Y‑axis (e.g., `(0, 5)`). Analyze the match‑case structure, identify the exact line and operator/identifier that is incorrect, and provide the corrected version of that line.
+
+```python
+def describe_point(point):
+    match point:
+        case (0, 0):
+            return ""Origin""
+        case (0, y):
+            return f""Y={x}""   # <-- buggy line
+        case (x, 0):
+            return f""X={x}""
+        case (x, y):
+            return f""X={x}, Y={y}""
+        case _:
+            raise ValueError(""Not a point"")
+```","['case [Point(0, 0)]:\nprint(""The origin"")\ncase [Point(x, y)]:\nprint(f""Single point {x}, {y}"")\ncase [Point(0, y1), Point(0, y2)]:\nprint(f""Two on the Y axis at {y1}, {y2}"")\ncase _:\nprint(""Something else"")\nhttps://docs.python.org/3/tutorial/controlflow.html#match-statements 6/18\n28/07/2026, 14:09 4. More Control Flow Tools — Python 3.14.6 documentation\nWe can add an if clause to a pattern, known as a “guard”. If the guard is false, match goes on to try the\nnext case block. Note that value capture happens before the guard is evaluated:\nmatch point:\ncase Point(x, y) if x == y:\nprint(f""Y=X at {x}"")\ncase Point(x, y):\nprint(f""Not on the diagonal"")\nSeveral other key features of this statement:', 'are stored in the __annotations__ attribute of the function as a dictionary and have no ef-\nfect on any other part of the function. Parameter annotations are defined by a colon after the parameter\nhttps://docs.python.org/3/tutorial/controlflow.html#match-statements 16/18\n28/07/2026, 14:09 4. More Control Flow Tools — Python 3.14.6 documentation\nname, followed by an expression evaluating to the value of the annotation. Return annotations are defined\nby a literal ->, followed by an expression, between the parameter list and the colon denoting the end of\nthe def statement. The following example has a required argument, an optional argument, and the return\nvalue annotated:', '(x, 0):\nprint(f""X={x}"")\ncase (x, y):\nprint(f""X={x}, Y={y}"")\ncase _:\nraise ValueError(""Not a point"")\nStudy that one carefully! The first pattern has two literals, and can be thought of as an extension of the lit-\neral pattern shown above. But the next two patterns combine a literal and a variable, and the variable\nbinds a value from the subject (point). The fourth pattern captures two values, which makes it conceptu-\nally similar to the unpacking assignment (x, y) = point.\nhttps://docs.python.org/3/tutorial/controlflow.html#match-statements 5/18\n28/07/2026, 14:09 4. More Control Flow Tools — Python 3.14.6 documentation']","Let's analyze the match-case structure of the given function. The function is intended to return a string describing a 2-D point using structural pattern-matching features.
+
+The bug in the code is in the line where it tries to access the variable `x` in the case `(0, y):`. However, in this case, the variable `x` is not defined. The correct variable to access in this case is `y`, not `x`.
+
+The correct line should be:
+
+```python
+return f""Y={y}""
+```
+
+This is because when the point lies on the Y-axis, the variable `y` is defined, but `x` is not. By using `y` instead of `x`, we can correctly return the string describing the point.
+
+Here's the corrected function:
+
+```python
+def describe_point(point):
+    match point:
+        case (0, 0):
+            return ""Origin""
+        case (0, y):
+            return f""Y={y}""
+        case (x, 0):
+            return f""X={x}""
+        case (x, y):
+            return f""X={x}, Y={y}""
+        case _:
+            raise ValueError(""Not a point"")
+```","The bug is on the line `return f""Y={x}""` inside the `case (0, y):` block. In this pattern the variable bound from the subject is `y`, not `x`; `x` is undefined here, leading to a `NameError`. The corrected line should use the bound variable `y`:
+```python
+        case (0, y):
+            return f""Y={y}""
+```"
+T2_018,T2,"**Scenario:** You are creating a small utility that repeatedly asks the user a yes‑or‑no question until the user answers affirmatively or a maximum number of attempts is reached. Each answer must be recorded in a list called `attempts`. Write a function `ask_ok` that:
+
+1. Takes the parameters `prompt` (the question to display), `retries` (default value 3), `reminder` (default value `'Please try again!'`), and `attempts` (default value `None`).
+2. If `attempts` is `None`, creates a new empty list to store the replies.
+3. Uses a `while` loop to:
+   - Get user input with `input(prompt)`.
+   - Append the reply to `attempts` using the list method `append()`.
+   - If the reply is one of `{'y', 'ye', 'yes'}`, returns `True`.
+   - Otherwise, increments a counter; if the counter reaches `retries`, returns `False`.
+   - If the counter is still below `retries`, prints the `reminder` and continues.
+4. After the loop, if the function somehow reaches the end without hitting a `return`, state what value the function would produce.
+
+Provide the complete, correctly indented function definition.
+
+**Answer:**","[""number of arguments. There are three forms, which\ncan be combined.\n4.9.1. Default Argument Values\nThe most useful form is to specify a default value for one or more arguments. This creates a function that\ncan be called with fewer arguments than it is defined to allow. For example:\ndef ask_ok(prompt, retries=4, reminder='Please try again!'):\nwhile True:\nreply = input(prompt)\nif reply in {'y', 'ye', 'yes'}:\nreturn True\nif reply in {'n', 'no', 'nop', 'nope'}:\nreturn False\nretries = retries - 1\nif retries < 0:\nraise ValueError('invalid user response')\nprint(reminder)\nThis function can be called in several ways:\nhttps://docs.python.org/3/tutorial/controlflow.html#match-statements 9/18"", 'an item at a given position. The first argument is the index of the element before which to in-\nsert, so a.insert(0, x) inserts at the front of the list, and a.insert(len(a), x) is equivalent to\na.append(x).\nlist.remove(value, /)\nRemove the first item from the list whose value is equal to value. It raises a ValueError if there is no\nsuch item.\nlist.pop(index=-1, /)\nRemove the item at the given position in the list, and return it. If no index is specified, a.pop() re-\nmoves and returns the last item in the list. It raises an IndexError if the list is empty or the index is\noutside the list range.\nlist.clear()\nRemove all items from the list. Similar to del a[:].', ""in users.items():\nif status == 'active':\nactive_users[user] = status\n4.3. The Function\nrange()\nIf you do need to iterate over a sequence of numbers, the built-in function range() comes in handy. It\ngenerates arithmetic progressions:\n>>> for i in range(5):\n... print(i)\n...\n0\n1\n2\n3\n4\nThe given end point is never part of the generated sequence; range(10) generates 10 values, the legal\nindices for items of a sequence of length 10. It is possible to let the range start at another number, or to\nspecify a different increment (even negative; sometimes this is called the ‘stepʼ):\n>>> list(range(5, 10))\n[5, 6, 7, 8, 9]\n>>> list(range(0, 10, 3))\n[0, 3, 6, 9]\n>>> list(range(-10, -100, -30))""]","Here's the complete and correctly indented function definition for `ask_ok`:
+
+```python
+def ask_ok(prompt, retries=3, reminder='Please try again!', attempts=None):
+    if attempts is None:
+        attempts = []
+    while True:
+        reply = input(prompt)
+        attempts.append(reply)
+        if reply in {'y', 'ye', 'yes'}:
+            return True
+        retries = retries - 1
+        if retries < 0:
+            return False
+        print(reminder)
+```
+
+This function meets all the requirements specified in the prompt. It takes the parameters `prompt`, `retries`, `reminder`, and `attempts`, and uses a `while` loop to repeatedly ask the user a yes-or-no question until the user answers affirmatively or a maximum number of attempts is reached. The user's replies are recorded in the `attempts` list.
+
+If the function somehow reaches the end without hitting a `return`, it will return `None`, because the function does not explicitly specify a value to return in this case. However, in Python, if a function does not explicitly return a value, it will return `None` by default.","```python
+def ask_ok(prompt, retries=3, reminder='Please try again!', attempts=None):
+    """"""Ask a yes/no question with a limited number of retries.
+    Each reply is stored in the list `attempts`.
+    Returns True for an affirmative answer, False after exhausting retries.
+    """"""
+    if attempts is None:
+        attempts = []          # create a fresh list when none is supplied
+    count = 0
+    while True:
+        reply = input(prompt)   # get user input
+        attempts.append(reply)  # record the reply using list.append()
+        if reply in {'y', 'ye', 'yes'}:
+            return True         # affirmative answer
+        count += 1
+        if count >= retries:
+            return False        # ran out of allowed attempts
+        print(reminder)         # remind the user and loop again
+    # If execution ever reaches this point (which it cannot in the current logic),
+    # the function would return None because it falls off the end without an explicit return.
+```"
+T3_003,T3,"In Python, list methods that modify a list have different behaviors. Compare the use of ``append`` and ``pop`` for implementing a stack with the use of ``sort`` for ordering a list. In your answer, discuss (a) what each method does to the list, (b) what each method returns, and (c) any restrictions on the kinds of data the method can handle.","[""might have noticed that methods like insert, remove or sort that only modify the list have no re-\nturn value printed – they return the default None. [1] This is a design principle for all mutable data struc-\ntures in Python.\nAnother thing you might notice is that not all data can be sorted or compared. For instance, [None,\n'hello', 10] doesnʼt sort because integers canʼt be compared to strings and None canʼt be compared\nto other types. Also, there are some types that donʼt have a defined ordering relation. For example, 3+4j\n< 5+7j isnʼt a valid comparison.\n5.1.1. Using Lists as Stacks\nThe list methods make it very easy to use a list as a stack, where the last element added is the first ele-"", 'methods make it very easy to use a list as a stack, where the last element added is the first ele-\nment retrieved (“last-in, first-out”). To add an item to the top of the stack, use append(). To retrieve an\nitem from the top of the stack, use pop() without an explicit index. For example:\n>>> stack = [3, 4, 5]\n>>> stack.append(6)\n>>> stack.append(7)\n>>> stack\n[3, 4, 5, 6, 7]\n>>> stack.pop()\n7\n>>> stack\n[3, 4, 5, 6]\n>>> stack.pop()\n6\n>>> stack.pop()\n5\nhttps://docs.python.org/3/tutorial/datastructures.html 2/12\n28/07/2026, 14:10 5. Data Structures — Python 3.14.6 documentation\n>>> stack\n[3, 4]\n5.1.2. Using Lists as Queues', '5. Data Structures — Python 3.14.6 documentation\n>>> stack\n[3, 4]\n5.1.2. Using Lists as Queues\nIt is also possible to use a list as a queue, where the first element added is the first element retrieved\n(“first-in, first-out”); however, lists are not efficient for this purpose. While appends and pops from the end\nof list are fast, doing inserts or pops from the beginning of a list is slow (because all of the other elements\nhave to be shifted by one).\nTo implement a queue, use collections.deque which was designed to have fast appends and pops\nfrom both ends. For example:\n>>> from collections import deque\n>>> queue = deque([""Eric"", ""John"", ""Michael""])\n>>> queue.append(""Terry"") # Terry arrives']","Let's break down the use of `append`, `pop`, and `sort` methods in Python, comparing their behaviors when implementing a stack and ordering a list.
+
+### 1. `append` Method
+
+- **What it does to the list:** The `append` method adds an element to the end of the list. When used to implement a stack, it adds an item to the top of the stack.
+- **What it returns:** The `append` method returns `None`.
+- **Restrictions on data types:** The `append` method can handle any type of data, including integers, strings, floats, and even other lists.
+
+### 2. `pop` Method
+
+- **What it does to the list:** The `pop` method removes and returns the last element from the list. When used to implement a stack, it retrieves an item from the top of the stack.
+- **What it returns:** The `pop` method returns the removed element. If no index is specified, it removes and returns the last element.
+- **Restrictions on data types:** The `pop` method can handle any type of data, including integers, strings, floats, and even other lists.
+
+### 3. `sort` Method
+
+- **What it does to the list:** The `sort` method sorts the elements of the list in a specific order (either ascending or descending). However, as mentioned in the context, not all data can be sorted or compared, and some types don't have a defined ordering relation.
+- **What it returns:** The `sort` method returns `None`.
+- **Restrictions on data types:** The `sort` method can handle most built-in data types, including integers, strings, and floats. However, it cannot handle complex numbers (like `3+4j`) or `None` values, as they don't have a defined ordering relation.
+
+In summary, `append` and `pop` methods are suitable for implementing a stack, where the last element added is the first element retrieved. They can handle any type of data and return the expected values. On the other hand, the `sort` method is used for ordering a list, but it has restrictions on the types of data it can handle, and it returns `None`.","*Effect on the list*: ``append`` adds a new element to the end of the list, growing the stack; ``pop`` (without an index) removes and returns the last element, shrinking the stack. ``sort`` rearranges the existing elements into ascending order but does not add or remove items.
+
+*Return value*: Both ``append`` and ``sort`` return the default ``None`` because they only modify the list in place. ``pop`` returns the element that was removed, as shown by the example where ``stack.pop()`` produced ``7``.
+
+*Data‑type restrictions*: ``append`` and ``pop`` work with any object type because they merely insert or remove items. ``sort`` requires that all elements be comparable; it fails on lists that contain mixed, non‑orderable types such as ``None``, strings, integers, or complex numbers (e.g., ``[None, 'hello', 10]`` or ``3+4j < 5+7j`` are invalid for sorting)."
+T3_004,T3,"Consider the following Python code:
+```python
+nums = [1, 2, 3]
+other = nums
+copy = [1, 2, 3]
+
+def check():
+    return (1 < len(nums) == 3) and (nums is other) or (copy is nums) and (4 not in nums)
+
+print(check())
+```
+Using only the information from the context, what is the exact output printed when this program is executed? Explain briefly how the chained comparison, identity tests, membership test, and Boolean‑operator precedence determine the result.","[""of the same type:\n(1, 2, 3) < (1, 2, 4)\n[1, 2, 3] < [1, 2, 4]\n'ABC' < 'C' < 'Pascal' < 'Python'\n(1, 2, 3, 4) < (1, 2, 4)\n(1, 2) < (1, 2, -1)\n(1, 2, 3) == (1.0, 2.0, 3.0)\n(1, 2, ('aa', 'ab')) < (1, 2, ('abc', 'a'), 4)\nNote that comparing objects of different types with < or > is legal provided that the objects have appro-\npriate comparison methods. For example, mixed numeric types are compared according to their numeric\nvalue, so 0 equals 0.0, etc. Otherwise, rather than providing an arbitrary ordering, the interpreter will raise\na TypeError exception.\nFootnotes\nhttps://docs.python.org/3/tutorial/datastructures.html 11/12\n28/07/2026, 14:10 5. Data Structures — Python 3.14.6 documentation"", 'comprehension consists of brackets containing an expression followed by a for clause, then zero or\nmore for or if clauses. The result will be a new list resulting from evaluating the expression in the con-\ntext of the for and if clauses which follow it. For example, this listcomp combines the elements of two\nlists if they are not equal:\nhttps://docs.python.org/3/tutorial/datastructures.html 3/12\n28/07/2026, 14:10 5. Data Structures — Python 3.14.6 documentation\n>>> [(x, y) for x in [1,2,3] for y in [3,1,4] if x != y]\n[(1, 3), (1, 4), (2, 3), (2, 1), (2, 4), (3, 1), (3, 4)]\nand itʼs equivalent to:\n>>> combs = []\n>>> for x in [1,2,3]:\n... for y in [3,1,4]:\n... if x != y:', ""of the comparison; if they are equal, the next two items are compared, and so on, until either\nsequence is exhausted. If two items to be compared are themselves sequences of the same type, the lexi-\ncographical comparison is carried out recursively. If all items of two sequences compare equal, the se-\nquences are considered equal. If one sequence is an initial sub-sequence of the other, the shorter se-\nquence is the smaller (lesser) one. Lexicographical ordering for strings uses the Unicode code point num-\nber to order individual characters. Some examples of comparisons between sequences of the same type:\n(1, 2, 3) < (1, 2, 4)\n[1, 2, 3] < [1, 2, 4]\n'ABC' < 'C' < 'Pascal' < 'Python'""]","To determine the exact output printed when this program is executed, we need to analyze the chained comparison, identity tests, membership test, and Boolean-operator precedence.
+
+The chained comparison `(1 < len(nums) == 3)` is evaluated as follows:
+
+1. `len(nums)` returns the length of the list `nums`, which is 3.
+2. `1 < 3` is `True`.
+3. `True == 3` is `False`, because `True` is a boolean value and `3` is an integer.
+
+So, the first part of the chained comparison is `False`.
+
+The identity tests `nums is other` and `copy is nums` are evaluated as follows:
+
+1. `nums` and `other` are the same object, so `nums is other` is `True`.
+2. `copy` and `nums` are different objects, so `copy is nums` is `False`.
+
+The membership test `4 not in nums` is evaluated as follows:
+
+1. `4` is not in the list `nums`, so `4 not in nums` is `True`.
+
+Now, let's analyze the Boolean-operator precedence:
+
+1. The `and` operator has higher precedence than the `or` operator, so the expression is evaluated as follows:
+   - The first part of the expression is `(1 < len(nums) == 3) and (nums is other)`, which is `False and True`, which is `False`.
+   - The second part of the expression is `(copy is nums) and (4 not in nums)`, which is `False and True`, which is `False`.
+   - The `or` operator is applied to the two parts, so the final result is `False or False`, which is `False`.
+
+Therefore, the exact output printed when this program is executed is `False`.","The program prints `True`. Explanation:
+1. `len(nums)` is 3, so the chained comparison `1 < len(nums) == 3` is evaluated as `1 < 3 and 3 == 3`, which yields `True`.
+2. `nums is other` is `True` because `other` references the same list object as `nums`.
+3. The left side of the `or` therefore becomes `True and True`, i.e., `True`.
+4. Because `or` short‑circuits, the right side `(copy is nums) and (4 not in nums)` is never evaluated.
+5. The overall expression is `True or …`, which results in `True`, and that is what `print` outputs."
+T3_005,T3,"Given the list `vec = [-4, -2, 0, 2, 4]`, complete the list comprehension below so that `result` contains the squares of only the non‑negative numbers in `vec`.
+```python
+vec = [-4, -2, 0, 2, 4]
+# TODO: fill in the blank to compute the square of each qualifying element
+result = [ ___ for x in vec if x >= 0 ]
+print(result)  # Expected output: [0, 4, 16]
+```","[""for x in range(6)]\n^^^^^^^\nSyntaxError: did you forget parentheses around the comprehension target?\n>>> # flatten a list using a listcomp with two 'for'\n>>> vec = [[1,2,3], [4,5,6], [7,8,9]]\n>>> [num for elem in vec for num in elem]\n[1, 2, 3, 4, 5, 6, 7, 8, 9]\nList comprehensions can contain complex expressions and nested functions:\n>>> from math import pi\n>>> [str(round(pi, i)) for i in range(1, 6)]\n['3.1', '3.14', '3.142', '3.1416', '3.14159']\n5.1.4. Nested List Comprehensions\nThe initial expression in a list comprehension can be any arbitrary expression, including another list\ncomprehension.\nConsider the following example of a 3x4 matrix implemented as a list of 3 lists of length 4:"", 'and itʼs equivalent to:\n>>> combs = []\n>>> for x in [1,2,3]:\n... for y in [3,1,4]:\n... if x != y:\n... combs.append((x, y))\n...\n>>> combs\n[(1, 3), (1, 4), (2, 3), (2, 1), (2, 4), (3, 1), (3, 4)]\nNote how the order of the for and if statements is the same in both these snippets.\nIf the expression is a tuple (e.g. the (x, y) in the previous example), it must be parenthesized.\n>>> vec = [-4, -2, 0, 2, 4]\n>>> # create a new list with the values doubled\n>>> [x*2 for x in vec]\n[-8, -4, 0, 4, 8]\n>>> # filter the list to exclude negative numbers\n>>> [x for x in vec if x >= 0]\n[0, 2, 4]\n>>> # apply a function to all the elements\n>>> [abs(x) for x in vec]\n[4, 2, 0, 2, 4]', 'comprehension consists of brackets containing an expression followed by a for clause, then zero or\nmore for or if clauses. The result will be a new list resulting from evaluating the expression in the con-\ntext of the for and if clauses which follow it. For example, this listcomp combines the elements of two\nlists if they are not equal:\nhttps://docs.python.org/3/tutorial/datastructures.html 3/12\n28/07/2026, 14:10 5. Data Structures — Python 3.14.6 documentation\n>>> [(x, y) for x in [1,2,3] for y in [3,1,4] if x != y]\n[(1, 3), (1, 4), (2, 3), (2, 1), (2, 4), (3, 1), (3, 4)]\nand itʼs equivalent to:\n>>> combs = []\n>>> for x in [1,2,3]:\n... for y in [3,1,4]:\n... if x != y:']","To complete the list comprehension, we need to square each non-negative number in the list `vec`. We can do this by using the `**` operator, which raises a number to a power. In this case, we want to raise each number to the power of 2, which is equivalent to squaring it.
+
+Here's the completed list comprehension:
+
+```python
+vec = [-4, -2, 0, 2, 4]
+# TODO: fill in the blank to compute the square of each qualifying element
+result = [x**2 for x in vec if x >= 0]
+print(result)  # Expected output: [0, 4, 16]
+```
+
+In this code, `x**2` is the expression that squares each number in the list `vec`. The `if x >= 0` clause filters out the negative numbers, so only the non-negative numbers are squared and included in the `result` list.",x**2
+T3_008,T3,"The following Python code is intended to transpose a 3×4 matrix using a nested list comprehension, as described in the context. However, when executed it raises an exception. Identify the exact line and operator that cause the failure, explain why the code behaves incorrectly, and provide the corrected version of that line.
+
+```python
+matrix = [
+    [1, 2, 3, 4],
+    [5, 6, 7, 8],
+    [9, 10, 11, 12],
+]
+
+# broken transposition
+transposed = [[row[i] for row in matrix] for i in range(5)]
+print(transposed)
+```","['Consider the following example of a 3x4 matrix implemented as a list of 3 lists of length 4:\nhttps://docs.python.org/3/tutorial/datastructures.html 4/12\n28/07/2026, 14:10 5. Data Structures — Python 3.14.6 documentation\n>>> matrix = [\n... [1, 2, 3, 4],\n... [5, 6, 7, 8],\n... [9, 10, 11, 12],\n... ]\nThe following list comprehension will transpose rows and columns:\n>>> [[row[i] for row in matrix] for i in range(4)]\n[[1, 5, 9], [2, 6, 10], [3, 7, 11], [4, 8, 12]]\nAs we saw in the previous section, the inner list comprehension is evaluated in the context of the for that\nfollows it, so this example is equivalent to:\n>>> transposed = []\n>>> for i in range(4):', ""for x in range(6)]\n^^^^^^^\nSyntaxError: did you forget parentheses around the comprehension target?\n>>> # flatten a list using a listcomp with two 'for'\n>>> vec = [[1,2,3], [4,5,6], [7,8,9]]\n>>> [num for elem in vec for num in elem]\n[1, 2, 3, 4, 5, 6, 7, 8, 9]\nList comprehensions can contain complex expressions and nested functions:\n>>> from math import pi\n>>> [str(round(pi, i)) for i in range(1, 6)]\n['3.1', '3.14', '3.142', '3.1416', '3.14159']\n5.1.4. Nested List Comprehensions\nThe initial expression in a list comprehension can be any arbitrary expression, including another list\ncomprehension.\nConsider the following example of a 3x4 matrix implemented as a list of 3 lists of length 4:"", 'for that\nfollows it, so this example is equivalent to:\n>>> transposed = []\n>>> for i in range(4):\n... transposed.append([row[i] for row in matrix])\n...\n>>> transposed\n[[1, 5, 9], [2, 6, 10], [3, 7, 11], [4, 8, 12]]\nwhich, in turn, is the same as:\n>>> transposed = []\n>>> for i in range(4):\n... # the following 3 lines implement the nested listcomp\n... transposed_row = []\n... for row in matrix:\n... transposed_row.append(row[i])\n... transposed.append(transposed_row)\n...\n>>> transposed\n[[1, 5, 9], [2, 6, 10], [3, 7, 11], [4, 8, 12]]\nIn the real world, you should prefer built-in functions to complex flow statements. The zip() function\nwould do a great job for this use case:\n>>> list(zip(*matrix))']","The exact line that causes the failure is:
+
+```python
+transposed = [[row[i] for row in matrix] for i in range(5)]
+```
+
+The operator that causes the failure is the `range(5)` function, which generates numbers from 0 to 4. However, the matrix has only 3 rows, and when `i` is 3, the code attempts to access the 4th row (`matrix[3]`) which does not exist, resulting in an `IndexError`.
+
+The reason for this behavior is that the inner list comprehension is evaluated in the context of the outer loop, which iterates over the range of numbers from 0 to 4. When `i` is 3, the code tries to access the 4th row (`matrix[3]`) of the matrix, but since the matrix only has 3 rows, this results in an `IndexError`.
+
+The corrected version of the line is:
+
+```python
+transposed = [[row[i] for row in matrix] for i in range(4)]
+```
+
+This corrected version ensures that the code only attempts to access rows that exist in the matrix, preventing the `IndexError`.","The bug is in the outer comprehension’s range: `for i in range(5)`. The original matrix has only 4 columns (indices 0‑3). When `i` becomes 4, `row[i]` tries to access a non‑existent element, raising `IndexError: list index out of range`. The correct line should limit `i` to the number of columns, i.e., `for i in range(4)`. The fixed code is:
+```python
+transposed = [[row[i] for row in matrix] for i in range(4)]
+```"
+T4_001,T4,"Define what a Python package is, as introduced in the provided context.","[""'sorted', 'staticmethod', 'str', 'sum', 'super', 'tuple', 'type', 'vars',\n'zip']\n6.4. Packages\nPackages are a way of structuring Pythonʼs module namespace by using “dotted module names”. For ex-\nample, the module name A.B designates a submodule named B in a package named A. Just like the use\nof modules saves the authors of different modules from having to worry about each otherʼs global variable\nnames, the use of dotted module names saves the authors of multi-module packages like NumPy or Pillow\nfrom having to worry about each otherʼs module names.\nSuppose you want to design a collection of modules (a “package”) for the uniform handling of sound files"", 'of a Python application must al-\nways use absolute imports.\n6.4.3. Packages in Multiple Directories\nPackages support one more special attribute, __path__. This is initialized to be a sequence of strings\ncontaining the name of the directory holding the packageʼs __init__.py before the code in that file is\nexecuted. This variable can be modified; doing so affects future searches for modules and subpackages\ncontained in the package.\nWhile this feature is not often needed, it can be used to extend the set of modules found in a package.\nFootnotes\n[1] In fact function definitions are also ‘statementsʼ that are ‘executedʼ; the execution of a module-level', 'detail on this process, including a flow chart of the decisions, in PEP 3147.\n6.2. Standard Modules\nPython comes with a library of standard modules, described in a separate document, the Python Library\nReference (“Library Reference” hereafter). Some modules are built into the interpreter; these provide ac-\ncess to operations that are not part of the core of the language but are nevertheless built in, either for effi-\nciency or to provide access to operating system primitives such as system calls. The set of such modules\nis a configuration option which also depends on the underlying platform. For example, the winreg module']","Based on the provided context, a Python package is a way of structuring Python's module namespace by using ""dotted module names"". This allows authors of multi-module packages to avoid worrying about each other's module names. In other words, a package is a collection of modules that are organized under a common namespace, denoted by a dotted module name. For example, the module name A.B designates a submodule named B in a package named A.
+
+In this context, a package is essentially a way to group related modules together, making it easier to manage and organize code. This concept is introduced in the section 6.4 of the provided text, which discusses packages in Python.","A package is a collection of related Python modules organized in a directory hierarchy, allowing them to be imported using dotted module names. In the context, this concept is introduced under the heading ""6.4. Packages""."
+T4_007,T4,"The code below is meant to import the ``echofilter`` function from the ``sound.effects.echo`` submodule and then use it to process an audio file. However, when the script is run it raises an ``ImportError``. Identify the exact line that is incorrect and rewrite it so the program works as intended.
+
+```python
+import sound.effects.echo
+from sound.effects import echofilter
+
+def apply_echo(in_file, out_file):
+    # apply the filter with default parameters
+    echofilter(in_file, out_file, delay=0.5, atten=3)
+
+apply_echo('input.wav', 'output.wav')
+```","['In the simplest case, __init__.py can just be an empty file, but it can also execute initialization\ncode for the package or set the __all__ variable, described later.\nUsers of the package can import individual modules from the package, for example:\nimport sound.effects.echo\nThis loads the submodule sound.effects.echo. It must be referenced with its full name.\nsound.effects.echo.echofilter(input, output, delay=0.7, atten=4)\nAn alternative way of importing the submodule is:\nfrom sound.effects import echo\nThis also loads the submodule echo, and makes it available without its package prefix, so it can be used\nas follows:\necho.echofilter(input, output, delay=0.7, atten=4)', 'package prefix, so it can be used\nas follows:\necho.echofilter(input, output, delay=0.7, atten=4)\nYet another variation is to import the desired function or variable directly:\nfrom sound.effects.echo import echofilter\nAgain, this loads the submodule echo, but this makes its function echofilter() directly available:\nhttps://docs.python.org/3/tutorial/modules.html 7/9\n28/07/2026, 14:10 6. Modules — Python 3.14.6 documentation\nechofilter(input, output, delay=0.7, atten=4)\nNote that when using from package import item, the item can be either a submodule (or subpackage)\nof the package, or some other name defined in the package, like a function, class or variable. The import', 'certain patterns when you use\nimport *, it is still considered bad practice in production code.\nRemember, there is nothing wrong with using from package import specific_submodule! In fact, this\nis the recommended notation unless the importing module needs to use submodules with the same name\nfrom different packages.\n6.4.2. Intra-package References\nWhen packages are structured into subpackages (as with the sound package in the example), you can\nuse absolute imports to refer to submodules of siblings packages. For example, if the module\nsound.filters.vocoder needs to use the echo module in the sound.effects package, it can use\nfrom sound.effects import echo.']","To identify the exact line that is incorrect, let's analyze the code.
+
+The code is trying to import the `echofilter` function from the `sound.effects.echo` submodule and then use it to process an audio file. However, when the script is run, it raises an `ImportError`.
+
+The issue lies in the way the `echofilter` function is being imported. The correct way to import the `echofilter` function is by using the `from` keyword to import it directly from the `sound.effects.echo` submodule.
+
+However, in the given code, the line `import sound.effects.echo` is importing the entire `sound.effects.echo` submodule, not just the `echofilter` function. This is why the `echofilter` function is not being recognized when it's being used in the `apply_echo` function.
+
+To fix this, we need to import the `echofilter` function directly from the `sound.effects.echo` submodule. Here's the corrected code:
+
+```python
+from sound.effects.echo import echofilter
+
+def apply_echo(in_file, out_file):
+    # apply the filter with default parameters
+    echofilter(in_file, out_file, delay=0.5, atten=3)
+
+apply_echo('input.wav', 'output.wav')
+```
+
+By making this change, we're importing the `echofilter` function directly, which allows us to use it in the `apply_echo` function without any issues.","The faulty line is the second import statement:
+```python
+from sound.effects import echofilter
+```
+When using ``from package import name`` the name must be defined in the package’s ``__init__.py`` (or be a submodule). ``echofilter`` is defined inside the ``sound.effects.echo`` submodule, not directly in ``sound.effects``. The correct import is:
+```python
+from sound.effects.echo import echofilter
+```
+After replacing that line (the first ``import sound.effects.echo`` can be kept or removed), the script runs without error and calls ``echofilter`` as intended."
+T4_010,T4,"Fill in the blanks (___) to import the ``builtins`` module, retrieve the list of names it defines using ``dir()``, store that list in the variable ``builtin_names``, and then print the first three entries of the list.
+```python
+# Complete the code below
+___ builtins
+builtin_names = ___(builtins)
+print(builtin_names[___:___])
+```","['a module named spam is imported, the interpreter first searches for a built-in module with that\nname. These module names are listed in sys.builtin_module_names. If not found, it then searches for a\nfile named spam.py in a list of directories given by the variable sys.path. sys.path is initialized from\nthese locations:\nThe directory containing the input script (or the current directory when no file is specified).\nPYTHONPATH (a list of directory names, with the same syntax as the shell variable PATH).\nThe installation-dependent default (by convention including a site-packages directory, handled by\nthe site module).\nhttps://docs.python.org/3/tutorial/modules.html 3/9', 'taken to be the list of module names that should be imported when from package import * is encoun-\ntered. It is up to the package author to keep this list up-to-date when a new version of the package is re-\nleased. Package authors may also decide not to support it, if they donʼt see a use for importing * from\ntheir package. For example, the file sound/effects/__init__.py could contain the following code:\n__all__ = [""echo"", ""surround"", ""reverse""]\nThis would mean that from sound.effects import * would import the three named submodules of the\nsound.effects package.\nBe aware that submodules might become shadowed by locally defined names. For example, if you added a', ""Yuck!\nC>\nThese two variables are only defined if the interpreter is in interactive mode.\nThe variable sys.path is a list of strings that determines the interpreterʼs search path for modules. It is\ninitialized to a default path taken from the environment variable PYTHONPATH, or from a built-in default if\nPYTHONPATH is not set. You can modify it using standard list operations:\n>>> import sys\n>>> sys.path.append('/ufs/guido/lib/python')\n6.3. The Function\ndir()\nThe built-in function dir() is used to find out which names a module defines. It returns a sorted list of\nstrings:\n>>> import fibo, sys\n>>> dir(fibo)\n['__name__', 'fib', 'fib2']\n>>> dir(sys)""]","To fill in the blanks, we need to follow the steps you provided:
+
+1. Import the `builtins` module.
+2. Retrieve the list of names it defines using `dir()`.
+3. Store that list in the variable `builtin_names`.
+4. Print the first three entries of the list.
+
+Here's the completed code:
+
+```python
+import builtins
+builtin_names = dir(builtins)
+print(builtin_names[:3])
+```
+
+In this code:
+
+- `import builtins` imports the `builtins` module.
+- `dir(builtins)` retrieves the list of names defined by the `builtins` module.
+- `builtin_names = dir(builtins)` stores the list in the variable `builtin_names`.
+- `print(builtin_names[:3])` prints the first three entries of the list. The `[:3]` slice means ""start at the beginning of the list and go up to, but not including, the fourth element.""","```python
+import builtins
+builtin_names = dir(builtins)
+print(builtin_names[0:3])
+```"
+T5_001,T5,What does the term “string interpolation” refer to when using the % operator in Python?,"['% conversion specifications in format are replaced with zero or more elements of values. This\noperation is commonly known as string interpolation. For example:\n>>> import math\n>>> print(\'The value of pi is approximately %5.3f.\' % math.pi)\nThe value of pi is approximately 3.142.\nMore information can be found in the printf-style String Formatting section.\n7.2. Reading and Writing Files\nopen() returns a file object, and is most commonly used with two positional arguments and one keyword\nargument: open(filename, mode, encoding=None)\n>>> f = open(\'workfile\', \'w\', encoding=""utf-8"")\nThe first argument is a string containing the filename. The second argument is another string containing a', 'Strings support a large number of methods for basic transformations and searching.\nf-strings\nString literals that have embedded expressions.\nFormat string syntax\nInformation about string formatting with str.format().\nprintf-style String Formatting\nThe old formatting operations invoked when strings are the left operand of the % operator are de-\nscribed in more detail here.\nhttps://docs.python.org/3/tutorial/introduction.html 6/9\n28/07/2026, 14:07 3. An Informal Introduction to Python — Python 3.14.6 documentation\n3.1.3. Lists\nPython knows a number of compound data types, used to group together other values. The most versatile', 'In addition to int and float, Python supports other types of numbers, such as Decimal and Fraction.\nPython also has built-in support for complex numbers, and uses the j or J suffix to indicate the imaginary\nhttps://docs.python.org/3/tutorial/introduction.html 2/9\n28/07/2026, 14:07 3. An Informal Introduction to Python — Python 3.14.6 documentation\npart (e.g. 3+5j).\n3.1.2. Text\nPython can manipulate text (represented by type str, so-called “strings”) as well as numbers. This in-\ncludes characters “!”, words “rabbit”, names “Paris”, sentences “Got your back.”, etc. “Yay! :)”.\nThey can be enclosed in single quotes (\'...\') or double quotes (""..."") with the same result [2].']","String interpolation is the process of replacing format specifications in a string with zero or more elements of values. This operation is commonly achieved using the % operator in Python. 
+
+For instance, in the given example, the code snippet 'The value of pi is approximately %5.3f.' % math.pi replaces the format specification with the value of pi, resulting in the output 'The value of pi is approximately 3.142.' 
+
+In this context, the % operator is used to perform string interpolation, where the format specification is replaced with the actual value. This is a fundamental concept in Python's string formatting operations.","String interpolation is the process where a format string containing % conversion specifications is combined with one or more values, replacing each specification with the corresponding value to produce a new formatted string. In Python, the % operator performs this interpolation, e.g., format % values."
+T5_002,T5,"You are preparing to write numeric values as text lines to a file, and each line must be exactly 5 characters long, padded with leading zeros when the number has fewer digits. Using the information about the str.zfill() method in the context, explain how you would use this method to meet the requirement and describe what happens when the value is negative or already longer than the specified width.","[""string to the file, returning the number of characters written.\n>>> f.write('This is a test\\n')\n15\nOther types of objects need to be converted – either to a string (in text mode) or a bytes object (in binary\nmode) – before writing them:\n>>> value = ('the answer', 42)\n>>> s = str(value) # convert the tuple to string\n>>> f.write(s)\n18\nf.tell() returns an integer giving the file objectʼs current position in the file represented as number of\nbytes from the beginning of the file when in binary mode and an opaque number when in text mode.\nTo change the file objectʼs position, use f.seek(offset, whence). The position is computed from"", ""6/8\n28/07/2026, 14:10 7. Input and Output — Python 3.14.6 documentation\n>>> f.readline()\n'Second line of the file\\n'\n>>> f.readline()\n''\nFor reading lines from a file, you can loop over the file object. This is memory efficient, fast, and leads to\nsimple code:\n>>> for line in f:\n... print(line, end='')\n...\nThis is the first line of the file.\nSecond line of the file\nIf you want to read all the lines of a file in a list you can also use list(f) or f.readlines().\nf.write(string) writes the contents of string to the file, returning the number of characters written.\n>>> f.write('This is a test\\n')\n15"", ""5\n>>> f.read(1)\nb'5'\n>>> f.seek(-3, 2) # Go to the 3rd byte before the end\n13\n>>> f.read(1)\nb'd'\nIn text files (those opened without a b in the mode string), only seeks relative to the beginning of the file\nare allowed (the exception being seeking to the very file end with seek(0, 2)) and the only valid offset\nvalues are those returned from the f.tell(), or zero. Any other offset value produces undefined\nbehaviour.\nhttps://docs.python.org/3/tutorial/inputoutput.html 7/8\n28/07/2026, 14:10 7. Input and Output — Python 3.14.6 documentation\nFile objects have some additional methods, such as isatty() and truncate() which are less frequently""]","To write numeric values as text lines to a file, where each line must be exactly 5 characters long, padded with leading zeros when the number has fewer digits, you can use the `str.zfill()` method. This method pads a numeric string with leading zeros until it is the specified width.
+
+Here's how you can use it:
+
+1. Convert the numeric value to a string using the `str()` function.
+2. Use the `zfill()` method to pad the string with leading zeros until it is 5 characters long.
+
+For example, if you want to write the number 12 to a file, you can use the following code:
+
+```python
+num = 12
+line = str(num).zfill(5)
+f.write(line + '\n')
+```
+
+This will write the string ""00112"" to the file, which is exactly 5 characters long.
+
+If the number is negative, the `zfill()` method will pad the string with leading zeros, but it will not change the sign of the number. For example, if you want to write the number -12 to a file, you can use the following code:
+
+```python
+num = -12
+line = str(num).zfill(5)
+f.write(line + '\n')
+```
+
+This will write the string ""-0012"" to the file, which is exactly 5 characters long.
+
+If the number is already longer than the specified width, the `zfill()` method will not change the string. For example, if you want to write the number 12345 to a file, you can use the following code:
+
+```python
+num = 12345
+line = str(num).zfill(5)
+f.write(line + '\n')
+```
+
+This will write the string ""12345"" to the file, which is already 5 characters long, so the `zfill()` method does not change it.
+
+In summary, the `str.zfill()` method is a convenient way to pad numeric strings with leading zeros until they are the specified width, which is useful when writing numeric values as text lines to a file.","The str.zfill(width) method returns a new string padded on the left with zeros so that its total length equals *width*. It works on any string that represents a number and preserves an optional leading sign. For example, '12'.zfill(5) becomes '00012', ensuring a five‑character field. If the original string includes a minus sign, the sign stays at the front and zeros are inserted after it, as shown by '-3.14'.zfill(7) → '-003.14'. If the string is already at least as long as the requested width (e.g., '3.14159265359'.zfill(5)), the method returns the original string unchanged. Therefore, before writing each number to the file you would convert it to a string and call .zfill(5); this guarantees a fixed‑width, zero‑padded representation for positive numbers, correctly handles negatives by keeping the sign, and leaves longer strings untouched."
+T5_007,T5,"The code below is meant to **persist** a string to a file and later reconstruct the exact original value by reading the file and calling ``eval`` on the stored text. When the program is run it raises a ``NameError`` at the ``eval`` line. Analyse the snippet, identify the single line that causes the failure, explain why the current behaviour is incorrect in terms of ``str`` vs ``repr`` representations, and show the corrected version of that line.
+
+```python
+msg = ""Hello, world\n""
+# Write the value to a file
+with open('msg.txt', 'w') as f:
+    f.write(str(msg))          # <-- buggy line
+
+# Read it back and try to reconstruct the original object
+with open('msg.txt', 'r') as f:
+    content = f.read()
+    original = eval(content)   # raises SyntaxError
+
+print(original)
+```","['>>> hello = \'hello, world\\n\'\n>>> hellos = repr(hello)\n>>> print(hellos)\n\'hello, world\\n\'\n>>> # The argument to repr() may be any Python object:\n>>> repr((x, y, (\'spam\', \'eggs\')))\n""(32.5, 40000, (\'spam\', \'eggs\'))""\nThe string module contains support for a simple templating approach based upon regular expressions,\nvia string.Template. This offers yet another way to substitute values into strings, using placeholders\nlike $x and replacing them with values from a dictionary. This syntax is easy to use, although it offers\nmuch less control for formatting.\n7.1.1. Formatted String Literals\nFormatted string literals (also called f-strings for short) let you include the value of Python expressions in-', ""string to the file, returning the number of characters written.\n>>> f.write('This is a test\\n')\n15\nOther types of objects need to be converted – either to a string (in text mode) or a bytes object (in binary\nmode) – before writing them:\n>>> value = ('the answer', 42)\n>>> s = str(value) # convert the tuple to string\n>>> f.write(s)\n18\nf.tell() returns an integer giving the file objectʼs current position in the file represented as number of\nbytes from the beginning of the file when in binary mode and an opaque number when in text mode.\nTo change the file objectʼs position, use f.seek(offset, whence). The position is computed from"", ""been reached, f.read() will return an empty string\n('').\n>>> f.read()\n'This is the entire file.\\n'\n>>> f.read()\n''\nf.readline() reads a single line from the file; a newline character (\\n) is left at the end of the string,\nand is only omitted on the last line of the file if the file doesnʼt end in a newline. This makes the return val-\nue unambiguous; if f.readline() returns an empty string, the end of the file has been reached, while a\nblank line is represented by '\\n', a string containing only a single newline.\n>>> f.readline()\n'This is the first line of the file.\\n'\nhttps://docs.python.org/3/tutorial/inputoutput.html 6/8\n28/07/2026, 14:10 7. Input and Output — Python 3.14.6 documentation""]","Let's analyze the given code snippet.
+
+The issue lies in the line where we write the string to the file:
+
+```python
+f.write(str(msg))
+```
+
+Here, we're converting the string `msg` to a string using `str()`, which results in a string representation of the string object. This is not the same as the original string object.
+
+When we read the file back and try to reconstruct the original object using `eval()`, it raises a `SyntaxError` because `eval()` is trying to evaluate the string representation of the string object, not the original string object.
+
+The problem is that `str()` returns a string representation of the object, which is not the same as the object itself. For example, if we have a string `s = ""Hello, world\n""`, `str(s)` would return the string `""Hello, world\\n""`, which is a string representation of the string object.
+
+To fix this issue, we should use `repr()` instead of `str()` to write the string to the file. `repr()` returns a string representation of the object that is a valid Python expression, which can be used to reconstruct the original object using `eval()`.
+
+Here's the corrected code:
+
+```python
+msg = ""Hello, world\n""
+# Write the value to a file
+with open('msg.txt', 'w') as f:
+    f.write(repr(msg))          # Corrected line
+
+# Read it back and try to reconstruct the original object
+with open('msg.txt', 'r') as f:
+    content = f.read()
+    original = eval(content)   # should work now
+
+print(original)
+```
+
+By using `repr()` instead of `str()`, we ensure that the string representation of the string object is written to the file, which can be correctly reconstructed using `eval()`.","The problem is on the line ``f.write(str(msg))``. ``str(msg)`` returns the human‑readable form ``Hello, world\n`` (without surrounding quotes). When that raw text is later passed to eval, the interpreter parses Hello, world as a valid Python expression (it looks like a tuple of two identifiers) and then tries to resolve the name Hello. Because no variable of that name exists, a NameError is raised. The underlying problem is still the missing string delimiters: without them, eval treats the text as code rather than as a string literal."". To store a value that can be safely ``eval``‑ed, the code must write the *repr* of the object, which includes the quotes and escape characters (e.g. ``'Hello, world\n'``). 
+
+**Fix:** replace the buggy line with:
+```python
+    f.write(repr(msg))
+```
+Now the file contains ``'Hello, world\n'``; ``eval`` reads the quoted literal, reconstructs the original string, and ``print(original)`` outputs ``Hello, world`` as intended."
+T5_008,T5,"Consider the following Python program that reads vote data from a file and prints a summary for each line. The file **votes.txt** contains two lines:
+
+```
+42572654 85705149
+-12345 50000
+```
+
+```python
+with open('votes.txt') as f:
+    for line in f:
+        yes, total = map(int, line.split())
+        pct = yes / total
+        # Method A: f‑string
+        print(f'{yes:>12} YES votes {pct:>6.2%}')
+        # Method B: str.format
+        print('{:-12} YES votes {:5.2%}'.format(yes, pct))
+```
+
+**(a)** Break down the formatting specifications used in the two `print` statements. For each specification, explain how the width, alignment, sign handling, and percentage formatting are applied.
+
+**(b)** Using the sample data above, write the exact output produced by the program. Represent each space with an underscore (`_`) so the alignment is clear.
+
+**(c)** Compare Method A and Method B in terms of column alignment and handling of negative `yes_votes`. Which method guarantees that the numeric column is right‑aligned and that a negative sign appears only when the value is negative? Justify your answer.","[""been reached, f.read() will return an empty string\n('').\n>>> f.read()\n'This is the entire file.\\n'\n>>> f.read()\n''\nf.readline() reads a single line from the file; a newline character (\\n) is left at the end of the string,\nand is only omitted on the last line of the file if the file doesnʼt end in a newline. This makes the return val-\nue unambiguous; if f.readline() returns an empty string, the end of the file has been reached, while a\nblank line is represented by '\\n', a string containing only a single newline.\n>>> f.readline()\n'This is the first line of the file.\\n'\nhttps://docs.python.org/3/tutorial/inputoutput.html 6/8\n28/07/2026, 14:10 7. Input and Output — Python 3.14.6 documentation"", 'Notice how the yes_votes are padded with spaces and a negative sign only for negative numbers. The\nexample also prints percentage multiplied by 100, with 2 decimal places and followed by a percent\nsign (see Format specification mini-language for details).\nFinally, you can do all the string handling yourself by using string slicing and concatenation operations\nto create any layout you can imagine. The string type has some methods that perform useful operations\nfor padding strings to a given column width.\nWhen you donʼt need fancy output but just want a quick display of some variables for debugging purpos-\nes, you can convert any value to a string with the repr() or str() functions.', ""The str.format() method of strings requires more manual effort. Youʼll still use { and } to mark\nwhere a variable will be substituted and can provide detailed formatting directives, but youʼll also need\nto provide the information to be formatted. In the following code block there are two examples of how to\nformat variables:\n>>> yes_votes = 42_572_654\n>>> total_votes = 85_705_149\n>>> percentage = yes_votes / total_votes\n>>> '{:-9} YES votes {:2.2%}'.format(yes_votes, percentage)\n' 42572654 YES votes 49.67%'\nNotice how the yes_votes are padded with spaces and a negative sign only for negative numbers. The""]","**(a)** Break down the formatting specifications used in the two `print` statements.
+
+Method A: f-string
+```python
+print(f'{yes:>12} YES votes {pct:>6.2%}')
+```
+- `yes:>12`: 
+  - `yes` is the value to be formatted.
+  - `>` indicates right alignment.
+  - `12` is the minimum field width. The value will be padded with spaces to this width if necessary.
+  - The `:` separates the field width from the format specification.
+- `pct:>6.2%`: 
+  - `pct` is the value to be formatted.
+  - `>` indicates right alignment.
+  - `6` is the minimum field width for the numeric part of the value.
+  - `.2` specifies that the value should be formatted to two decimal places.
+  - `%` indicates that the value should be formatted as a percentage.
+
+Method B: str.format
+```python
+print('{:-12} YES votes {:5.2%}'.format(yes, pct))
+```
+- `:-12`: 
+  - `:-` indicates that a minus sign should be used for negative numbers.
+  - `12` is the minimum field width. The value will be padded with spaces to this width if necessary.
+- `{:5.2%}`: 
+  - `5` is the minimum field width for the numeric part of the value.
+  - `.2` specifies that the value should be formatted to two decimal places.
+  - `%` indicates that the value should be formatted as a percentage.
+
+**(b)** Using the sample data above, write the exact output produced by the program. Represent each space with an underscore (`_`) so the alignment is clear.
+
+```python
+with open('votes.txt') as f:
+    for line in f:
+        yes, total = map(int, line.split())
+        pct = yes / total
+        # Method A: f‑string
+        print(f'{yes:>12} YES votes {pct:>6.2%}')
+        # Method B: str.format
+        print('{:-12} YES votes {:5.2%}'.format(yes, pct))
+```
+
+Sample data:
+```
+42572654 85705149
+-12345 50000
+```
+
+Output:
+
+Method A:
+```
+_ _ _ _ _ _ _ _ _ _ _42572654 YES votes _ _ _ _ _ _ _ _ _ _ _49.67%
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _","**(a) Formatting breakdown**
+- **Method A (f‑string)**:
+  - `{yes:>12}` – `>` forces right‑alignment, `12` sets a field width of 12 characters. Positive numbers are padded with spaces on the left; a negative sign is printed automatically for negative values.
+  - `{pct:>6.2%}` – `>` right‑aligns, `6` is the minimum field width, `.2` requests two digits after the decimal point, and `%` multiplies the value by 100 and appends a percent sign. If the formatted percentage is longer than 6 characters, the width is ignored.
+- **Method B (str.format)**:
+  - `'{:-12}'` – `-` is the *sign‑aware* flag: a sign is shown only for negative numbers. The field width is 12 and the default alignment is right, so positive numbers are padded with spaces on the left, negative numbers include the minus sign and are also right‑aligned.
+  - `{:5.2%}` – `5` is the minimum width, `.2` requests two decimal places, `%` formats as a percentage. As with the f‑string, if the result exceeds 5 characters the width is overridden.
+
+**(b) Program output (spaces shown as `_**) 
+```
+____42572654 YES votes 49.67%
+____42572654 YES votes 49.67%
+______-12345 YES votes -24.69%
+______-12345 YES votes -24.69%
+```
+Explanation: the first two lines correspond to the first data row (positive votes); the next two lines correspond to the second row (negative votes). The underscores indicate the spaces added to reach the 12‑character width for the `yes` value.
+
+**(c) Comparison**
+Both methods produce right‑aligned numeric columns of width 12 and display a minus sign only when `yes_votes` is negative. The `>-12` spec in the f‑string and the `{-12}` spec in `str.format` achieve the same effect because the default sign handling for numeric types already omits a plus sign for positives. Therefore, **both methods guarantee the required alignment and sign behavior**, but `str.format` makes the sign‑aware intent explicit with the `-` flag, whereas the f‑string relies on the default numeric formatting rules.
+
+**Conclusion:** Either method satisfies the alignment and sign requirements; `str.format` is marginally more explicit about showing a sign only for negative numbers."
+T6_001,T6,"In the tracebacks shown, the function f raises an OSError with the message 'operation failed'. Define what an OSError represents in Python.","['2, in f\n| raise OSError(\'operation failed\')\n| OSError: operation failed\n| Happened in Iteration 1\n+---------------- 2 ----------------\n| Traceback (most recent call last):\n| File ""<stdin>"", line 3, in <module>\n| f()\n| ~^^\n| File ""<stdin>"", line 2, in f\n| raise OSError(\'operation failed\')\n| OSError: operation failed\n| Happened in Iteration 2\n+---------------- 3 ----------------\n| Traceback (most recent call last):\n| File ""<stdin>"", line 3, in <module>\n| f()\n| ~^^\n| File ""<stdin>"", line 2, in f\n| raise OSError(\'operation failed\')\n| OSError: operation failed\n| Happened in Iteration 3\n+------------------------------------\n>>>\nhttps://docs.python.org/3/tutorial/errors.html 11/11', 'Traceback (most recent call last):\nFile ""<stdin>"", line 2, in <module>\nraise TypeError(\'bad type\')\nTypeError: bad type\nAdd some information\nAdd some more information\n>>>\nFor example, when collecting exceptions into an exception group, we may want to add context information\nfor the individual errors. In the following each exception in the group has a note indicating when this error\nhas occurred.\n>>> def f():\n... raise OSError(\'operation failed\')\n...\n>>> excs = []\n>>> for i in range(3):\n... try:\n... f()\nhttps://docs.python.org/3/tutorial/errors.html 10/11\n28/07/2026, 14:10 8. Errors and Exceptions — Python 3.14.6 documentation\n... except Exception as e:', 'print(""There were OSErrors"")\n... except* SystemError as e:\n... print(""There were SystemErrors"")\n...\nThere were OSErrors\nThere were SystemErrors\n+ Exception Group Traceback (most recent call last):\n| File ""<stdin>"", line 2, in <module>\n| f()\n| ~^^\n| File ""<stdin>"", line 2, in f\n| raise ExceptionGroup(\n| ...<12 lines>...\nhttps://docs.python.org/3/tutorial/errors.html 9/11\n28/07/2026, 14:10 8. Errors and Exceptions — Python 3.14.6 documentation\n| )\n| ExceptionGroup: group1 (1 sub-exception)\n+-+---------------- 1 ----------------\n| ExceptionGroup: group2 (1 sub-exception)\n+-+---------------- 1 ----------------\n| RecursionError: 4\n+------------------------------------\n>>>']","Based on the provided context, we can see that the function `f` raises an `OSError` with the message `'operation failed'`. 
+
+In Python, an `OSError` is a type of exception that is raised when an operating system-related error occurs. It is a subclass of the `Exception` class and is used to indicate that an error has occurred due to an operating system operation.
+
+In the context of the provided code, the `OSError` is raised by the function `f`, which suggests that the error is related to an operation that is being performed on the operating system level. However, the exact nature of the operation is not specified in the provided code.
+
+It's worth noting that the `OSError` exception is not explicitly defined in the provided code, but it is being used as a type of exception that can be raised and caught by the code. This suggests that the `OSError` exception is a built-in exception type in Python, which is used to indicate operating system-related errors.
+
+In general, `OSError` exceptions can be raised for a variety of reasons, including:
+
+* File I/O errors (e.g., trying to read from a file that does not exist)
+* Network errors (e.g., trying to connect to a server that is not available)
+* Permission errors (e.g., trying to access a file or directory that you do not have permission to access)
+* Other operating system-related errors
+
+However, without more information about the specific code and the context in which the `OSError` is being raised, it is difficult to provide a more specific definition of what the `OSError` represents in this particular case.","An OSError is a built‑in exception type that signals a problem related to the operating system or a system call. It is raised when an operation (e.g., a file or I/O action) cannot be completed, as illustrated by the tracebacks where f() raises OSError('operation failed')."
+T6_006,T6,"You are tasked with writing a small utility that reads the entire contents of a text file called **data.txt** and returns it as a string. The utility must meet the following requirements:
+
+1. If the file cannot be opened (e.g., it does not exist or the program lacks permission), catch the resulting exception and print the message **""Cannot open file""**.
+2. If the file opens successfully but contains no characters, raise a **ValueError** with the message **""Empty file""**.
+3. Regardless of whether an exception occurs, the file must be closed promptly and correctly.
+
+Write a Python function **read_data()** that implements this behavior. Use the concepts described in the provided context.
+
+```python
+# Your implementation here
+```","[""of the examples in this section will assume that a file object called f has already been created.\nTo read a fileʼs contents, call f.read(size), which reads some quantity of data and returns it as a string\n(in text mode) or bytes object (in binary mode). size is an optional numeric argument. When size is omitted\nor negative, the entire contents of the file will be read and returned; itʼs your problem if the file is twice as\nlarge as your machineʼs memory. Otherwise, at most size characters (in text mode) or size bytes (in binary\nmode) are read and returned. If the end of the file has been reached, f.read() will return an empty string\n('').\n>>> f.read()\n'This is the entire file.\\n'"", ""6/8\n28/07/2026, 14:10 7. Input and Output — Python 3.14.6 documentation\n>>> f.readline()\n'Second line of the file\\n'\n>>> f.readline()\n''\nFor reading lines from a file, you can loop over the file object. This is memory efficient, fast, and leads to\nsimple code:\n>>> for line in f:\n... print(line, end='')\n...\nThis is the first line of the file.\nSecond line of the file\nIf you want to read all the lines of a file in a list you can also use list(f) or f.readlines().\nf.write(string) writes the contents of string to the file, returning the number of characters written.\n>>> f.write('This is a test\\n')\n15"", ""been reached, f.read() will return an empty string\n('').\n>>> f.read()\n'This is the entire file.\\n'\n>>> f.read()\n''\nf.readline() reads a single line from the file; a newline character (\\n) is left at the end of the string,\nand is only omitted on the last line of the file if the file doesnʼt end in a newline. This makes the return val-\nue unambiguous; if f.readline() returns an empty string, the end of the file has been reached, while a\nblank line is represented by '\\n', a string containing only a single newline.\n>>> f.readline()\n'This is the first line of the file.\\n'\nhttps://docs.python.org/3/tutorial/inputoutput.html 6/8\n28/07/2026, 14:10 7. Input and Output — Python 3.14.6 documentation""]","Here's a Python function `read_data()` that meets the specified requirements:
+
+```python
+def read_data():
+    try:
+        with open('data.txt', 'r') as f:
+            contents = f.read()
+            if not contents.strip():  # Check if the file is empty
+                raise ValueError(""Empty file"")
+            return contents
+    except FileNotFoundError:
+        print(""Cannot open file"")
+    except Exception as e:
+        print(f""An error occurred: {e}"")
+    finally:
+        # The file is automatically closed when the 'with' block is exited
+        # However, we can explicitly close it to ensure it's closed correctly
+        # f.close()  # Commented out, as it's not necessary
+        pass
+```
+
+Here's a breakdown of the code:
+
+1. We use a `try`-`except`-`finally` block to handle potential exceptions.
+2. Inside the `try` block, we open the file `data.txt` in read mode (`'r'`) using a `with` statement. This ensures the file is properly closed when we're done with it, regardless of whether an exception occurs.
+3. We read the entire contents of the file using `f.read()`.
+4. We check if the file is empty by stripping any whitespace from the contents. If the file is empty, we raise a `ValueError` with the message ""Empty file"".
+5. If the file is not empty, we return its contents.
+6. If a `FileNotFoundError` occurs (i.e., the file cannot be opened), we catch the exception and print the message ""Cannot open file"".
+7. If any other exception occurs, we catch it and print a generic error message.
+8. Finally, we explicitly close the file using `f.close()`, although this is not necessary since the `with` statement takes care of closing the file for us.
+
+Note that we've commented out the `f.close()` statement, as it's not necessary. The `with` statement ensures the file is properly closed when we're done with it.","```python
+def read_data():
+    try:
+        # Use a with‑statement so the file is guaranteed to be closed
+        with open(""data.txt"", ""r"") as f:
+            contents = f.read()
+            if contents == """":
+                # File is empty – raise the required exception
+                raise ValueError(""Empty file"")
+            return contents
+    except OSError:
+        # Covers IOError, FileNotFoundError, PermissionError, etc.
+        print(""Cannot open file"")
+```"
+T6_008,T6,"Complete the following function so that it always returns the integer 42, no matter whether the `try` block executes normally, raises an exception, or the `except` block runs. Use the behavior of a `finally` clause described in the context (a return in `finally` overrides any earlier return). Fill in the missing line marked with `# TODO`.
+
+```python
+def process(flag):
+    try:
+        if flag:
+            raise ValueError(""trigger"")
+        return 1
+    except ValueError:
+        return -1
+    finally:
+        # TODO: ensure the function returns 42 regardless of earlier returns
+        ...
+```
+","['or else clause. Again, the exception is re-\nraised after the finally clause has been executed.\nIf the finally clause executes a break, continue or return statement, exceptions are not re-raised.\nThis can be confusing and is therefore discouraged. From version 3.14 the compiler emits a\nSyntaxWarning for it (see PEP 765).\nIf the try statement reaches a break, continue or return statement, the finally clause will exe-\ncute just prior to the break, continue or return statementʼs execution.\nIf a finally clause includes a return statement, the returned value will be the one from the finally\nclauseʼs return statement, not the value from the try clauseʼs return statement. This can be con-', 'exceptions to report errors that may occur in functions they\ndefine.\n8.7. Defining Clean-up Actions\nThe try statement has another optional clause which is intended to define clean-up actions that must be\nexecuted under all circumstances. For example:\nhttps://docs.python.org/3/tutorial/errors.html 6/11\n28/07/2026, 14:10 8. Errors and Exceptions — Python 3.14.6 documentation\n>>> try:\n... raise KeyboardInterrupt\n... finally:\n... print(\'Goodbye, world!\')\n...\nGoodbye, world!\nTraceback (most recent call last):\nFile ""<stdin>"", line 2, in <module>\nraise KeyboardInterrupt\nKeyboardInterrupt\nIf a finally clause is present, the finally clause will execute as the last task before the try statement', 'while True:\n... try:\n... x = int(input(""Please enter a number: ""))\n... break\n... except ValueError:\n... print(""Oops! That was no valid number. Try again..."")\n...\nThe try statement works as follows.\nFirst, the try clause (the statement(s) between the try and except keywords) is executed.\nIf no exception occurs, the except clause is skipped and execution of the try statement is finished.\nIf an exception occurs during execution of the try clause, the rest of the clause is skipped. Then, if its\ntype matches the exception named after the except keyword, the except clause is executed, and then\nexecution continues after the try/except block.']","To complete the function so that it always returns the integer 42, we need to use the behavior of a `finally` clause described in the context. Since a return in `finally` overrides any earlier return, we can simply add a `return 42` statement in the `finally` block.
+
+Here's the completed function:
+
+```python
+def process(flag):
+    try:
+        if flag:
+            raise ValueError(""trigger"")
+        return 1
+    except ValueError:
+        return -1
+    finally:
+        return 42  # This will override any earlier return and ensure the function returns 42
+```
+
+This way, regardless of whether the `try` block executes normally, raises an exception, or the `except` block runs, the function will always return 42.","Insert a return statement inside the `finally` block:
+```python
+    finally:
+        return 42
+```
+Because a `return` in a `finally` clause supersedes any return from the `try` or `except` blocks, the function will always yield 42 regardless of whether an exception is raised or which earlier return would have been executed."
+T6_009,T6,"The code below is meant to demonstrate how Python selects the first matching except clause when raising exceptions from a class hierarchy (B → C → D). It should print the letters B, C, D in that order. However, when you run it, the output is:
+```
+C
+C
+D
+```
+Identify the single line that contains the bug, explain why it leads to the incorrect output, and provide the corrected line of code.
+```python
+class B(Exception):
+    pass
+class C(B):
+    pass
+class D(C):
+    pass
+
+for cls in [B, C, D]:
+    try:
+        raise cls()
+    except D:
+        print(""D"")
+    except C:
+        print(""C"")
+    except B:
+        print(""C"")  # <-- bug here
+```","['may name multiple exceptions,\nfor example:\n... except RuntimeError, TypeError, NameError:\n... pass\nA class in an except clause matches exceptions which are instances of the class itself or one of its de-\nrived classes (but not the other way around — an except clause listing a derived class does not match in-\nstances of its base classes). For example, the following code will print B, C, D in that order:\nhttps://docs.python.org/3/tutorial/errors.html 2/11\n28/07/2026, 14:10 8. Errors and Exceptions — Python 3.14.6 documentation\nclass B(Exception):\npass\nclass C(B):\npass\nclass D(C):\npass\nfor cls in [B, C, D]:\ntry:\nraise cls()\nexcept D:\nprint(""D"")\nexcept C:\nprint(""C"")\nexcept B:\nprint(""B"")', 'cls in [B, C, D]:\ntry:\nraise cls()\nexcept D:\nprint(""D"")\nexcept C:\nprint(""C"")\nexcept B:\nprint(""B"")\nNote that if the except clauses were reversed (with except B first), it would have printed B, B, B — the\nfirst matching except clause is triggered.\nWhen an exception occurs, it may have associated values, also known as the exceptionʼs arguments. The\npresence and types of the arguments depend on the exception type.\nThe except clause may specify a variable after the exception name. The variable is bound to the exception\ninstance which typically has an args attribute that stores the arguments. For convenience, builtin excep-', 'this_fails()\n... except ZeroDivisionError as err:\n... print(\'Handling run-time error:\', err)\n...\nHandling run-time error: division by zero\n8.4. Raising Exceptions\nThe raise statement allows the programmer to force a specified exception to occur. For example:\n>>> raise NameError(\'HiThere\')\nTraceback (most recent call last):\nFile ""<stdin>"", line 1, in <module>\nhttps://docs.python.org/3/tutorial/errors.html 4/11\n28/07/2026, 14:10 8. Errors and Exceptions — Python 3.14.6 documentation\nraise NameError(\'HiThere\')\nNameError: HiThere\nThe sole argument to raise indicates the exception to be raised. This must be either an exception in-']","The single line that contains the bug is:
+
+```python
+except B:
+    print(""C"")
+```
+
+This line leads to the incorrect output because it catches the exception raised by `B` and prints ""C"" instead of ""B"". However, the correct behavior should be to print ""B"" when an exception of type `B` is raised.
+
+The corrected line of code should be:
+
+```python
+except B:
+    print(""B"")
+```
+
+This change ensures that when an exception of type `B` is raised, the corresponding except clause is triggered, and the correct output ""B"" is printed.","The bug is in the last except clause. It catches the base exception B but prints the wrong label (""C""). Because the B exception is handled by this clause, the printed string should be ""B"". The incorrect print statement causes the second ""C"" in the output instead of the expected ""B"".
+Corrected line:
+```python
+    except B:
+        print(""B"")
+```"
+T7_001,T7,"According to the provided description, what are the two kinds of operations that Python class objects support?","['the contents of the namespace created by the class definition; weʼll learn more about class objects\nin the next section. The original local scope (the one in effect just before the class definition was entered)\nis reinstated, and the class object is bound here to the class name given in the class definition header\n(ClassName in the example).\n9.3.2. Class Objects\nClass objects support two kinds of operations: attribute references and instantiation.\nAttribute references use the standard syntax used for all attribute references in Python: obj.name. Valid\nattribute names are all the names that were in the classʼs namespace when the class object was created.', 'new syntax and semantics. It is a mixture of the class mechanisms found in C++ and Modula-3. Python\nclasses provide all the standard features of Object Oriented Programming: the class inheritance mecha-\nnism allows multiple base classes, a derived class can override any methods of its base class or classes,\nand a method can call the method of a base class with the same name. Objects can contain arbitrary\namounts and kinds of data. As is true for modules, classes partake of the dynamic nature of Python: they\nare created at runtime, and can be modified further after creation.\nIn C++ terminology, normally class members (including the data members) are public (except see below', '28/07/2026, 14:10 9. Classes — Python 3.14.6 documentation\n9. Classes\nClasses provide a means of bundling data and functionality together. Creating a new class creates a new\ntype of object, allowing new instances of that type to be made. Each class instance can have attributes at-\ntached to it for maintaining its state. Class instances can also have methods (defined by its class) for\nmodifying its state.\nCompared with other programming languages, Pythonʼs class mechanism adds classes with a minimum of\nnew syntax and semantics. It is a mixture of the class mechanisms found in C++ and Modula-3. Python']","According to the provided description, Python class objects support two kinds of operations: 
+
+1. Attribute references: This operation uses the standard syntax used for all attribute references in Python, denoted as obj.name. Valid attribute names are all the names that were in the class's namespace when the class object was created.
+
+2. Instantiation: This operation allows for the creation of new instances of the class type.
+
+These two operations are mentioned in the description as the kinds of operations that class objects support.","Class objects support (1) attribute references, using the standard syntax obj.name, and (2) instantiation, i.e., creating instances of the class."
+T7_004,T7,"Compare the process of creating an instance of a class that does **not** define an __init__() method with the process of creating an instance of a class that **does** define an __init__() method that takes parameters. In your comparison, address (a) what arguments can be supplied during instantiation, and (b) what initial state (attributes) the resulting object has.","['a class may define a special method\nnamed __init__(), like this:\ndef __init__(self):\nself.data = []\nWhen a class defines an __init__() method, class instantiation automatically invokes __init__() for\nthe newly created class instance. So in this example, a new, initialized instance can be obtained by:\nx = MyClass()\nOf course, the __init__() method may have arguments for greater flexibility. In that case, arguments\ngiven to the class instantiation operator are passed on to __init__(). For example,\n>>> class Complex:\n... def __init__(self, realpart, imagpart):\n... self.r = realpart\n... self.i = imagpart\n...\n>>> x = Complex(3.0, -4.5)\n>>> x.r, x.i\n(3.0, -4.5)\n9.3.3. Instance Objects', 'also a valid attribute, returning the docstring belonging to the class: ""A simple\nexample class"".\nClass instantiation uses function notation. Just pretend that the class object is a parameterless function\nthat returns a new instance of the class. For example (assuming the above class):\nx = MyClass()\ncreates a new instance of the class and assigns this object to the local variable x.\nThe instantiation operation (“calling” a class object) creates an empty object. Many classes like to create\nobjects with instances customized to a specific initial state. Therefore a class may define a special method\nnamed __init__(), like this:\ndef __init__(self):\nself.data = []', 'In general, calling a method with a list of n arguments is equivalent to calling the corre-\nsponding function with an argument list that is created by inserting the methodʼs instance object before\nthe first argument.\nIn general, methods work as follows. When a non-data attribute of an instance is referenced, the in-\nstanceʼs class is searched. If the name denotes a valid class attribute that is a function object, references\nto both the instance object and the function object are packed into a method object. When the method\nobject is called with an argument list, a new argument list is constructed from the instance object and the']","To compare the process of creating an instance of a class that does not define an __init__() method with the process of creating an instance of a class that does define an __init__() method that takes parameters, let's break down the two scenarios.
+
+**Scenario 1: Creating an instance of a class that does not define an __init__() method**
+
+In this case, when we create an instance of the class using the class name followed by parentheses (function notation), the class object is treated as a parameterless function that returns a new instance of the class. This means that we can supply no arguments during instantiation.
+
+For example, if we have a class `MyClass` that does not define an __init__() method, we can create an instance of it as follows:
+
+```python
+x = MyClass()
+```
+
+In this case, the resulting object has no attributes, because the class does not define an __init__() method to initialize any attributes.
+
+**Scenario 2: Creating an instance of a class that defines an __init__() method that takes parameters**
+
+In this case, when we create an instance of the class using the class name followed by parentheses (function notation), the class object is treated as a function that takes arguments and returns a new instance of the class. This means that we can supply arguments during instantiation, which are passed to the __init__() method.
+
+For example, if we have a class `Complex` that defines an __init__() method that takes two parameters `realpart` and `imagpart`, we can create an instance of it as follows:
+
+```python
+x = Complex(3.0, -4.5)
+```
+
+In this case, the resulting object has two attributes `r` and `i`, which are initialized by the __init__() method to the values `3.0` and `-4.5`, respectively.
+
+To summarize:
+
+* When creating an instance of a class that does not define an __init__() method, we can supply no arguments during instantiation, and the resulting object has no attributes.
+* When creating an instance of a class that defines an __init__() method that takes parameters, we can supply arguments during instantiation, which are passed to the __init__() method to initialize the object's attributes.
+
+In terms of the initial state of the object, a class that does not define an __init__() method creates an object with no attributes, while a class that defines an __init__() method that takes parameters creates an object with attributes initialized by the __init__() method.","When a class has no __init__() method, instantiating it (e.g., x = MyClass()) simply creates an empty object; no arguments can be supplied because there is no initializer to receive them, and the object starts with no user‑defined attributes. In contrast, when a class defines an __init__() method, the class call automatically invokes that method. Any arguments supplied in the instantiation (e.g., x = Complex(3.0, -4.5)) are passed to __init__, which can use them to set attributes on the new object (such as self.r and self.i). Thus the resulting instance is initialized with the attributes defined inside __init__, reflecting the values passed at creation."
+T7_011,T7,"The following code is intended to create a `MappingSubclass` instance and update its internal dictionary using the subclass’s private update method. However, when run it raises an `AttributeError`. Identify the exact line that contains the bug, explain why the error occurs in terms of Python’s name‑mangling rules described in the context, and provide the corrected line of code.
+
+```python
+class Mapping:
+    def _update(self, data):
+        self.data = data
+
+class MappingSubclass(Mapping):
+    def __init__(self):
+        self.data = {}
+    def __update(self, data):
+        # extend the parent update
+        super()._update(data)
+        self.data.update(data)
+
+def process():
+    m = MappingSubclass()
+    # broken line: trying to call the private method using the wrong name
+    m.__update({'a': 1})
+
+if __name__ == ""__main__"":
+    process()
+```","['self.items_list = []\nself.__update(iterable)\ndef update(self, iterable):\nfor item in iterable:\nself.items_list.append(item)\n__update = update # private copy of original update() method\nclass MappingSubclass(Mapping):\ndef update(self, keys, values):\n# provides new signature for update()\n# but does not break __init__()\nfor item in zip(keys, values):\nself.items_list.append(item)\nThe above example would work even if MappingSubclass were to introduce a __update identifier since it\nis replaced with _Mapping__update in the Mapping class and _MappingSubclass__update in the\nMappingSubclass class respectively.', 'of the form __spam (at least two leading underscores, at most one trailing underscore) is textu-\nally replaced with _classname__spam, where classname is the current class name with leading under-\nscore(s) stripped. This mangling is done without regard to the syntactic position of the identifier, as long\nas it occurs within the definition of a class.\nSee also: The private name mangling specifications for details and special cases.\nName mangling is helpful for letting subclasses override methods without breaking intraclass method\ncalls. For example:\nclass Mapping:\ndef __init__(self, iterable):\nself.items_list = []\nself.__update(iterable)\ndef update(self, iterable):\nfor item in iterable:', 'also a valid attribute, returning the docstring belonging to the class: ""A simple\nexample class"".\nClass instantiation uses function notation. Just pretend that the class object is a parameterless function\nthat returns a new instance of the class. For example (assuming the above class):\nx = MyClass()\ncreates a new instance of the class and assigns this object to the local variable x.\nThe instantiation operation (“calling” a class object) creates an empty object. Many classes like to create\nobjects with instances customized to a specific initial state. Therefore a class may define a special method\nnamed __init__(), like this:\ndef __init__(self):\nself.data = []']","The exact line that contains the bug is:
+
+```python
+m.__update({'a': 1})
+```
+
+This line raises an `AttributeError` because of Python's name-mangling rules. 
+
+When a class defines a method with a name that starts and ends with double underscores (e.g., `__update`), Python internally changes the name of that method to `_classname__update`, where `classname` is the name of the class. This is called name mangling.
+
+In the given code, the `MappingSubclass` class has a method named `__update`, which is internally renamed to `_MappingSubclass__update`. However, when calling this method, the code uses the original name `__update` instead of the mangled name `_MappingSubclass__update`.
+
+To fix this bug, we need to use the correct mangled name when calling the private method. Here's the corrected line of code:
+
+```python
+m._MappingSubclass__update({'a': 1})
+```
+
+Alternatively, we can also use the `super()` method to call the parent class's method, which would automatically use the correct mangled name:
+
+```python
+m._update({'a': 1})
+```","The bug is on the line `m.__update({'a': 1})`. Because `__update` is defined with double underscores inside `MappingSubclass`, Python mangles its name to `_MappingSubclass__update`. External code cannot access it via `m.__update`; doing so raises an `AttributeError`. The fix is to call the mangled name explicitly:
+```python
+m._MappingSubclass__update({'a': 1})
+```"
+T7_013,T7,"Consider the following Python code that demonstrates multiple inheritance with a diamond hierarchy:
+```python
+class A:
+    def process(self):
+        print(""A"")
+
+class B(A):
+    def process(self):
+        print(""B"")
+        super().process()
+
+class C(A):
+    def process(self):
+        print(""C"")
+        super().process()
+
+class D(B, C):
+    def process(self):
+        print(""D"")
+        super().process()
+
+obj = D()
+obj.process()
+```
+
+Analyse the execution of `obj.process()`. List the exact output produced (one line per print) and explain, step by step, how Python determines the order in which the `process` methods are called. Reference the method resolution order (MRO) that Python computes for class `D`.","['Thus, if an attribute is not found in DerivedClassName, it is searched for in Base1, then (recur-\nsively) in the base classes of Base1, and if it was not found there, it was searched for in Base2, and so on.\nIn fact, it is slightly more complex than that; the method resolution order changes dynamically to support\ncooperative calls to super(). This approach is known in some other multiple-inheritance languages as\ncall-next-method and is more powerful than the super call found in single-inheritance languages.\nDynamic ordering is necessary because all cases of multiple inheritance exhibit one or more diamond rela-', 'ordering is necessary because all cases of multiple inheritance exhibit one or more diamond rela-\ntionships (where at least one of the parent classes can be accessed through multiple paths from the bot-\ntommost class). For example, all classes inherit from object, so any case of multiple inheritance provides\nmore than one path to reach object. To keep the base classes from being accessed more than once, the\ndynamic algorithm linearizes the search order in a way that preserves the left-to-right ordering specified\nin each class, that calls each parent only once, and that is monotonic (meaning that a class can be sub-', ""in the class is also ok. For example:\n# Function defined outside the class\ndef f1(self, x, y):\nreturn min(x, x+y)\nclass C:\nf = f1\ndef g(self):\nreturn 'hello world'\nh = g\nNow f, g and h are all attributes of class C that refer to function objects, and consequently they are all\nmethods of instances of C — h being exactly equivalent to g. Note that this practice usually only serves to\nconfuse the reader of a program.\nMethods may call other methods by using method attributes of the self argument:\nhttps://docs.python.org/3/tutorial/classes.html 8/14\n28/07/2026, 14:10 9. Classes — Python 3.14.6 documentation\nclass Bag:\ndef __init__(self):\nself.data = []\ndef add(self, x):\nself.data.append(x)""]","To analyze the execution of `obj.process()`, we need to understand how Python determines the order in which the `process` methods are called in the presence of multiple inheritance with a diamond hierarchy.
+
+The method resolution order (MRO) is computed by Python to resolve the ambiguity in multiple inheritance. In this case, class `D` inherits from both `B` and `C`, which both inherit from `A`. This creates a diamond hierarchy.
+
+Here's the step-by-step analysis:
+
+1. When `obj.process()` is called, Python looks for the `process` method in class `D`.
+2. Since `D` does not have a `process` method, Python searches for it in its base classes, which are `B` and `C`.
+3. In class `B`, Python finds a `process` method, but it calls `super().process()` to invoke the `process` method in its base class `A`.
+4. In class `C`, Python also finds a `process` method, but it calls `super().process()` to invoke the `process` method in its base class `A`.
+5. Now, we have a recursive call to `super().process()` in both `B` and `C`. To resolve this, Python uses the MRO to determine the order in which the `process` methods are called.
+6. The MRO for class `D` is computed as follows:
+   - `D` is the current class.
+   - `B` is the first base class of `D`.
+   - `C` is the second base class of `D`.
+   - `A` is the base class of both `B` and `C`.
+   - `object` is the base class of `A`.
+7. The MRO for class `D` is: `D -> B -> C -> A -> object`.
+8. Following the MRO, Python calls the `process` method in class `D`, which prints ""D"".
+9. Then, Python calls the `process` method in class `B`, which prints ""B"" and calls `super().process()` to invoke the `process` method in class `C`.
+10. Next, Python calls the `process` method in class `C`, which prints ""C"" and calls `super().process()` to invoke the `process` method in class `A`.
+11. Finally, Python calls the `process` method in class `A`, which prints ""A"".
+
+The exact output produced by `obj.process()` is:
+
+```
+D
+B
+C
+A
+```
+
+This output is determined by the MRO computed by Python for class `D`, which is: `D -> B -> C -> A -> object`.","The program prints:
+```
+D
+B
+C
+A
+```
+Python first builds the linearized MRO for `D` using the C3 algorithm. For the hierarchy `D(B, C)`, `B(A)`, `C(A)`, the resulting order is `[D, B, C, A, object]`. When `obj.process()` is invoked, Python looks up `process` in `D` and executes it, which prints ""D"" and then calls `super().process()`. `super()` in `D` refers to the next class in the MRO, `B`, so `B.process` runs, printing ""B"" and again calling `super().process()`. The next class after `B` in the MRO is `C`, so `C.process` executes, printing ""C"" and calling `super().process()`. Finally, `super()` now points to `A`, whose `process` prints ""A"". `A` does not call `super()`, so the chain ends. This step‑by‑step traversal of the MRO explains the observed output."

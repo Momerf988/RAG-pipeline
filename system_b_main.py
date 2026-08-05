@@ -1,4 +1,4 @@
-from app_init import llm_client, db_index, embedder_model
+from app_init import llm_client, db_index, embedder_model, reranker_model
 from user_query_processor import UserQueryProcessor
 from RAG_response_processor import LLMResponseProcessor
 from crag_evaluator import CRAGEvaluator
@@ -22,7 +22,7 @@ if __name__ == "__main__":
     
     # Spin up all your modular processors
     query_processor = UserQueryProcessor(embedder_model)
-    response_processor = LLMResponseProcessor(llm_client, db_index)
+    response_processor = LLMResponseProcessor(llm_client, db_index, reranker_model)
     evaluator = CRAGEvaluator(llm_client)
 
     while True:
@@ -34,8 +34,8 @@ if __name__ == "__main__":
         # 2. Standard Retrieval
         embedded_query = query_processor.vectorize_query(user_prompt)
         search_result = response_processor.search_db(embedded_query)
-        context_string, raw_chunks = response_processor.stich_context(search_result)
-
+        reranked_result = response_processor.rerank(user_prompt, search_result)
+        context_string, raw_chunks = response_processor.stich_context(reranked_result)
         # 3. The Interlock (Phase 1 Evaluation)
         print("\n>> [System B] Evaluating retrieved context...")
         eval_result = evaluator.evaluate_context(user_prompt, context_string)
@@ -58,7 +58,8 @@ if __name__ == "__main__":
             # Second Retrieval
             embedded_rewritten = query_processor.vectorize_query(rewritten_query)
             search_result_2 = response_processor.search_db(embedded_rewritten)
-            context_string_2, raw_chunks_2 = response_processor.stich_context(search_result_2)
+            reranked_result_2 = response_processor.rerank(rewritten_query, search_result_2)
+            context_string_2, raw_chunks_2 = response_processor.stich_context(reranked_result_2)
 
             # Second Evaluation
             print(">> [System B] Evaluating new context...")
