@@ -1,4 +1,4 @@
-from app_init import llm_client, db_index, embedder_model, pdf_dir
+from app_init import llm_client, db_index, embedder_model, reranker_model,pdf_dir
 from document_processor import PDFDocumentProcessor
 from user_query_processor import UserQueryProcessor
 from RAG_response_processor import LLMResponseProcessor
