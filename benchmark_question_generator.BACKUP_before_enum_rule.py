@@ -6,7 +6,7 @@ from app_init import llm_client, db_index
 import config
 
 # --- EDIT THIS BEFORE EACH RUN ---
-TOPIC_TO_GENERATE = "T3"
+TOPIC_TO_GENERATE = "T7"
 
 SPEC_FILE = "data/benchmark_specification_matrix.xlsx"
 SHEET_NAME = "Benchmark Spec Matrix"
@@ -105,18 +105,6 @@ CRITICAL RULES:
 Context:
 {context_string}
 '''
-        # === ADDED FOR THE 42 NEW ROWS (Enumeration question type) ===
-        # Only fires for the new Understand x R3/R4 rows. Forces the answer to require
-        # every supplied chunk, not just one -- without this, the model could answer from
-        # a single chunk and the row wouldn't actually test wide evidence.
-        if question_type == "Enumeration":
-            user_instruction += '''
-
-ENUMERATION RULE: The question must ask the student to list or enumerate information explicitly stated across the supplied context. 
-The answer must require information from the supplied R-level context, not from outside knowledge or from only a single unrelated portion of the context. 
-Keep the cognitive demand at recall/comprehension only -- do not ask the student to judge, compare, evaluate, or analyse anything.'''
-        # === END ADDED SECTION ===
-
         return system_persona, user_instruction
 
     def generate_response(self, system_persona, user_instruction):

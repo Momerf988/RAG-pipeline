@@ -1,6 +1,5 @@
-# V2 UPDATED (10-08-2026)
+#ORIGINAL V1 FILE (10-08-2026)
 # PHASE 2: User prompt input
-# Unchanged from V1 -- no limitation touches this file.
 class UserQueryProcessor:
     def __init__(self, embedder_model):
         self.embedder = embedder_model
@@ -15,7 +14,7 @@ class UserQueryProcessor:
         if detail_level not in valid_detail_levels:     #Q: why replaced if with while? A: to avoid infinite loop if user keeps entering invalid input
             detail_level = 'brief'
         return user_prompt, detail_level
-
+    
     def vectorize_query(self, user_prompt):
         embedded_user_query = self.embedder.encode(user_prompt)
         return embedded_user_query.tolist()

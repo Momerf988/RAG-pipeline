@@ -1,5 +1,5 @@
-# V2 UPDATED (10-08-2026)
-from app_init import llm_client, db_index, embedder_model, reranker_model, pdf_dir
+#ORIGINAL V1 FILE (10-08-2026)
+from app_init import llm_client, db_index, embedder_model, reranker_model,pdf_dir
 from document_processor import PDFDocumentProcessor
 from user_query_processor import UserQueryProcessor
 from RAG_response_processor import LLMResponseProcessor
@@ -9,7 +9,7 @@ from RAG_response_processor import LLMResponseProcessor
 if __name__ == "__main__":
     print("Starting Intelligent Tutor...")
     document_processing_init = PDFDocumentProcessor(pdf_dir, embedder_model, db_index)
-    #document_processing_init.upsert_to_db()
+#    document_processing_init.upsert_to_db()
     user_query_processing_init = UserQueryProcessor(embedder_model)
     LLM_response_processing_init = LLMResponseProcessor(llm_client, db_index, reranker_model)
     while True:
@@ -17,5 +17,5 @@ if __name__ == "__main__":
         if user_prompt.lower() == 'quit':
             break
         embedded_user_query = user_query_processing_init.vectorize_query(user_prompt)
-        final_answer, context_list, chunk_id_list = LLM_response_processing_init.respond_to_user(embedded_user_query, user_prompt, detail_level)
+        final_answer, context_list = LLM_response_processing_init.respond_to_user(embedded_user_query, user_prompt, detail_level)
         print(final_answer)

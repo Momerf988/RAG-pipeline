@@ -1,0 +1,2026 @@
+{
+  "T1_001": {
+    "source": "topic_1_basics.pdf",
+    "spans": [
+      {
+        "start": 11342,
+        "end": 11974
+      }
+    ],
+    "chunk_ids": [
+      "topic_1_basics.pdf_20"
+    ]
+  },
+  "T1_002": {
+    "source": "topic_1_basics.pdf",
+    "spans": [
+      {
+        "start": 2256,
+        "end": 2944
+      }
+    ],
+    "chunk_ids": [
+      "topic_1_basics.pdf_4"
+    ]
+  },
+  "T1_003": {
+    "source": "topic_1_basics.pdf",
+    "spans": [
+      {
+        "start": 0,
+        "end": 642
+      }
+    ],
+    "chunk_ids": [
+      "topic_1_basics.pdf_0"
+    ]
+  },
+  "T1_004": {
+    "source": "topic_1_basics.pdf",
+    "spans": [
+      {
+        "start": 9017,
+        "end": 9655
+      }
+    ],
+    "chunk_ids": [
+      "topic_1_basics.pdf_16"
+    ]
+  },
+  "T1_005": {
+    "source": "topic_1_basics.pdf",
+    "spans": [
+      {
+        "start": 5104,
+        "end": 6262
+      }
+    ],
+    "chunk_ids": [
+      "topic_1_basics.pdf_9",
+      "topic_1_basics.pdf_10"
+    ]
+  },
+  "T1_006": {
+    "source": "topic_1_basics.pdf",
+    "spans": [
+      {
+        "start": 3944,
+        "end": 5203
+      }
+    ],
+    "chunk_ids": [
+      "topic_1_basics.pdf_7",
+      "topic_1_basics.pdf_8"
+    ]
+  },
+  "T1_007": {
+    "source": "topic_1_basics.pdf",
+    "spans": [
+      {
+        "start": 6719,
+        "end": 7958
+      }
+    ],
+    "chunk_ids": [
+      "topic_1_basics.pdf_12",
+      "topic_1_basics.pdf_13"
+    ]
+  },
+  "T1_008": {
+    "source": "topic_1_basics.pdf",
+    "spans": [
+      {
+        "start": 9017,
+        "end": 10255
+      }
+    ],
+    "chunk_ids": [
+      "topic_1_basics.pdf_16",
+      "topic_1_basics.pdf_17"
+    ]
+  },
+  "T1_009": {
+    "source": "topic_1_basics.pdf",
+    "spans": [
+      {
+        "start": 5104,
+        "end": 6816
+      }
+    ],
+    "chunk_ids": [
+      "topic_1_basics.pdf_9",
+      "topic_1_basics.pdf_10",
+      "topic_1_basics.pdf_11"
+    ]
+  },
+  "T1_010": {
+    "source": "topic_1_basics.pdf",
+    "spans": [
+      {
+        "start": 546,
+        "end": 2354
+      }
+    ],
+    "chunk_ids": [
+      "topic_1_basics.pdf_1",
+      "topic_1_basics.pdf_2",
+      "topic_1_basics.pdf_3"
+    ]
+  },
+  "T1_011": {
+    "source": "topic_1_basics.pdf",
+    "spans": [
+      {
+        "start": 1704,
+        "end": 4043
+      }
+    ],
+    "chunk_ids": [
+      "topic_1_basics.pdf_3",
+      "topic_1_basics.pdf_4",
+      "topic_1_basics.pdf_5",
+      "topic_1_basics.pdf_6"
+    ]
+  },
+  "T2_001": {
+    "source": "topic_2_control_flow_and_functions.pdf",
+    "spans": [
+      {
+        "start": 4586,
+        "end": 5262
+      }
+    ],
+    "chunk_ids": [
+      "topic_2_control_flow_and_functions.pdf_8"
+    ]
+  },
+  "T2_002": {
+    "source": "topic_2_control_flow_and_functions.pdf",
+    "spans": [
+      {
+        "start": 12502,
+        "end": 13201
+      }
+    ],
+    "chunk_ids": [
+      "topic_2_control_flow_and_functions.pdf_22"
+    ]
+  },
+  "T2_003": {
+    "source": "topic_2_control_flow_and_functions.pdf",
+    "spans": [
+      {
+        "start": 33710,
+        "end": 34925
+      }
+    ],
+    "chunk_ids": [
+      "topic_2_control_flow_and_functions.pdf_59",
+      "topic_2_control_flow_and_functions.pdf_60"
+    ]
+  },
+  "T2_004": {
+    "source": "topic_2_control_flow_and_functions.pdf",
+    "spans": [
+      {
+        "start": 6268,
+        "end": 7533
+      }
+    ],
+    "chunk_ids": [
+      "topic_2_control_flow_and_functions.pdf_11",
+      "topic_2_control_flow_and_functions.pdf_12"
+    ]
+  },
+  "T2_005": {
+    "source": "topic_2_control_flow_and_functions.pdf",
+    "spans": [
+      {
+        "start": 32565,
+        "end": 33801
+      }
+    ],
+    "chunk_ids": [
+      "topic_2_control_flow_and_functions.pdf_57",
+      "topic_2_control_flow_and_functions.pdf_58"
+    ]
+  },
+  "T2_006": {
+    "source": "topic_2_control_flow_and_functions.pdf",
+    "spans": [
+      {
+        "start": 17820,
+        "end": 19089
+      }
+    ],
+    "chunk_ids": [
+      "topic_2_control_flow_and_functions.pdf_31",
+      "topic_2_control_flow_and_functions.pdf_32"
+    ]
+  },
+  "T2_007": {
+    "source": "topic_2_control_flow_and_functions.pdf",
+    "spans": [
+      {
+        "start": 16669,
+        "end": 17919
+      }
+    ],
+    "chunk_ids": [
+      "topic_2_control_flow_and_functions.pdf_29",
+      "topic_2_control_flow_and_functions.pdf_30"
+    ]
+  },
+  "T2_008": {
+    "source": "topic_2_control_flow_and_functions.pdf",
+    "spans": [
+      {
+        "start": 7997,
+        "end": 9775
+      }
+    ],
+    "chunk_ids": [
+      "topic_2_control_flow_and_functions.pdf_14",
+      "topic_2_control_flow_and_functions.pdf_15",
+      "topic_2_control_flow_and_functions.pdf_16"
+    ]
+  },
+  "T2_009": {
+    "source": "topic_2_control_flow_and_functions.pdf",
+    "spans": [
+      {
+        "start": 8607,
+        "end": 10353
+      }
+    ],
+    "chunk_ids": [
+      "topic_2_control_flow_and_functions.pdf_15",
+      "topic_2_control_flow_and_functions.pdf_16",
+      "topic_2_control_flow_and_functions.pdf_17"
+    ]
+  },
+  "T2_010": {
+    "source": "topic_2_control_flow_and_functions.pdf",
+    "spans": [
+      {
+        "start": 4586,
+        "end": 6365
+      }
+    ],
+    "chunk_ids": [
+      "topic_2_control_flow_and_functions.pdf_8",
+      "topic_2_control_flow_and_functions.pdf_9",
+      "topic_2_control_flow_and_functions.pdf_10"
+    ]
+  },
+  "T2_011": {
+    "source": "topic_2_control_flow_and_functions.pdf",
+    "spans": [
+      {
+        "start": 2259,
+        "end": 4111
+      }
+    ],
+    "chunk_ids": [
+      "topic_2_control_flow_and_functions.pdf_4",
+      "topic_2_control_flow_and_functions.pdf_5",
+      "topic_2_control_flow_and_functions.pdf_6"
+    ]
+  },
+  "T2_012": {
+    "source": "topic_2_control_flow_and_functions.pdf",
+    "spans": [
+      {
+        "start": 12502,
+        "end": 14383
+      }
+    ],
+    "chunk_ids": [
+      "topic_2_control_flow_and_functions.pdf_22",
+      "topic_2_control_flow_and_functions.pdf_23",
+      "topic_2_control_flow_and_functions.pdf_24"
+    ]
+  },
+  "T2_013": {
+    "source": "topic_2_control_flow_and_functions.pdf",
+    "spans": [
+      {
+        "start": 6268,
+        "end": 8690
+      }
+    ],
+    "chunk_ids": [
+      "topic_2_control_flow_and_functions.pdf_11",
+      "topic_2_control_flow_and_functions.pdf_12",
+      "topic_2_control_flow_and_functions.pdf_13",
+      "topic_2_control_flow_and_functions.pdf_14"
+    ]
+  },
+  "T2_014": {
+    "source": "topic_2_control_flow_and_functions.pdf",
+    "spans": [
+      {
+        "start": 30313,
+        "end": 32658
+      }
+    ],
+    "chunk_ids": [
+      "topic_2_control_flow_and_functions.pdf_53",
+      "topic_2_control_flow_and_functions.pdf_54",
+      "topic_2_control_flow_and_functions.pdf_55",
+      "topic_2_control_flow_and_functions.pdf_56"
+    ]
+  },
+  "T2_015": {
+    "source": "topic_2_control_flow_and_functions.pdf",
+    "spans": [
+      {
+        "start": 10256,
+        "end": 11475
+      }
+    ],
+    "chunk_ids": [
+      "topic_2_control_flow_and_functions.pdf_18",
+      "topic_2_control_flow_and_functions.pdf_19"
+    ]
+  },
+  "T2_016": {
+    "source": "topic_2_control_flow_and_functions.pdf",
+    "spans": [
+      {
+        "start": 17820,
+        "end": 19089
+      }
+    ],
+    "chunk_ids": [
+      "topic_2_control_flow_and_functions.pdf_31",
+      "topic_2_control_flow_and_functions.pdf_32"
+    ]
+  },
+  "T2_017": {
+    "source": "topic_2_control_flow_and_functions.pdf",
+    "spans": [
+      {
+        "start": 28128,
+        "end": 29852
+      }
+    ],
+    "chunk_ids": [
+      "topic_2_control_flow_and_functions.pdf_49",
+      "topic_2_control_flow_and_functions.pdf_50",
+      "topic_2_control_flow_and_functions.pdf_51"
+    ]
+  },
+  "T2_018": {
+    "source": "topic_2_control_flow_and_functions.pdf",
+    "spans": [
+      {
+        "start": 17820,
+        "end": 19089
+      }
+    ],
+    "chunk_ids": [
+      "topic_2_control_flow_and_functions.pdf_31",
+      "topic_2_control_flow_and_functions.pdf_32"
+    ]
+  },
+  "T2_019": {
+    "source": "topic_2_control_flow_and_functions.pdf",
+    "spans": [
+      {
+        "start": 13714,
+        "end": 16157
+      }
+    ],
+    "chunk_ids": [
+      "topic_2_control_flow_and_functions.pdf_24",
+      "topic_2_control_flow_and_functions.pdf_25",
+      "topic_2_control_flow_and_functions.pdf_26",
+      "topic_2_control_flow_and_functions.pdf_27"
+    ]
+  },
+  "T3_001": {
+    "source": "topic_3_data_structures.pdf",
+    "spans": [
+      {
+        "start": 2747,
+        "end": 3446
+      }
+    ],
+    "chunk_ids": [
+      "topic_3_data_structures.pdf_5"
+    ]
+  },
+  "T3_002": {
+    "source": "topic_3_data_structures.pdf",
+    "spans": [
+      {
+        "start": 21685,
+        "end": 22372
+      }
+    ],
+    "chunk_ids": [
+      "topic_3_data_structures.pdf_38"
+    ]
+  },
+  "T3_003": {
+    "source": "topic_3_data_structures.pdf",
+    "spans": [
+      {
+        "start": 2747,
+        "end": 3974
+      }
+    ],
+    "chunk_ids": [
+      "topic_3_data_structures.pdf_5",
+      "topic_3_data_structures.pdf_6"
+    ]
+  },
+  "T3_004": {
+    "source": "topic_3_data_structures.pdf",
+    "spans": [
+      {
+        "start": 20617,
+        "end": 21782
+      }
+    ],
+    "chunk_ids": [
+      "topic_3_data_structures.pdf_36",
+      "topic_3_data_structures.pdf_37"
+    ]
+  },
+  "T3_005": {
+    "source": "topic_3_data_structures.pdf",
+    "spans": [
+      {
+        "start": 6224,
+        "end": 7450
+      }
+    ],
+    "chunk_ids": [
+      "topic_3_data_structures.pdf_11",
+      "topic_3_data_structures.pdf_12"
+    ]
+  },
+  "T3_006": {
+    "source": "topic_3_data_structures.pdf",
+    "spans": [
+      {
+        "start": 17766,
+        "end": 19013
+      }
+    ],
+    "chunk_ids": [
+      "topic_3_data_structures.pdf_31",
+      "topic_3_data_structures.pdf_32"
+    ]
+  },
+  "T3_007": {
+    "source": "topic_3_data_structures.pdf",
+    "spans": [
+      {
+        "start": 12013,
+        "end": 13270
+      }
+    ],
+    "chunk_ids": [
+      "topic_3_data_structures.pdf_21",
+      "topic_3_data_structures.pdf_22"
+    ]
+  },
+  "T3_008": {
+    "source": "topic_3_data_structures.pdf",
+    "spans": [
+      {
+        "start": 7351,
+        "end": 9214
+      }
+    ],
+    "chunk_ids": [
+      "topic_3_data_structures.pdf_13",
+      "topic_3_data_structures.pdf_14",
+      "topic_3_data_structures.pdf_15"
+    ]
+  },
+  "T3_009": {
+    "source": "topic_3_data_structures.pdf",
+    "spans": [
+      {
+        "start": 7953,
+        "end": 9815
+      }
+    ],
+    "chunk_ids": [
+      "topic_3_data_structures.pdf_14",
+      "topic_3_data_structures.pdf_15",
+      "topic_3_data_structures.pdf_16"
+    ]
+  },
+  "T3_010": {
+    "source": "topic_3_data_structures.pdf",
+    "spans": [
+      {
+        "start": 13172,
+        "end": 15011
+      }
+    ],
+    "chunk_ids": [
+      "topic_3_data_structures.pdf_23",
+      "topic_3_data_structures.pdf_24",
+      "topic_3_data_structures.pdf_25"
+    ]
+  },
+  "T3_011": {
+    "source": "topic_3_data_structures.pdf",
+    "spans": [
+      {
+        "start": 17183,
+        "end": 19013
+      }
+    ],
+    "chunk_ids": [
+      "topic_3_data_structures.pdf_30",
+      "topic_3_data_structures.pdf_31",
+      "topic_3_data_structures.pdf_32"
+    ]
+  },
+  "T3_012": {
+    "source": "topic_3_data_structures.pdf",
+    "spans": [
+      {
+        "start": 17183,
+        "end": 19607
+      }
+    ],
+    "chunk_ids": [
+      "topic_3_data_structures.pdf_30",
+      "topic_3_data_structures.pdf_31",
+      "topic_3_data_structures.pdf_32",
+      "topic_3_data_structures.pdf_33"
+    ]
+  },
+  "T3_013": {
+    "source": "topic_3_data_structures.pdf",
+    "spans": [
+      {
+        "start": 18917,
+        "end": 21234
+      }
+    ],
+    "chunk_ids": [
+      "topic_3_data_structures.pdf_33",
+      "topic_3_data_structures.pdf_34",
+      "topic_3_data_structures.pdf_35",
+      "topic_3_data_structures.pdf_36"
+    ]
+  },
+  "T3_014": {
+    "source": "topic_3_data_structures.pdf",
+    "spans": [
+      {
+        "start": 10287,
+        "end": 11571
+      }
+    ],
+    "chunk_ids": [
+      "topic_3_data_structures.pdf_18",
+      "topic_3_data_structures.pdf_19"
+    ]
+  },
+  "T3_015": {
+    "source": "topic_3_data_structures.pdf",
+    "spans": [
+      {
+        "start": 4484,
+        "end": 6321
+      }
+    ],
+    "chunk_ids": [
+      "topic_3_data_structures.pdf_8",
+      "topic_3_data_structures.pdf_9",
+      "topic_3_data_structures.pdf_10"
+    ]
+  },
+  "T3_016": {
+    "source": "topic_3_data_structures.pdf",
+    "spans": [
+      {
+        "start": 5644,
+        "end": 6892
+      }
+    ],
+    "chunk_ids": [
+      "topic_3_data_structures.pdf_10",
+      "topic_3_data_structures.pdf_11"
+    ]
+  },
+  "T3_017": {
+    "source": "topic_3_data_structures.pdf",
+    "spans": [
+      {
+        "start": 17183,
+        "end": 18423
+      }
+    ],
+    "chunk_ids": [
+      "topic_3_data_structures.pdf_30",
+      "topic_3_data_structures.pdf_31"
+    ]
+  },
+  "T3_018": {
+    "source": "topic_3_data_structures.pdf",
+    "spans": [
+      {
+        "start": 13763,
+        "end": 15601
+      }
+    ],
+    "chunk_ids": [
+      "topic_3_data_structures.pdf_24",
+      "topic_3_data_structures.pdf_25",
+      "topic_3_data_structures.pdf_26"
+    ]
+  },
+  "T3_019": {
+    "source": "topic_3_data_structures.pdf",
+    "spans": [
+      {
+        "start": 4484,
+        "end": 6892
+      }
+    ],
+    "chunk_ids": [
+      "topic_3_data_structures.pdf_8",
+      "topic_3_data_structures.pdf_9",
+      "topic_3_data_structures.pdf_10",
+      "topic_3_data_structures.pdf_11"
+    ]
+  },
+  "T4_001": {
+    "source": "topic_4_modules.pdf",
+    "spans": [
+      {
+        "start": 15147,
+        "end": 15806
+      }
+    ],
+    "chunk_ids": [
+      "topic_4_modules.pdf_27"
+    ]
+  },
+  "T4_002": {
+    "source": "topic_4_modules.pdf",
+    "spans": [
+      {
+        "start": 7284,
+        "end": 7910
+      }
+    ],
+    "chunk_ids": [
+      "topic_4_modules.pdf_13"
+    ]
+  },
+  "T4_003": {
+    "source": "topic_4_modules.pdf",
+    "spans": [
+      {
+        "start": 6137,
+        "end": 7383
+      }
+    ],
+    "chunk_ids": [
+      "topic_4_modules.pdf_11",
+      "topic_4_modules.pdf_12"
+    ]
+  },
+  "T4_004": {
+    "source": "topic_4_modules.pdf",
+    "spans": [
+      {
+        "start": 7813,
+        "end": 9108
+      }
+    ],
+    "chunk_ids": [
+      "topic_4_modules.pdf_14",
+      "topic_4_modules.pdf_15"
+    ]
+  },
+  "T4_005": {
+    "source": "topic_4_modules.pdf",
+    "spans": [
+      {
+        "start": 19644,
+        "end": 20850
+      }
+    ],
+    "chunk_ids": [
+      "topic_4_modules.pdf_35",
+      "topic_4_modules.pdf_36"
+    ]
+  },
+  "T4_006": {
+    "source": "topic_4_modules.pdf",
+    "spans": [
+      {
+        "start": 14065,
+        "end": 15241
+      }
+    ],
+    "chunk_ids": [
+      "topic_4_modules.pdf_25",
+      "topic_4_modules.pdf_26"
+    ]
+  },
+  "T4_007": {
+    "source": "topic_4_modules.pdf",
+    "spans": [
+      {
+        "start": 17936,
+        "end": 19742
+      }
+    ],
+    "chunk_ids": [
+      "topic_4_modules.pdf_32",
+      "topic_4_modules.pdf_33",
+      "topic_4_modules.pdf_34"
+    ]
+  },
+  "T4_008": {
+    "source": "topic_4_modules.pdf",
+    "spans": [
+      {
+        "start": 16822,
+        "end": 18612
+      }
+    ],
+    "chunk_ids": [
+      "topic_4_modules.pdf_30",
+      "topic_4_modules.pdf_31",
+      "topic_4_modules.pdf_32"
+    ]
+  },
+  "T4_009": {
+    "source": "topic_4_modules.pdf",
+    "spans": [
+      {
+        "start": 15147,
+        "end": 16919
+      }
+    ],
+    "chunk_ids": [
+      "topic_4_modules.pdf_27",
+      "topic_4_modules.pdf_28",
+      "topic_4_modules.pdf_29"
+    ]
+  },
+  "T4_010": {
+    "source": "topic_4_modules.pdf",
+    "spans": [
+      {
+        "start": 12892,
+        "end": 14157
+      }
+    ],
+    "chunk_ids": [
+      "topic_4_modules.pdf_23",
+      "topic_4_modules.pdf_24"
+    ]
+  },
+  "T4_011": {
+    "source": "topic_4_modules.pdf",
+    "spans": [
+      {
+        "start": 10070,
+        "end": 11250
+      }
+    ],
+    "chunk_ids": [
+      "topic_4_modules.pdf_18",
+      "topic_4_modules.pdf_19"
+    ]
+  },
+  "T4_012": {
+    "source": "topic_4_modules.pdf",
+    "spans": [
+      {
+        "start": 9539,
+        "end": 11820
+      }
+    ],
+    "chunk_ids": [
+      "topic_4_modules.pdf_17",
+      "topic_4_modules.pdf_18",
+      "topic_4_modules.pdf_19",
+      "topic_4_modules.pdf_20"
+    ]
+  },
+  "T5_001": {
+    "source": "topic_5_input_output.pdf",
+    "spans": [
+      {
+        "start": 9865,
+        "end": 10554
+      }
+    ],
+    "chunk_ids": [
+      "topic_5_input_output.pdf_17"
+    ]
+  },
+  "T5_002": {
+    "source": "topic_5_input_output.pdf",
+    "spans": [
+      {
+        "start": 9259,
+        "end": 9958
+      }
+    ],
+    "chunk_ids": [
+      "topic_5_input_output.pdf_16"
+    ]
+  },
+  "T5_003": {
+    "source": "topic_5_input_output.pdf",
+    "spans": [
+      {
+        "start": 15983,
+        "end": 17130
+      }
+    ],
+    "chunk_ids": [
+      "topic_5_input_output.pdf_28",
+      "topic_5_input_output.pdf_29"
+    ]
+  },
+  "T5_004": {
+    "source": "topic_5_input_output.pdf",
+    "spans": [
+      {
+        "start": 6299,
+        "end": 7592
+      }
+    ],
+    "chunk_ids": [
+      "topic_5_input_output.pdf_11",
+      "topic_5_input_output.pdf_12"
+    ]
+  },
+  "T5_005": {
+    "source": "topic_5_input_output.pdf",
+    "spans": [
+      {
+        "start": 14892,
+        "end": 16079
+      }
+    ],
+    "chunk_ids": [
+      "topic_5_input_output.pdf_26",
+      "topic_5_input_output.pdf_27"
+    ]
+  },
+  "T5_006": {
+    "source": "topic_5_input_output.pdf",
+    "spans": [
+      {
+        "start": 0,
+        "end": 1196
+      }
+    ],
+    "chunk_ids": [
+      "topic_5_input_output.pdf_0",
+      "topic_5_input_output.pdf_1"
+    ]
+  },
+  "T5_007": {
+    "source": "topic_5_input_output.pdf",
+    "spans": [
+      {
+        "start": 2202,
+        "end": 4042
+      }
+    ],
+    "chunk_ids": [
+      "topic_5_input_output.pdf_4",
+      "topic_5_input_output.pdf_5",
+      "topic_5_input_output.pdf_6"
+    ]
+  },
+  "T5_008": {
+    "source": "topic_5_input_output.pdf",
+    "spans": [
+      {
+        "start": 594,
+        "end": 2301
+      }
+    ],
+    "chunk_ids": [
+      "topic_5_input_output.pdf_1",
+      "topic_5_input_output.pdf_2",
+      "topic_5_input_output.pdf_3"
+    ]
+  },
+  "T5_009": {
+    "source": "topic_5_input_output.pdf",
+    "spans": [
+      {
+        "start": 8103,
+        "end": 10554
+      }
+    ],
+    "chunk_ids": [
+      "topic_5_input_output.pdf_14",
+      "topic_5_input_output.pdf_15",
+      "topic_5_input_output.pdf_16",
+      "topic_5_input_output.pdf_17"
+    ]
+  },
+  "T6_001": {
+    "source": "topic_7_errors_exceptions.pdf",
+    "spans": [
+      {
+        "start": 21367,
+        "end": 22049
+      }
+    ],
+    "chunk_ids": [
+      "topic_7_errors_exceptions.pdf_38"
+    ]
+  },
+  "T6_002": {
+    "source": "topic_7_errors_exceptions.pdf",
+    "spans": [
+      {
+        "start": 12858,
+        "end": 13500
+      }
+    ],
+    "chunk_ids": [
+      "topic_7_errors_exceptions.pdf_23"
+    ]
+  },
+  "T6_003": {
+    "source": "topic_7_errors_exceptions.pdf",
+    "spans": [
+      {
+        "start": 12858,
+        "end": 14095
+      }
+    ],
+    "chunk_ids": [
+      "topic_7_errors_exceptions.pdf_23",
+      "topic_7_errors_exceptions.pdf_24"
+    ]
+  },
+  "T6_004": {
+    "source": "topic_7_errors_exceptions.pdf",
+    "spans": [
+      {
+        "start": 16793,
+        "end": 17983
+      }
+    ],
+    "chunk_ids": [
+      "topic_7_errors_exceptions.pdf_30",
+      "topic_7_errors_exceptions.pdf_31"
+    ]
+  },
+  "T6_005": {
+    "source": "topic_7_errors_exceptions.pdf",
+    "spans": [
+      {
+        "start": 12858,
+        "end": 14095
+      }
+    ],
+    "chunk_ids": [
+      "topic_7_errors_exceptions.pdf_23",
+      "topic_7_errors_exceptions.pdf_24"
+    ]
+  },
+  "T6_006": {
+    "source": "topic_7_errors_exceptions.pdf",
+    "spans": [
+      {
+        "start": 15742,
+        "end": 16891
+      }
+    ],
+    "chunk_ids": [
+      "topic_7_errors_exceptions.pdf_28",
+      "topic_7_errors_exceptions.pdf_29"
+    ]
+  },
+  "T6_007": {
+    "source": "topic_7_errors_exceptions.pdf",
+    "spans": [
+      {
+        "start": 7760,
+        "end": 8958
+      }
+    ],
+    "chunk_ids": [
+      "topic_7_errors_exceptions.pdf_14",
+      "topic_7_errors_exceptions.pdf_15"
+    ]
+  },
+  "T6_008": {
+    "source": "topic_7_errors_exceptions.pdf",
+    "spans": [
+      {
+        "start": 12858,
+        "end": 14095
+      }
+    ],
+    "chunk_ids": [
+      "topic_7_errors_exceptions.pdf_23",
+      "topic_7_errors_exceptions.pdf_24"
+    ]
+  },
+  "T6_009": {
+    "source": "topic_7_errors_exceptions.pdf",
+    "spans": [
+      {
+        "start": 3824,
+        "end": 5643
+      }
+    ],
+    "chunk_ids": [
+      "topic_7_errors_exceptions.pdf_7",
+      "topic_7_errors_exceptions.pdf_8",
+      "topic_7_errors_exceptions.pdf_9"
+    ]
+  },
+  "T6_010": {
+    "source": "topic_7_errors_exceptions.pdf",
+    "spans": [
+      {
+        "start": 3824,
+        "end": 5643
+      }
+    ],
+    "chunk_ids": [
+      "topic_7_errors_exceptions.pdf_7",
+      "topic_7_errors_exceptions.pdf_8",
+      "topic_7_errors_exceptions.pdf_9"
+    ]
+  },
+  "T6_011": {
+    "source": "topic_7_errors_exceptions.pdf",
+    "spans": [
+      {
+        "start": 20228,
+        "end": 22049
+      }
+    ],
+    "chunk_ids": [
+      "topic_7_errors_exceptions.pdf_36",
+      "topic_7_errors_exceptions.pdf_37",
+      "topic_7_errors_exceptions.pdf_38"
+    ]
+  },
+  "T6_012": {
+    "source": "topic_7_errors_exceptions.pdf",
+    "spans": [
+      {
+        "start": 16793,
+        "end": 18583
+      }
+    ],
+    "chunk_ids": [
+      "topic_7_errors_exceptions.pdf_30",
+      "topic_7_errors_exceptions.pdf_31",
+      "topic_7_errors_exceptions.pdf_32"
+    ]
+  },
+  "T6_013": {
+    "source": "topic_7_errors_exceptions.pdf",
+    "spans": [
+      {
+        "start": 20228,
+        "end": 22049
+      }
+    ],
+    "chunk_ids": [
+      "topic_7_errors_exceptions.pdf_36",
+      "topic_7_errors_exceptions.pdf_37",
+      "topic_7_errors_exceptions.pdf_38"
+    ]
+  },
+  "T6_014": {
+    "source": "topic_7_errors_exceptions.pdf",
+    "spans": [
+      {
+        "start": 6610,
+        "end": 8421
+      }
+    ],
+    "chunk_ids": [
+      "topic_7_errors_exceptions.pdf_12",
+      "topic_7_errors_exceptions.pdf_13",
+      "topic_7_errors_exceptions.pdf_14"
+    ]
+  },
+  "T6_015": {
+    "source": "topic_7_errors_exceptions.pdf",
+    "spans": [
+      {
+        "start": 2162,
+        "end": 4522
+      }
+    ],
+    "chunk_ids": [
+      "topic_7_errors_exceptions.pdf_4",
+      "topic_7_errors_exceptions.pdf_5",
+      "topic_7_errors_exceptions.pdf_6",
+      "topic_7_errors_exceptions.pdf_7"
+    ]
+  },
+  "T6_016": {
+    "source": "topic_7_errors_exceptions.pdf",
+    "spans": [
+      {
+        "start": 6610,
+        "end": 8958
+      }
+    ],
+    "chunk_ids": [
+      "topic_7_errors_exceptions.pdf_12",
+      "topic_7_errors_exceptions.pdf_13",
+      "topic_7_errors_exceptions.pdf_14",
+      "topic_7_errors_exceptions.pdf_15"
+    ]
+  },
+  "T6_017": {
+    "source": "topic_7_errors_exceptions.pdf",
+    "spans": [
+      {
+        "start": 17884,
+        "end": 20326
+      }
+    ],
+    "chunk_ids": [
+      "topic_7_errors_exceptions.pdf_32",
+      "topic_7_errors_exceptions.pdf_33",
+      "topic_7_errors_exceptions.pdf_34",
+      "topic_7_errors_exceptions.pdf_35"
+    ]
+  },
+  "T7_001": {
+    "source": "topic_7_oop.pdf",
+    "spans": [
+      {
+        "start": 11199,
+        "end": 11860
+      }
+    ],
+    "chunk_ids": [
+      "topic_7_oop.pdf_20"
+    ]
+  },
+  "T7_002": {
+    "source": "topic_7_oop.pdf",
+    "spans": [
+      {
+        "start": 20433,
+        "end": 21126
+      }
+    ],
+    "chunk_ids": [
+      "topic_7_oop.pdf_36"
+    ]
+  },
+  "T7_003": {
+    "source": "topic_7_oop.pdf",
+    "spans": [
+      {
+        "start": 21029,
+        "end": 21699
+      }
+    ],
+    "chunk_ids": [
+      "topic_7_oop.pdf_37"
+    ]
+  },
+  "T7_004": {
+    "source": "topic_7_oop.pdf",
+    "spans": [
+      {
+        "start": 12337,
+        "end": 13591
+      }
+    ],
+    "chunk_ids": [
+      "topic_7_oop.pdf_22",
+      "topic_7_oop.pdf_23"
+    ]
+  },
+  "T7_005": {
+    "source": "topic_7_oop.pdf",
+    "spans": [
+      {
+        "start": 28241,
+        "end": 29452
+      }
+    ],
+    "chunk_ids": [
+      "topic_7_oop.pdf_50",
+      "topic_7_oop.pdf_51"
+    ]
+  },
+  "T7_006": {
+    "source": "topic_7_oop.pdf",
+    "spans": [
+      {
+        "start": 27726,
+        "end": 28933
+      }
+    ],
+    "chunk_ids": [
+      "topic_7_oop.pdf_49",
+      "topic_7_oop.pdf_50"
+    ]
+  },
+  "T7_007": {
+    "source": "topic_7_oop.pdf",
+    "spans": [
+      {
+        "start": 30424,
+        "end": 31679
+      }
+    ],
+    "chunk_ids": [
+      "topic_7_oop.pdf_54",
+      "topic_7_oop.pdf_55"
+    ]
+  },
+  "T7_008": {
+    "source": "topic_7_oop.pdf",
+    "spans": [
+      {
+        "start": 16358,
+        "end": 17632
+      }
+    ],
+    "chunk_ids": [
+      "topic_7_oop.pdf_29",
+      "topic_7_oop.pdf_30"
+    ]
+  },
+  "T7_009": {
+    "source": "topic_7_oop.pdf",
+    "spans": [
+      {
+        "start": 4941,
+        "end": 6138
+      }
+    ],
+    "chunk_ids": [
+      "topic_7_oop.pdf_9",
+      "topic_7_oop.pdf_10"
+    ]
+  },
+  "T7_010": {
+    "source": "topic_7_oop.pdf",
+    "spans": [
+      {
+        "start": 17538,
+        "end": 18802
+      }
+    ],
+    "chunk_ids": [
+      "topic_7_oop.pdf_31",
+      "topic_7_oop.pdf_32"
+    ]
+  },
+  "T7_011": {
+    "source": "topic_7_oop.pdf",
+    "spans": [
+      {
+        "start": 28241,
+        "end": 30000
+      }
+    ],
+    "chunk_ids": [
+      "topic_7_oop.pdf_50",
+      "topic_7_oop.pdf_51",
+      "topic_7_oop.pdf_52"
+    ]
+  },
+  "T7_012": {
+    "source": "topic_7_oop.pdf",
+    "spans": [
+      {
+        "start": 29353,
+        "end": 31081
+      }
+    ],
+    "chunk_ids": [
+      "topic_7_oop.pdf_52",
+      "topic_7_oop.pdf_53",
+      "topic_7_oop.pdf_54"
+    ]
+  },
+  "T7_013": {
+    "source": "topic_7_oop.pdf",
+    "spans": [
+      {
+        "start": 24973,
+        "end": 26701
+      }
+    ],
+    "chunk_ids": [
+      "topic_7_oop.pdf_44",
+      "topic_7_oop.pdf_45",
+      "topic_7_oop.pdf_46"
+    ]
+  },
+  "T7_014": {
+    "source": "topic_7_oop.pdf",
+    "spans": [
+      {
+        "start": 3783,
+        "end": 5599
+      }
+    ],
+    "chunk_ids": [
+      "topic_7_oop.pdf_7",
+      "topic_7_oop.pdf_8",
+      "topic_7_oop.pdf_9"
+    ]
+  },
+  "T7_015": {
+    "source": "topic_7_oop.pdf",
+    "spans": [
+      {
+        "start": 15819,
+        "end": 17632
+      }
+    ],
+    "chunk_ids": [
+      "topic_7_oop.pdf_28",
+      "topic_7_oop.pdf_29",
+      "topic_7_oop.pdf_30"
+    ]
+  },
+  "T7_016": {
+    "source": "topic_7_oop.pdf",
+    "spans": [
+      {
+        "start": 19304,
+        "end": 21126
+      }
+    ],
+    "chunk_ids": [
+      "topic_7_oop.pdf_34",
+      "topic_7_oop.pdf_35",
+      "topic_7_oop.pdf_36"
+    ]
+  },
+  "T7_017": {
+    "source": "topic_7_oop.pdf",
+    "spans": [
+      {
+        "start": 21600,
+        "end": 23935
+      }
+    ],
+    "chunk_ids": [
+      "topic_7_oop.pdf_38",
+      "topic_7_oop.pdf_39",
+      "topic_7_oop.pdf_40",
+      "topic_7_oop.pdf_41"
+    ]
+  },
+  "T7_018": {
+    "source": "topic_7_oop.pdf",
+    "spans": [
+      {
+        "start": 27127,
+        "end": 29452
+      }
+    ],
+    "chunk_ids": [
+      "topic_7_oop.pdf_48",
+      "topic_7_oop.pdf_49",
+      "topic_7_oop.pdf_50",
+      "topic_7_oop.pdf_51"
+    ]
+  },
+  "T7_019": {
+    "source": "topic_7_oop.pdf",
+    "spans": [
+      {
+        "start": 27726,
+        "end": 30000
+      }
+    ],
+    "chunk_ids": [
+      "topic_7_oop.pdf_49",
+      "topic_7_oop.pdf_50",
+      "topic_7_oop.pdf_51",
+      "topic_7_oop.pdf_52"
+    ]
+  },
+  "T7_020": {
+    "source": "topic_7_oop.pdf",
+    "spans": [
+      {
+        "start": 14677,
+        "end": 17044
+      }
+    ],
+    "chunk_ids": [
+      "topic_7_oop.pdf_26",
+      "topic_7_oop.pdf_27",
+      "topic_7_oop.pdf_28",
+      "topic_7_oop.pdf_29"
+    ]
+  },
+  "T7_021": {
+    "source": "topic_7_oop.pdf",
+    "spans": [
+      {
+        "start": 22747,
+        "end": 25070
+      }
+    ],
+    "chunk_ids": [
+      "topic_7_oop.pdf_40",
+      "topic_7_oop.pdf_41",
+      "topic_7_oop.pdf_42",
+      "topic_7_oop.pdf_43"
+    ]
+  },
+  "T1_012": {
+    "source": "topic_1_basics.pdf",
+    "spans": [
+      {
+        "start": 5104,
+        "end": 6816
+      }
+    ],
+    "chunk_ids": [
+      "topic_1_basics.pdf_9",
+      "topic_1_basics.pdf_10",
+      "topic_1_basics.pdf_11"
+    ]
+  },
+  "T1_013": {
+    "source": "topic_1_basics.pdf",
+    "spans": [
+      {
+        "start": 3425,
+        "end": 5203
+      }
+    ],
+    "chunk_ids": [
+      "topic_1_basics.pdf_6",
+      "topic_1_basics.pdf_7",
+      "topic_1_basics.pdf_8"
+    ]
+  },
+  "T1_014": {
+    "source": "topic_1_basics.pdf",
+    "spans": [
+      {
+        "start": 9017,
+        "end": 11434
+      }
+    ],
+    "chunk_ids": [
+      "topic_1_basics.pdf_16",
+      "topic_1_basics.pdf_17",
+      "topic_1_basics.pdf_18",
+      "topic_1_basics.pdf_19"
+    ]
+  },
+  "T1_015": {
+    "source": "topic_1_basics.pdf",
+    "spans": [
+      {
+        "start": 16907,
+        "end": 17507
+      }
+    ],
+    "chunk_ids": [
+      "topic_1_basics.pdf_30"
+    ]
+  },
+  "T1_016": {
+    "source": "topic_1_basics.pdf",
+    "spans": [
+      {
+        "start": 16907,
+        "end": 17981
+      }
+    ],
+    "chunk_ids": [
+      "topic_1_basics.pdf_30",
+      "topic_1_basics.pdf_31"
+    ]
+  },
+  "T1_017": {
+    "source": "topic_1_basics.pdf",
+    "spans": [
+      {
+        "start": 11880,
+        "end": 13667
+      }
+    ],
+    "chunk_ids": [
+      "topic_1_basics.pdf_21",
+      "topic_1_basics.pdf_22",
+      "topic_1_basics.pdf_23"
+    ]
+  },
+  "T2_020": {
+    "source": "topic_2_control_flow_and_functions.pdf",
+    "spans": [
+      {
+        "start": 1150,
+        "end": 2946
+      }
+    ],
+    "chunk_ids": [
+      "topic_2_control_flow_and_functions.pdf_2",
+      "topic_2_control_flow_and_functions.pdf_3",
+      "topic_2_control_flow_and_functions.pdf_4"
+    ]
+  },
+  "T2_021": {
+    "source": "topic_2_control_flow_and_functions.pdf",
+    "spans": [
+      {
+        "start": 23597,
+        "end": 25933
+      }
+    ],
+    "chunk_ids": [
+      "topic_2_control_flow_and_functions.pdf_41",
+      "topic_2_control_flow_and_functions.pdf_42",
+      "topic_2_control_flow_and_functions.pdf_43",
+      "topic_2_control_flow_and_functions.pdf_44"
+    ]
+  },
+  "T2_022": {
+    "source": "topic_2_control_flow_and_functions.pdf",
+    "spans": [
+      {
+        "start": 1730,
+        "end": 4111
+      }
+    ],
+    "chunk_ids": [
+      "topic_2_control_flow_and_functions.pdf_3",
+      "topic_2_control_flow_and_functions.pdf_4",
+      "topic_2_control_flow_and_functions.pdf_5",
+      "topic_2_control_flow_and_functions.pdf_6"
+    ]
+  },
+  "T2_023": {
+    "source": "topic_2_control_flow_and_functions.pdf",
+    "spans": [
+      {
+        "start": 10256,
+        "end": 10896
+      }
+    ],
+    "chunk_ids": [
+      "topic_2_control_flow_and_functions.pdf_18"
+    ]
+  },
+  "T2_024": {
+    "source": "topic_2_control_flow_and_functions.pdf",
+    "spans": [
+      {
+        "start": 34828,
+        "end": 35997
+      }
+    ],
+    "chunk_ids": [
+      "topic_2_control_flow_and_functions.pdf_61",
+      "topic_2_control_flow_and_functions.pdf_62"
+    ]
+  },
+  "T2_025": {
+    "source": "topic_2_control_flow_and_functions.pdf",
+    "spans": [
+      {
+        "start": 0,
+        "end": 1828
+      }
+    ],
+    "chunk_ids": [
+      "topic_2_control_flow_and_functions.pdf_0",
+      "topic_2_control_flow_and_functions.pdf_1",
+      "topic_2_control_flow_and_functions.pdf_2"
+    ]
+  },
+  "T3_020": {
+    "source": "topic_3_data_structures.pdf",
+    "spans": [
+      {
+        "start": 13763,
+        "end": 15601
+      }
+    ],
+    "chunk_ids": [
+      "topic_3_data_structures.pdf_24",
+      "topic_3_data_structures.pdf_25",
+      "topic_3_data_structures.pdf_26"
+    ]
+  },
+  "T3_021": {
+    "source": "topic_3_data_structures.pdf",
+    "spans": [
+      {
+        "start": 9720,
+        "end": 12103
+      }
+    ],
+    "chunk_ids": [
+      "topic_3_data_structures.pdf_17",
+      "topic_3_data_structures.pdf_18",
+      "topic_3_data_structures.pdf_19",
+      "topic_3_data_structures.pdf_20"
+    ]
+  },
+  "T3_022": {
+    "source": "topic_3_data_structures.pdf",
+    "spans": [
+      {
+        "start": 5644,
+        "end": 6321
+      }
+    ],
+    "chunk_ids": [
+      "topic_3_data_structures.pdf_10"
+    ]
+  },
+  "T3_023": {
+    "source": "topic_3_data_structures.pdf",
+    "spans": [
+      {
+        "start": 21137,
+        "end": 21782
+      }
+    ],
+    "chunk_ids": [
+      "topic_3_data_structures.pdf_37"
+    ]
+  },
+  "T3_024": {
+    "source": "topic_3_data_structures.pdf",
+    "spans": [
+      {
+        "start": 2747,
+        "end": 3974
+      }
+    ],
+    "chunk_ids": [
+      "topic_3_data_structures.pdf_5",
+      "topic_3_data_structures.pdf_6"
+    ]
+  },
+  "T3_025": {
+    "source": "topic_3_data_structures.pdf",
+    "spans": [
+      {
+        "start": 2234,
+        "end": 3974
+      }
+    ],
+    "chunk_ids": [
+      "topic_3_data_structures.pdf_4",
+      "topic_3_data_structures.pdf_5",
+      "topic_3_data_structures.pdf_6"
+    ]
+  },
+  "T4_013": {
+    "source": "topic_4_modules.pdf",
+    "spans": [
+      {
+        "start": 6718,
+        "end": 8509
+      }
+    ],
+    "chunk_ids": [
+      "topic_4_modules.pdf_12",
+      "topic_4_modules.pdf_13",
+      "topic_4_modules.pdf_14"
+    ]
+  },
+  "T4_014": {
+    "source": "topic_4_modules.pdf",
+    "spans": [
+      {
+        "start": 11729,
+        "end": 14157
+      }
+    ],
+    "chunk_ids": [
+      "topic_4_modules.pdf_21",
+      "topic_4_modules.pdf_22",
+      "topic_4_modules.pdf_23",
+      "topic_4_modules.pdf_24"
+    ]
+  },
+  "T4_015": {
+    "source": "topic_4_modules.pdf",
+    "spans": [
+      {
+        "start": 12290,
+        "end": 12964
+      }
+    ],
+    "chunk_ids": [
+      "topic_4_modules.pdf_22"
+    ]
+  },
+  "T4_016": {
+    "source": "topic_4_modules.pdf",
+    "spans": [
+      {
+        "start": 6137,
+        "end": 7383
+      }
+    ],
+    "chunk_ids": [
+      "topic_4_modules.pdf_11",
+      "topic_4_modules.pdf_12"
+    ]
+  },
+  "T4_017": {
+    "source": "topic_4_modules.pdf",
+    "spans": [
+      {
+        "start": 1141,
+        "end": 2366
+      }
+    ],
+    "chunk_ids": [
+      "topic_4_modules.pdf_2",
+      "topic_4_modules.pdf_3"
+    ]
+  },
+  "T4_018": {
+    "source": "topic_4_modules.pdf",
+    "spans": [
+      {
+        "start": 3367,
+        "end": 5127
+      }
+    ],
+    "chunk_ids": [
+      "topic_4_modules.pdf_6",
+      "topic_4_modules.pdf_7",
+      "topic_4_modules.pdf_8"
+    ]
+  },
+  "T5_010": {
+    "source": "topic_5_input_output.pdf",
+    "spans": [
+      {
+        "start": 16531,
+        "end": 18220
+      }
+    ],
+    "chunk_ids": [
+      "topic_5_input_output.pdf_29",
+      "topic_5_input_output.pdf_30",
+      "topic_5_input_output.pdf_31"
+    ]
+  },
+  "T5_011": {
+    "source": "topic_5_input_output.pdf",
+    "spans": [
+      {
+        "start": 3948,
+        "end": 6395
+      }
+    ],
+    "chunk_ids": [
+      "topic_5_input_output.pdf_7",
+      "topic_5_input_output.pdf_8",
+      "topic_5_input_output.pdf_9",
+      "topic_5_input_output.pdf_10"
+    ]
+  },
+  "T5_012": {
+    "source": "topic_5_input_output.pdf",
+    "spans": [
+      {
+        "start": 6901,
+        "end": 7592
+      }
+    ],
+    "chunk_ids": [
+      "topic_5_input_output.pdf_12"
+    ]
+  },
+  "T5_013": {
+    "source": "topic_5_input_output.pdf",
+    "spans": [
+      {
+        "start": 18128,
+        "end": 19256
+      }
+    ],
+    "chunk_ids": [
+      "topic_5_input_output.pdf_32",
+      "topic_5_input_output.pdf_33"
+    ]
+  },
+  "T5_014": {
+    "source": "topic_5_input_output.pdf",
+    "spans": [
+      {
+        "start": 10975,
+        "end": 12742
+      }
+    ],
+    "chunk_ids": [
+      "topic_5_input_output.pdf_19",
+      "topic_5_input_output.pdf_20",
+      "topic_5_input_output.pdf_21"
+    ]
+  },
+  "T5_015": {
+    "source": "topic_5_input_output.pdf",
+    "spans": [
+      {
+        "start": 17031,
+        "end": 18810
+      }
+    ],
+    "chunk_ids": [
+      "topic_5_input_output.pdf_30",
+      "topic_5_input_output.pdf_31",
+      "topic_5_input_output.pdf_32"
+    ]
+  },
+  "T6_018": {
+    "source": "topic_7_errors_exceptions.pdf",
+    "spans": [
+      {
+        "start": 19629,
+        "end": 21464
+      }
+    ],
+    "chunk_ids": [
+      "topic_7_errors_exceptions.pdf_35",
+      "topic_7_errors_exceptions.pdf_36",
+      "topic_7_errors_exceptions.pdf_37"
+    ]
+  },
+  "T6_019": {
+    "source": "topic_7_errors_exceptions.pdf",
+    "spans": [
+      {
+        "start": 10569,
+        "end": 12950
+      }
+    ],
+    "chunk_ids": [
+      "topic_7_errors_exceptions.pdf_19",
+      "topic_7_errors_exceptions.pdf_20",
+      "topic_7_errors_exceptions.pdf_21",
+      "topic_7_errors_exceptions.pdf_22"
+    ]
+  },
+  "T6_020": {
+    "source": "topic_7_errors_exceptions.pdf",
+    "spans": [
+      {
+        "start": 498,
+        "end": 1137
+      }
+    ],
+    "chunk_ids": [
+      "topic_7_errors_exceptions.pdf_1"
+    ]
+  },
+  "T6_021": {
+    "source": "topic_7_errors_exceptions.pdf",
+    "spans": [
+      {
+        "start": 1625,
+        "end": 2806
+      }
+    ],
+    "chunk_ids": [
+      "topic_7_errors_exceptions.pdf_3",
+      "topic_7_errors_exceptions.pdf_4"
+    ]
+  },
+  "T6_022": {
+    "source": "topic_7_errors_exceptions.pdf",
+    "spans": [
+      {
+        "start": 10569,
+        "end": 12356
+      }
+    ],
+    "chunk_ids": [
+      "topic_7_errors_exceptions.pdf_19",
+      "topic_7_errors_exceptions.pdf_20",
+      "topic_7_errors_exceptions.pdf_21"
+    ]
+  },
+  "T6_023": {
+    "source": "topic_7_errors_exceptions.pdf",
+    "spans": [
+      {
+        "start": 3278,
+        "end": 5115
+      }
+    ],
+    "chunk_ids": [
+      "topic_7_errors_exceptions.pdf_6",
+      "topic_7_errors_exceptions.pdf_7",
+      "topic_7_errors_exceptions.pdf_8"
+    ]
+  },
+  "T7_022": {
+    "source": "topic_7_oop.pdf",
+    "spans": [
+      {
+        "start": 4355,
+        "end": 6138
+      }
+    ],
+    "chunk_ids": [
+      "topic_7_oop.pdf_8",
+      "topic_7_oop.pdf_9",
+      "topic_7_oop.pdf_10"
+    ]
+  },
+  "T7_023": {
+    "source": "topic_7_oop.pdf",
+    "spans": [
+      {
+        "start": 21029,
+        "end": 23350
+      }
+    ],
+    "chunk_ids": [
+      "topic_7_oop.pdf_37",
+      "topic_7_oop.pdf_38",
+      "topic_7_oop.pdf_39",
+      "topic_7_oop.pdf_40"
+    ]
+  },
+  "T7_024": {
+    "source": "topic_7_oop.pdf",
+    "spans": [
+      {
+        "start": 22747,
+        "end": 23350
+      }
+    ],
+    "chunk_ids": [
+      "topic_7_oop.pdf_40"
+    ]
+  },
+  "T7_025": {
+    "source": "topic_7_oop.pdf",
+    "spans": [
+      {
+        "start": 22747,
+        "end": 23935
+      }
+    ],
+    "chunk_ids": [
+      "topic_7_oop.pdf_40",
+      "topic_7_oop.pdf_41"
+    ]
+  },
+  "T7_026": {
+    "source": "topic_7_oop.pdf",
+    "spans": [
+      {
+        "start": 12904,
+        "end": 14773
+      }
+    ],
+    "chunk_ids": [
+      "topic_7_oop.pdf_23",
+      "topic_7_oop.pdf_24",
+      "topic_7_oop.pdf_25"
+    ]
+  },
+  "T7_027": {
+    "source": "topic_7_oop.pdf",
+    "spans": [
+      {
+        "start": 7729,
+        "end": 9600
+      }
+    ],
+    "chunk_ids": [
+      "topic_7_oop.pdf_14",
+      "topic_7_oop.pdf_15",
+      "topic_7_oop.pdf_16"
+    ]
+  }
+}

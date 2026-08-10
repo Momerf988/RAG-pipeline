@@ -1,4 +1,4 @@
-# V2 UPDATED (10-08-2026)
+#ORIGINAL V1 FILE (10-08-2026)
 
 import os
 import pdfplumber
@@ -12,24 +12,24 @@ class PDFDocumentProcessor:
 
     def read_pdf(self, file_path):
         raw_text = ""
-        with pdfplumber.open(file_path) as pdf_file:
-            for page in pdf_file.pages:
+        with pdfplumber.open(file_path) as pdf_file:            
+            for page in pdf_file.pages:                 
                 extracted_text = page.extract_text()
-                if extracted_text:
-                    raw_text += extracted_text + "\n"
-        return raw_text
+                if extracted_text:                      
+                    raw_text += extracted_text + "\n"  
+        return raw_text                                    
 
 #First version of chunking method, which was replaced by a more advanced version that handles line breaks and overlaps.
 #    def chunking(self, raw_text, chunk_size = 3):
 #        raw_text = raw_text.replace("(cid:415)", "ti")
-#        raw_lines = [line.strip() for line in raw_text.split("\n") if line.strip()]
+#        raw_lines = [line.strip() for line in raw_text.split("\n") if line.strip()] 
 #        chunks, chunk_group = [], ""
 #        for i in range(0, len(raw_lines), chunk_size):
 #            chunk_group = " ".join(raw_lines[i:i + chunk_size])
 #            chunks.append(chunk_group)
-#        return chunks
+#        return chunks 
 
-# Second version of chunking method, which handles line breaks and overlaps.
+# Second version of chunking method, which handles line breaks and overlaps.   
 #    def chunking(self, raw_text, chunk_size = 700, overlap = 100):
 #        raw_text = raw_text.replace("(cid:415)", "ti")
 #        chunks = []
@@ -83,15 +83,15 @@ class PDFDocumentProcessor:
                     boundary = min(candidates)
                     if boundary - next_start < 50:  # don't skip too much of the overlap
                         next_start = boundary + 1
-            start = next_start
+            start = next_start           
         return chunks
 
 
     def embeddings(self, chunks):
         embeddings = self.embedder.encode(chunks)
         return embeddings
-
- #   def upsert_to_db(self):
+    
+ #   def upsert_to_db(self): 
  #       for file in os.listdir(self.pdf_dir):
  #           if file.endswith(".pdf"):
  #               pdf_file = file
@@ -100,32 +100,15 @@ class PDFDocumentProcessor:
  #               chunks = self.chunking(raw_text, chunk_size = 3)
  #               embeddings = self.embeddings(chunks)
  #               for i, embedding in enumerate(embeddings):
- #                   vector_id = f"{pdf_file}_{i}"
+ #                   vector_id = f"{pdf_file}_{i}" 
  #                   vector_math = embedding.tolist()
- #                   metadata = {"line": chunks[i]}
+ #                   metadata = {"line": chunks[i]} 
  #                   self.index.upsert([(vector_id, vector_math, metadata)])
 
-    # v2 fix (HANDOFF pre-flight gates table): "index.delete() commented out while log said
-    # 'wiping'". V1 printed "Wiping old Pinecone database..." while the delete_all() call
-    # below was commented out -- it never wiped anything. Also adds the chunk-count hard
-    # abort required by rule 2, checked BEFORE any upsert happens.
-    def upsert_to_db(self):
-            print("Verifying chunk count before touching the index...")
-            total_chunks = 0
-            for file in os.listdir(self.pdf_dir):
-                if file.endswith(".pdf"):
-                    raw_text = self.read_pdf(os.path.join(self.pdf_dir, file))
-                    total_chunks += len(self.chunking(raw_text, chunk_size=700, overlap=100))
-            if total_chunks != 317:
-                raise AssertionError(
-                    f"HARD ABORT: corpus rebuilds to {total_chunks} chunks, expected exactly 317. "
-                    f"Do not proceed -- this would silently index the wrong data."
-                )
-            print(f"Chunk count OK ({total_chunks}).")
-
+    def upsert_to_db(self): 
             print("Wiping old Pinecone database...")
-            self.index.delete(delete_all=True)          # v2 fix: this line is no longer commented out
-
+#            self.index.delete(delete_all=True)
+            
             print("Starting fast, batched upload...")
             for file in os.listdir(self.pdf_dir):
                 if file.endswith(".pdf"):
@@ -133,45 +116,25 @@ class PDFDocumentProcessor:
                     pdf_file = file
                     full_path = os.path.join(self.pdf_dir, pdf_file)
                     raw_text = self.read_pdf(full_path)
-
+                    
                     # Chunk and embed
                     chunks = self.chunking(raw_text, chunk_size=700, overlap=100)
                     embeddings = self.embeddings(chunks)
-
+                    
                     # 1. Gather all vectors for this file into a list
                     vectors_to_upsert = []
                     for i, embedding in enumerate(embeddings):
-                        vector_id = f"{pdf_file}_{i}"
+                        vector_id = f"{pdf_file}_{i}" 
                         vector_math = embedding.tolist()
-                        metadata = {"line": chunks[i]}
+                        metadata = {"line": chunks[i]} 
                         vectors_to_upsert.append((vector_id, vector_math, metadata))
-
+                    
                     # 2. Upload in batches of 100
                     batch_size = 100
                     for i in range(0, len(vectors_to_upsert), batch_size):
                         batch = vectors_to_upsert[i : i + batch_size]
                         self.index.upsert(batch)
-
+                        
                     print(f"✓ Uploaded {len(vectors_to_upsert)} chunks for {file}")
-
-            # v2 fix (HANDOFF rule 5 assertion): "describe_index_stats() matches after upsert"
-            stats = self.index.describe_index_stats()
-            assert stats.total_vector_count == 317, \
-                f"HARD ABORT: index reports {stats.total_vector_count} vectors, expected 317"
+                    
             print("Database Upsert Complete!")
-
-
-# v2 addition: zero-cost chunk-count check, no API calls, run this before anything else.
-# Rule 2: "Add a hard abort on any count != 317." This is that check, runnable standalone.
-if __name__ == "__main__":
-    processor = PDFDocumentProcessor(pdf_dir="pdf_files", embedder_model=None, db_index=None)
-    total_chunks = 0
-    for file in os.listdir(processor.pdf_dir):
-        if file.endswith(".pdf"):
-            raw_text = processor.read_pdf(os.path.join(processor.pdf_dir, file))
-            n = len(processor.chunking(raw_text, chunk_size=700, overlap=100))
-            total_chunks += n
-            print(f"{file}: {n} chunks")
-    print(f"TOTAL: {total_chunks} (expected 317)")
-    assert total_chunks == 317, f"HARD ABORT: got {total_chunks}, expected 317"
-    print("PASS")

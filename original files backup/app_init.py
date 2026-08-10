@@ -1,4 +1,4 @@
-# V2 UPDATED (10-08-2026)
+#ORIGINAL V1 FILE (10-08-2026)
 import config
 from openai import OpenAI
 from pinecone import Pinecone
@@ -6,7 +6,6 @@ from sentence_transformers import SentenceTransformer, CrossEncoder
 
 
 # PHASE 0: Initialize the application configurations
-# Unchanged from V1 -- no limitation touches this file.
 llm_client = OpenAI(
     api_key = config.LLM_API_KEY,
     base_url = config.LLM_SERVER_URL)
