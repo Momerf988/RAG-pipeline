@@ -202,29 +202,13 @@ class CRAGEvaluator:
     # on-topic but incomplete" -- and V7's own results showed this caused over-rejection
     # (8 of 9 abstained items had System A context recall of 1.000). AMBIGUOUS gives the
     # partial-info case its own path instead of forcing a premature abstain.
-    #
-    # v2 recalibration (post-smoke-test): the first version of this prompt (copied from an
-    # earlier draft already sitting in this file's history) scored a "talks around the topic
-    # without defining it" context as CORRECT, and a bare table-of-contents line as AMBIGUOUS
-    # -- confirmed 3/3 on a real smoke test. Both were one notch too lenient. Fixed by (1)
-    # requiring CORRECT to directly answer the query, not just be topically detailed, and
-    # (2) explicitly restoring the "only mentions the topic name" = INCORRECT language from
-    # the original binary prompt, which had been dropped in the first 3-way draft.
     def evaluate_context(self, user_query, context_string):
         system_persona = """You are a strict retrieval evaluator for an Intelligent Tutoring System.
-Your job is to judge whether the Context is sufficient to accurately and completely answer the User Query.
-Choose ONE of three verdicts:
+Your job is to measure Information Entailment. Choose ONE of three verdicts:
 
-- CORRECT: The context DIRECTLY states the specific definition, mechanism, explanation, code, or data the query is asking for. A student with only this context could answer accurately and completely.
-- AMBIGUOUS: The context is genuinely on-topic and contains real, substantive information related to the query, but does not directly state the core answer -- e.g. it discusses applications, examples, or related details while never giving the actual definition/explanation asked for.
-- INCORRECT: The context does not contain the information asked for at all. This includes context that only mentions the topic by name without explaining it, bare headings, titles, table-of-contents lines, page numbers, or content that is off-topic entirely.
-
-Before answering, check yourself: does the Context actually STATE the specific thing the Query asks for? If it only talks around the topic (uses, examples, related tools) without ever stating the core answer, that is AMBIGUOUS, not CORRECT. If it is just a title, heading, or topic name with no explanatory content, that is INCORRECT, not AMBIGUOUS.
-
-Example: Query "What is a stack?"
-- Context "Stacks are used in undo systems, expression evaluation, and function call management." -> AMBIGUOUS (real, relevant content, but never defines what a stack actually is).
-- Context "3.2 Stacks and Queues" -> INCORRECT (just a heading, no explanation at all).
-- Context "A stack is a linear data structure that follows Last-In-First-Out (LIFO) order, where elements are added and removed from the same end." -> CORRECT (directly states the definition).
+- CORRECT: The context contains the specific definitions, mechanics, code, or data needed to fully answer the User Query. A student with only this context could answer accurately.
+- AMBIGUOUS: The context is on the right topic and contains partial information, but is incomplete -- key details, edge cases, or the full explanation are missing. A student with only this context would produce a shallow or partially correct answer.
+- INCORRECT: The context is off-topic, is only structural metadata (headers/page numbers/table of contents), or does not contain the actual information required.
 
 CRITICAL: Output ONLY one single word: CORRECT, AMBIGUOUS, or INCORRECT. No punctuation, no explanations."""
 

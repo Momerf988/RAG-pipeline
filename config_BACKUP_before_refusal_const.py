@@ -31,11 +31,3 @@ TUTOR_MAX_TOKENS = 1024
 
 # Rule 2 (HANDOFF + your instructions): "Add a hard abort on any count != 317."
 EXPECTED_CHUNKS = 317
-
-# V2 work -- shared constant so System B can detect a "disguised refusal": CRAG's evaluator
-# routes to generation (CORRECT or AMBIGUOUS-but-usable), but the tutor's own separate
-# critical_rule check in RAG_response_processor.LLM_prompt independently decides the context
-# wasn't good enough and returns this exact string anyway. Defined once here so
-# system_b_main.py and generate_evaluation_dataset_B.py can't drift out of sync with the
-# literal string in RAG_response_processor.py.
-REFUSAL_STRING = "Sorry, there are no relevant documents in the Database to answer your query. :("

@@ -67,9 +67,7 @@ def process_one_row(question):
 
     if decision_1 == "CORRECT":
         # Direct answer path
-        # v2 work: LLM_prompt_crag, not LLM_prompt -- CRAG already judged sufficiency, the
-        # tutor should not independently re-judge and refuse (see RAG_response_processor.py).
-        system_persona, user_instruction = response_processor.LLM_prompt_crag(question, 'elaborate', context_string)
+        system_persona, user_instruction = response_processor.LLM_prompt(question, 'elaborate', context_string)
         answer, finish_reason = response_processor.generate_response(system_persona, user_instruction)
         assert finish_reason == "stop", f"HARD ABORT: finish_reason={finish_reason}, answer may be truncated"
         # v2 work -- disguised-refusal detection. CRAG judged this CORRECT and routed to
@@ -92,8 +90,7 @@ def process_one_row(question):
     # v2 change: CORRECT and AMBIGUOUS both generate here -- only a second, independent
     # INCORRECT verdict triggers the fallback. See module docstring for rationale.
     if decision_2 in ("CORRECT", "AMBIGUOUS"):
-        # v2 work: LLM_prompt_crag, not LLM_prompt -- same reasoning as the direct path above.
-        system_persona, user_instruction = response_processor.LLM_prompt_crag(question, 'elaborate', context_string_2)
+        system_persona, user_instruction = response_processor.LLM_prompt(question, 'elaborate', context_string_2)
         answer, finish_reason = response_processor.generate_response(system_persona, user_instruction)
         assert finish_reason == "stop", f"HARD ABORT: finish_reason={finish_reason}, answer may be truncated"
         # v2 work -- same disguised-refusal check as the direct path above.

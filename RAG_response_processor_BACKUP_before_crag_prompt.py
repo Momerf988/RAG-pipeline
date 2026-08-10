@@ -51,40 +51,6 @@ class LLMResponseProcessor:
         '''
         return system_persona, user_instruction
 
-    # V2 work -- CRAG-specific generation prompt, used ONLY by System B (system_b_main.py /
-    # generate_evaluation_dataset_B.py). System A keeps using LLM_prompt above, unchanged.
-    #
-    # Why this exists: by the time System B calls this, CRAGEvaluator has already judged the
-    # context CORRECT or AMBIGUOUS-and-worth-attempting -- that IS the sufficiency check for
-    # System B. LLM_prompt's critical_rule asks the tutor to independently re-judge
-    # sufficiency and refuse if it disagrees, which lets the tutor silently override CRAG's
-    # own routing decision (found live during manual testing: CRAG said "usable", tutor
-    # refused anyway). This method keeps the anti-hallucination grounding rule (answer only
-    # from the given context, no outside facts) but removes the duplicate refusal check, and
-    # explicitly asks for the best answer obtainable from partial context instead of bailing
-    # out -- since CRAG's whole purpose in adding the AMBIGUOUS verdict was to allow exactly
-    # that instead of over-rejecting. CRAG's genuine "nothing usable" refusal (both retrieval
-    # attempts INCORRECT) is handled entirely in the routing code and never reaches here.
-    def LLM_prompt_crag(self, user_prompt, detail_level, context_string):
-        system_persona = "You are a highly intelligent, helpful university teaching assistant."
-        grounding_rule = '''
-        GROUNDING RULE: Your answer must come ENTIRELY from the Context below.
-        - Use ONLY facts from the Context. Do not use knowledge NOT visible in the Context
-          (dates, version numbers, historical facts, extra detail).
-        - A retrieval-quality check has already approved this context before you were asked
-          to respond -- do not refuse to answer.
-        - If the Context only partially covers the question, answer as accurately and
-          completely as you can from what IS there, and briefly note if some aspect isn't
-          covered by the given material.
-        '''
-        user_instruction = f'''
-        Please answer the user's question. Provide the answer at {detail_level} level.
-        NOTE: Remember to strictly follow this: {grounding_rule}
-        Context: {context_string}
-        User prompt: {user_prompt}
-        '''
-        return system_persona, user_instruction
-
     # v2 fix (HANDOFF limitation: "Tutor T = 0.1" -> T = 0.0; and "No max_tokens; 6 items
     # lost" -> max_tokens set explicitly, finish_reason returned so the caller can assert it).
     def generate_response(self, system_persona, user_instruction):

@@ -17,7 +17,6 @@ from app_init import llm_client, db_index, embedder_model, reranker_model
 from user_query_processor import UserQueryProcessor
 from RAG_response_processor import LLMResponseProcessor
 from crag_evaluator import CRAGEvaluator
-import config
 
 BENCHMARK_FILE = "data/benchmark_specification_matrix.xlsx"
 SHEET_NAME = "Benchmark Spec Matrix"
@@ -67,17 +66,10 @@ def process_one_row(question):
 
     if decision_1 == "CORRECT":
         # Direct answer path
-        # v2 work: LLM_prompt_crag, not LLM_prompt -- CRAG already judged sufficiency, the
-        # tutor should not independently re-judge and refuse (see RAG_response_processor.py).
-        system_persona, user_instruction = response_processor.LLM_prompt_crag(question, 'elaborate', context_string)
+        system_persona, user_instruction = response_processor.LLM_prompt(question, 'elaborate', context_string)
         answer, finish_reason = response_processor.generate_response(system_persona, user_instruction)
         assert finish_reason == "stop", f"HARD ABORT: finish_reason={finish_reason}, answer may be truncated"
-        # v2 work -- disguised-refusal detection. CRAG judged this CORRECT and routed to
-        # generation, but the tutor's own separate critical_rule check (in LLM_prompt) can
-        # still independently refuse. If that happened, relabel the path so it isn't counted
-        # as a real answer downstream -- found live during manual testing (list/tuple queries).
-        path = "direct_but_refused" if answer.strip() == config.REFUSAL_STRING else "direct"
-        return answer, context_list, decision_1, "", "", path
+        return answer, context_list, decision_1, "", "", "direct"
 
     # 3. Corrective path: rewrite + second retrieval (AMBIGUOUS or INCORRECT both land here)
     rewritten = crag_evaluator.rewrite_query(question)
@@ -92,13 +84,10 @@ def process_one_row(question):
     # v2 change: CORRECT and AMBIGUOUS both generate here -- only a second, independent
     # INCORRECT verdict triggers the fallback. See module docstring for rationale.
     if decision_2 in ("CORRECT", "AMBIGUOUS"):
-        # v2 work: LLM_prompt_crag, not LLM_prompt -- same reasoning as the direct path above.
-        system_persona, user_instruction = response_processor.LLM_prompt_crag(question, 'elaborate', context_string_2)
+        system_persona, user_instruction = response_processor.LLM_prompt(question, 'elaborate', context_string_2)
         answer, finish_reason = response_processor.generate_response(system_persona, user_instruction)
         assert finish_reason == "stop", f"HARD ABORT: finish_reason={finish_reason}, answer may be truncated"
-        # v2 work -- same disguised-refusal check as the direct path above.
-        path = "rewritten_but_refused" if answer.strip() == config.REFUSAL_STRING else "rewritten"
-        return answer, context_list_2, decision_1, rewritten, decision_2, path
+        return answer, context_list_2, decision_1, rewritten, decision_2, "rewritten"
 
     # 5. Graceful fallback
     return FALLBACK_MSG, context_list_2, decision_1, rewritten, decision_2, "fallback"

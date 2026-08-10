@@ -8,18 +8,6 @@ from RAG_response_processor import LLMResponseProcessor
 from crag_evaluator import CRAGEvaluator
 import config
 
-# v2 debug addition: print the exact chunk IDs and a preview of the context text that goes
-# into evaluate_context, so an AMBIGUOUS/INCORRECT verdict can actually be inspected instead
-# of trusted blindly -- added after a manual test session where "list" vs "tuple" queries got
-# different verdicts and there was no way to see WHY without this.
-CONTEXT_PREVIEW_CHARS = 400
-
-def print_context_preview(label, context_string, chunk_ids):
-    print(f">> [System B] {label} chunk IDs: {chunk_ids}")
-    preview = context_string[:CONTEXT_PREVIEW_CHARS]
-    suffix = "..." if len(context_string) > CONTEXT_PREVIEW_CHARS else ""
-    print(f">> [System B] {label} context preview ({len(context_string)} chars total):\n{preview}{suffix}")
-
 # --- THE SYSTEM B MAIN LOOP ---
 if __name__ == "__main__":
     print("Starting System B (Corrective RAG, three-way) Tutor...")
@@ -40,7 +28,6 @@ if __name__ == "__main__":
         search_result = response_processor.search_db(embedded_query)
         reranked_result = response_processor.rerank(user_prompt, search_result)
         context_string, raw_chunks, chunk_ids = response_processor.stich_context(reranked_result)
-        print_context_preview("First-pass", context_string, chunk_ids)
 
         # 3. The Interlock (Phase 1 Evaluation)
         print("\n>> [System B] Evaluating retrieved context...")
@@ -50,14 +37,9 @@ if __name__ == "__main__":
         # 4. Routing Logic -- bounded three-way
         if eval_result == "CORRECT":
             # Context is good. Generate answer directly. Path: "direct"
-            # v2 work: LLM_prompt_crag, not LLM_prompt -- CRAG already judged sufficiency,
-            # the tutor should not independently re-judge and refuse (see RAG_response_processor.py).
-            system_persona, user_instruction = response_processor.LLM_prompt_crag(user_prompt, detail_level, context_string)
+            system_persona, user_instruction = response_processor.LLM_prompt(user_prompt, detail_level, context_string)
             final_answer, finish_reason = response_processor.generate_response(system_persona, user_instruction)
             assert finish_reason == "stop", f"HARD ABORT: finish_reason={finish_reason}, answer may be truncated"
-            if final_answer.strip() == config.REFUSAL_STRING:
-                print(">> [System B] NOTE: CRAG judged the context CORRECT, but the tutor's own "
-                      "internal check overrode that and refused anyway (disguised refusal).")
             print("\n--- TUTOR ---")
             print(final_answer)
 
@@ -76,7 +58,6 @@ if __name__ == "__main__":
             search_result_2 = response_processor.search_db(embedded_rewritten)
             reranked_result_2 = response_processor.rerank(rewritten_query, search_result_2)
             context_string_2, raw_chunks_2, chunk_ids_2 = response_processor.stich_context(reranked_result_2)
-            print_context_preview("Second-pass", context_string_2, chunk_ids_2)
 
             # Second Evaluation
             print(">> [System B] Evaluating new context...")
@@ -91,13 +72,9 @@ if __name__ == "__main__":
             # of 1.000): AMBIGUOUS-after-retry no longer gets thrown away.
             if eval_result_2 in ("CORRECT", "AMBIGUOUS"):
                 print(">> [System B] Second retrieval usable. Generating answer...")
-                # v2 work: LLM_prompt_crag, not LLM_prompt -- same reasoning as the direct path above.
-                system_persona, user_instruction = response_processor.LLM_prompt_crag(user_prompt, detail_level, context_string_2)
+                system_persona, user_instruction = response_processor.LLM_prompt(user_prompt, detail_level, context_string_2)
                 final_answer, finish_reason = response_processor.generate_response(system_persona, user_instruction)
                 assert finish_reason == "stop", f"HARD ABORT: finish_reason={finish_reason}, answer may be truncated"
-                if final_answer.strip() == config.REFUSAL_STRING:
-                    print(">> [System B] NOTE: CRAG judged the second-pass context usable, but the "
-                          "tutor's own internal check overrode that and refused anyway (disguised refusal).")
                 print("\n--- TUTOR ---")
                 print(final_answer)
 
