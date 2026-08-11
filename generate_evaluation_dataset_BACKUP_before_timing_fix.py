@@ -90,12 +90,6 @@ for row in sheet.iter_rows(min_row=2, max_row=sheet.max_row, values_only=True):
 eval_results_df = pd.DataFrame(eval_data)
 eval_results_df.to_csv("System_A_eval_results.csv", index=False)
 '''
-# V2.6: fixed a crash bug found before the overnight run -- respond_to_user() has returned
-# THREE values (final_answer, context_list, chunk_id_list) since the V2 stich_context fix,
-# but this script still unpacked only two. Would have raised "ValueError: too many values to
-# unpack" on the very first row and crashed the whole run with zero rows saved. Also added
-# per-row response_time_sec so the full 150-row run doubles as latency data across the
-# whole benchmark, not just the 20-row measure_latency.py sample.
 import pandas as pd
 import time
 import os
@@ -126,8 +120,7 @@ if os.path.exists(OUTPUT_FILE):
     done_spec_ids = set(done_df['spec_id'].tolist())
     print(f"Resuming — {len(done_spec_ids)} rows already done.")
 else:
-    done_df = pd.DataFrame(columns=['spec_id', 'topic_id', 'question', 'contexts', 'answer',
-                                     'ground_truth', 'response_time_sec'])
+    done_df = pd.DataFrame(columns=['spec_id', 'topic_id', 'question', 'contexts', 'answer', 'ground_truth'])
     done_spec_ids = set()
     print("Starting fresh.")
 
@@ -152,16 +145,11 @@ for row in sheet.iter_rows(min_row=2, max_row=sheet.max_row, values_only=True):
     while retries < 3:
         try:
             embedded_query = user_query_processing_init.vectorize_query(question)
-            # covers retrieval + rerank + generation combined (respond_to_user is one bundled
-            # call) -- NOT generation alone. For a stage-by-stage breakdown, see
-            # measure_latency.py, which times each step separately on its own 20-row sample.
-            t0 = time.perf_counter()
-            final_answer, context_list, chunk_id_list = LLM_response_processing_init.respond_to_user(
+            final_answer, context_list = LLM_response_processing_init.respond_to_user(
                 embedded_query,
                 question,
                 'elaborate'
             )
-            response_time_sec = time.perf_counter() - t0
             break
         except RateLimitError as e:
             wait_seconds = 30 * (retries + 1)   # 30s, 60s, 90s
@@ -178,8 +166,7 @@ for row in sheet.iter_rows(min_row=2, max_row=sheet.max_row, values_only=True):
         'question': question,
         'contexts': context_list,
         'answer': final_answer,
-        'ground_truth': ground_truth,
-        'response_time_sec': response_time_sec
+        'ground_truth': ground_truth
     }])
     done_df = pd.concat([done_df, new_row], ignore_index=True)
     done_df.to_csv(OUTPUT_FILE, index=False)      # save after every row

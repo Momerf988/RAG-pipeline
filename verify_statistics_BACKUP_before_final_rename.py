@@ -8,15 +8,10 @@ from scipy import stats
 
 M = ['faithfulness', 'answer_relevancy', 'context_precision', 'context_recall']
 
-# V2.4: pointed at the current-config (keep_top=15, gpt-oss-20b evaluator) files instead of
-# the 03/08 keep_top=7 / binary-evaluator ones. Old files untouched, kept as that baseline.
-# Also fixed the benchmark path below -- it was missing the "data/" prefix that every other
-# script in this project uses, which would have crashed with FileNotFoundError (verified: no
-# copy of the spreadsheet exists at the repo root, only under data/).
-A = pd.read_csv('System_A_final_scorecard.csv')
-B = pd.read_csv('System_B_3way_scorecard.csv')
-E = pd.read_csv('System_B_3way_eval_results.csv')[['spec_id', 'crag_decision_1', 'path_taken']]
-S = pd.read_excel('data/benchmark_specification_matrix.xlsx', 'Benchmark Spec Matrix')
+A = pd.read_csv('System_A_scorecard.csv')
+B = pd.read_csv('System_B_scorecard.csv')
+E = pd.read_csv('System_B_eval_results.csv')[['spec_id', 'crag_decision_1', 'path_taken']]
+S = pd.read_excel('benchmark_specification_matrix.xlsx', 'Benchmark Spec Matrix')
 S = S[S.Generation_Status == 'Generated'][
     ['Spec_ID', 'Bloom_Level', 'Difficulty', 'Retrieval_Level', 'Question_Type']
 ].rename(columns={'Spec_ID': 'spec_id'})

@@ -219,16 +219,6 @@ class CRAGEvaluator:
     # requiring CORRECT to directly answer the query, not just be topically detailed, and
     # (2) explicitly restoring the "only mentions the topic name" = INCORRECT language from
     # the original binary prompt, which had been dropped in the first 3-way draft.
-    # V2.2 recalibration (post gpt-oss-20b swap): first smoke test on the new model scored
-    # Test 2 (partial context -- mentions applications/tools, no definition) as INCORRECT
-    # instead of the expected AMBIGUOUS -- the mirror-image miscalibration direction from
-    # the original llama recalibration (that one was too lenient toward CORRECT/AMBIGUOUS;
-    # gpt-oss-20b leaned too strict toward INCORRECT on the same prompt). Test 1 and Test 3
-    # were unaffected. Fixed by adding an explicit "do not collapse AMBIGUOUS into INCORRECT"
-    # instruction and a second worked example mirroring Test 2's exact pattern (named
-    # applications/tools, no definition), rather than relying on the stack example alone to
-    # transfer. Confirms prompt calibration is genuinely model-specific, as flagged before
-    # making this swap -- not a sign the model choice itself is unusable.
     def evaluate_context(self, user_query, context_string):
         system_persona = """You are a strict retrieval evaluator for an Intelligent Tutoring System.
 Your job is to judge whether the Context is sufficient to accurately and completely answer the User Query.
@@ -240,15 +230,10 @@ Choose ONE of three verdicts:
 
 Before answering, check yourself: does the Context actually STATE the specific thing the Query asks for? If it only talks around the topic (uses, examples, related tools) without ever stating the core answer, that is AMBIGUOUS, not CORRECT. If it is just a title, heading, or topic name with no explanatory content, that is INCORRECT, not AMBIGUOUS.
 
-Do NOT mark AMBIGUOUS content as INCORRECT just because it fails to state the core answer. INCORRECT is reserved for content with NO real substantive connection to the query at all -- bare headings, off-topic material, or content that only name-drops the topic. If the context names real, specific applications, tools, related concepts, or examples connected to the query's topic, that is substantive content and must be AMBIGUOUS, even though it does not answer the query directly.
-
 Example: Query "What is a stack?"
 - Context "Stacks are used in undo systems, expression evaluation, and function call management." -> AMBIGUOUS (real, relevant content, but never defines what a stack actually is).
 - Context "3.2 Stacks and Queues" -> INCORRECT (just a heading, no explanation at all).
 - Context "A stack is a linear data structure that follows Last-In-First-Out (LIFO) order, where elements are added and removed from the same end." -> CORRECT (directly states the definition).
-
-Example: Query "What is machine learning?"
-- Context "Machine learning is used in many applications including recommendation systems and image recognition. Popular ML libraries include scikit-learn and TensorFlow." -> AMBIGUOUS (names real, specific applications and tools -- genuinely substantive and on-topic -- but never states what machine learning actually is). This is NOT INCORRECT: it is more than a bare mention of the topic name.
 
 CRITICAL: Output ONLY one single word: CORRECT, AMBIGUOUS, or INCORRECT. No punctuation, no explanations."""
 
@@ -317,16 +302,10 @@ CRITICAL: Output ONLY one single word: CORRECT, AMBIGUOUS, or INCORRECT. No punc
 
 Original query:
 {user_query}"""
-        # V2.3: temperature 0.2 -> 0.0. Missed in the original reproducibility sweep
-        # (TEMP_TUTOR=0.0 on the tutor) because this method was added later, as part of the
-        # CRAG build. Confirmed live impact: same original query run twice produced two
-        # different rewrites, which pulled different second-pass context and produced a
-        # different evaluator verdict (AMBIGUOUS vs CORRECT) on an otherwise identical
-        # question -- exactly the kind of run-to-run noise TEMP_TUTOR was meant to eliminate.
         response = self.llm_client.chat.completions.create(
             model=config.LLM_MODEL_NAME,
             messages=[{"role": "user", "content": prompt}],
-            temperature=0.0
+            temperature=0.2
         )
         return response.choices[0].message.content.strip()
 

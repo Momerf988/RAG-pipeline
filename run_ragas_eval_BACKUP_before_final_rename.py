@@ -14,41 +14,15 @@ import warnings
 
 warnings.filterwarnings("ignore")
 
-# V2.6: no more manual SYSTEM_TO_SCORE edit-and-rerun. A single execution now scores BOTH
-# systems automatically, one after the other -- each with its own independent resume logic
-# (separate scorecard files), so if this is interrupted partway through B, rerunning skips
-# the now-complete A instantly and resumes B exactly where it left off. Missing input files
-# (e.g. generation for that system hasn't finished yet) are reported and skipped rather than
-# crashing the whole script, so one system's incomplete generation doesn't block the other.
-#
-# V2.4 (carried forward): filenames point at the current-config outputs
-# (System_A_final_eval_results.csv / System_B_3way_eval_results.csv), not the 03/08
-# keep_top=7 / binary-evaluator files -- see those scripts' own comments for why.
-SYSTEMS = ["A", "B"]
+# --- EDIT THIS BEFORE EACH RUN ---
+SYSTEM_TO_SCORE = "B"    # then rerun with "B"
 
-INPUT_FILES = {
-    "A": "System_A_final_eval_results.csv",   # from generate_evaluation_dataset.py (keep_top=15)
-    "B": "System_B_3way_eval_results.csv",    # from generate_evaluation_dataset_B.py (keep_top=15, gpt-oss-20b evaluator)
-}
-OUTPUT_FILES = {
-    "A": "System_A_final_scorecard.csv",
-    "B": "System_B_3way_scorecard.csv",
-}
+INPUT_FILE = f"System_{SYSTEM_TO_SCORE}_eval_results.csv"
+OUTPUT_FILE = f"System_{SYSTEM_TO_SCORE}_scorecard.csv"
 
-
-def run_evaluation(system_to_score):
-    input_file = INPUT_FILES[system_to_score]
-    output_file = OUTPUT_FILES[system_to_score]
-
-    if not os.path.exists(input_file):
-        print(f"SKIPPING System {system_to_score}: {input_file} not found yet "
-              f"(generation for this system hasn't produced output). Run the matching "
-              f"generate_evaluation_dataset*.py script first, then rerun this script.")
-        return
-
-    print(f"\n{'=' * 70}\nSCORING SYSTEM {system_to_score}\n{'=' * 70}")
-    print(f"1. Loading {input_file}...")
-    df = pd.read_csv(input_file)
+def run_evaluation():
+    print(f"1. Loading {INPUT_FILE}...")
+    df = pd.read_csv(INPUT_FILE)
     print(f"   {len(df)} rows loaded")
 
     print("2. Parsing contexts...")
@@ -71,8 +45,8 @@ def run_evaluation(system_to_score):
         model_name=config.TRANSFORMER_MODEL
     ))
 
-    if os.path.exists(output_file):
-        done_df = pd.read_csv(output_file)
+    if os.path.exists(OUTPUT_FILE):
+        done_df = pd.read_csv(OUTPUT_FILE)
         done_spec_ids = set(done_df['spec_id'].tolist())
         print(f"Resuming — {len(done_spec_ids)} rows already scored.")
     else:
@@ -105,7 +79,7 @@ def run_evaluation(system_to_score):
 
             new_row = pd.DataFrame([score_dict])
             done_df = pd.concat([done_df, new_row], ignore_index=True)
-            done_df.to_csv(output_file, index=False)
+            done_df.to_csv(OUTPUT_FILE, index=False)
             done_spec_ids.add(spec_id)
             print(f"  saved.")
         except Exception as e:
@@ -113,15 +87,11 @@ def run_evaluation(system_to_score):
 
         time.sleep(2)
 
-    print(f"\n5. Final averages for System {system_to_score}:\n")
+    print(f"\n5. Final averages for System {SYSTEM_TO_SCORE}:\n")
     numeric_cols = ['faithfulness', 'answer_relevancy', 'context_precision', 'context_recall']
     available = [c for c in numeric_cols if c in done_df.columns]
-    if len(done_df) > 0:
-        print(done_df[available].mean())
-    print(f"\nSaved to {output_file}")
-
+    print(done_df[available].mean())
+    print(f"\nSaved to {OUTPUT_FILE}")
 
 if __name__ == "__main__":
-    for system in SYSTEMS:
-        run_evaluation(system)
-    print(f"\n{'=' * 70}\nALL SYSTEMS SCORED\n{'=' * 70}")
+    run_evaluation()

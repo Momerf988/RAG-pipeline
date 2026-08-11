@@ -2,12 +2,10 @@ import pandas as pd
 
 BENCHMARK_FILE = "data/benchmark_specification_matrix.xlsx"
 SHEET_NAME = "Benchmark Spec Matrix"
-# V2.4: pointed at the current-config (keep_top=15, gpt-oss-20b evaluator) files instead of
-# the 03/08 keep_top=7 / binary-evaluator ones. Old files untouched, kept as that baseline.
-SYSTEM_A_SCORECARD = "System_A_final_scorecard.csv"
-SYSTEM_B_SCORECARD = "System_B_3way_scorecard.csv"
-SYSTEM_B_EVAL_RESULTS = "System_B_3way_eval_results.csv"
-OUTPUT_FILE = "Analysis_Results_final.xlsx"
+SYSTEM_A_SCORECARD = "System_A_scorecard.csv"
+SYSTEM_B_SCORECARD = "System_B_scorecard.csv"
+SYSTEM_B_EVAL_RESULTS = "System_B_eval_results.csv"
+OUTPUT_FILE = "Analysis_Results.xlsx"
 
 METRICS = ['faithfulness', 'answer_relevancy', 'context_precision', 'context_recall']
 

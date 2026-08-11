@@ -13,12 +13,10 @@ M = ['faithfulness','answer_relevancy','context_precision','context_recall']
 BAR = "="*78
 
 def load():
-    # V2.4: pointed at the current-config (keep_top=15, gpt-oss-20b evaluator) files instead
-    # of the 03/08 keep_top=7 / binary-evaluator ones. Old files untouched, kept as baseline.
-    A = pd.read_csv('System_A_final_scorecard.csv')
-    B = pd.read_csv('System_B_3way_scorecard.csv')
-    E = pd.read_csv('System_B_3way_eval_results.csv')
-    Ae = pd.read_csv('System_A_final_eval_results.csv')
+    A = pd.read_csv('System_A_scorecard.csv')
+    B = pd.read_csv('System_B_scorecard.csv')
+    E = pd.read_csv('System_B_eval_results.csv')
+    Ae = pd.read_csv('System_A_eval_results.csv')
     S = pd.read_excel('data/benchmark_specification_matrix.xlsx','Benchmark Spec Matrix')
     S = S[S.Generation_Status=='Generated']
     spec = S[['Spec_ID','Bloom_Level','Difficulty','Retrieval_Level','Question_Type','Supporting_Chunks']] \

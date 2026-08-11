@@ -1,17 +1,3 @@
-# V2.6: fixed before the overnight run -- this whole script was stale relative to several
-# already-completed changes and would have crashed on the first call:
-#   1. stich_context() now returns 3 values (added chunk_id_list); this script still
-#      unpacked 2, everywhere it called it -- "ValueError: too many values to unpack".
-#   2. generate_response() now returns (answer, finish_reason); one call site here captured
-#      the tuple into a single "final_answer" var (unused afterward so not a crash, but
-#      wrong), cleaned up for correctness.
-#   3. OUTPUT_FILE used f"...{{T}}..." (double braces) inside an f-string, which produces a
-#      literal "{T}" in the filename instead of interpolating the variable -- fixed to single
-#      braces.
-#   4. System B's generation calls used LLM_prompt (System A's prompt), not LLM_prompt_crag
-#      (System B's actual production prompt, built later than this script). Fixed so the
-#      timed call matches what System B really runs -- otherwise this would time a call B
-#      never actually makes.
 import time
 import random
 import openpyxl
@@ -23,7 +9,7 @@ from crag_evaluator import CRAGEvaluator
 T = 1
 BENCHMARK_FILE = "data/benchmark_specification_matrix.xlsx"
 SHEET_NAME = "Benchmark Spec Matrix"
-OUTPUT_FILE = f"Latency_Results_t{T}.csv"
+OUTPUT_FILE = f"Latency_Results_t{{T}}.csv"
 SAMPLE_SIZE_PER_RETRIEVAL_LEVEL = 5   # 5 rows x 4 levels (R1-R4) = 20 rows total
 
 random.seed(42)
@@ -56,14 +42,14 @@ def time_system_a(question):
     embedded_query = query_processor.vectorize_query(question)
     matches = response_processor.search_db(embedded_query)
     reranked = response_processor.rerank(question, matches)
-    context_string, context_list, chunk_ids = response_processor.stich_context(reranked)
+    context_string, context_list = response_processor.stich_context(reranked)
     t1 = time.perf_counter()
 
     if not context_string:
         return {"retrieval_ms": (t1 - t0) * 1000, "evaluator_ms": 0, "generation_ms": 0, "total_ms": (t1 - t0) * 1000}
 
     system_persona, user_instruction = response_processor.LLM_prompt(question, 'elaborate', context_string)
-    final_answer, finish_reason = response_processor.generate_response(system_persona, user_instruction)
+    final_answer = response_processor.generate_response(system_persona, user_instruction)
     t2 = time.perf_counter()
     time.sleep(5)  # clear rate-limit headroom before the next LLM call anywhere in the script
 
@@ -80,7 +66,7 @@ def time_system_b(question):
     embedded_query = query_processor.vectorize_query(question)
     matches = response_processor.search_db(embedded_query)
     reranked = response_processor.rerank(question, matches)
-    context_string, context_list, chunk_ids = response_processor.stich_context(reranked)
+    context_string, context_list = response_processor.stich_context(reranked)
     t1 = time.perf_counter()
 
     decision_1 = crag_evaluator.evaluate_context(question, context_string)
@@ -94,8 +80,7 @@ def time_system_b(question):
     path = "direct"
 
     if decision_1 == "CORRECT":
-        # matches production: System B generates with LLM_prompt_crag, not LLM_prompt
-        system_persona, user_instruction = response_processor.LLM_prompt_crag(question, 'elaborate', context_string)
+        system_persona, user_instruction = response_processor.LLM_prompt(question, 'elaborate', context_string)
         response_processor.generate_response(system_persona, user_instruction)
         t3 = time.perf_counter()
         time.sleep(5)
@@ -108,17 +93,14 @@ def time_system_b(question):
         embedded_rewritten = query_processor.vectorize_query(rewritten)
         matches_2 = response_processor.search_db(embedded_rewritten)
         reranked_2 = response_processor.rerank(rewritten, matches_2)
-        context_string_2, context_list_2, chunk_ids_2 = response_processor.stich_context(reranked_2)
+        context_string_2, context_list_2 = response_processor.stich_context(reranked_2)
         decision_2 = crag_evaluator.evaluate_context(rewritten, context_string_2)
         time.sleep(5)
         t3 = time.perf_counter()
         rewrite_ms = (t3 - t2b) * 1000
 
-        if decision_2 in ("CORRECT", "AMBIGUOUS"):
-            # matches production routing (system_b_main.py / generate_evaluation_dataset_B.py):
-            # CORRECT and AMBIGUOUS both generate on the second pass, only a second INCORRECT
-            # falls back. Also matches production: LLM_prompt_crag, not LLM_prompt.
-            system_persona, user_instruction = response_processor.LLM_prompt_crag(question, 'elaborate', context_string_2)
+        if decision_2 == "CORRECT":
+            system_persona, user_instruction = response_processor.LLM_prompt(question, 'elaborate', context_string_2)
             response_processor.generate_response(system_persona, user_instruction)
             t4 = time.perf_counter()
             time.sleep(5)

@@ -3,10 +3,6 @@
 # generate_response now returns finish_reason too) and to route on three evaluator verdicts
 # (CORRECT / AMBIGUOUS / INCORRECT) instead of the old binary CORRECT / else.
 #
-# V2.6: added per-row response_time_sec (whole call, all steps combined) so the full
-# 150-row run doubles as latency data across the full benchmark, not just the 20-row sample
-# measure_latency.py uses for its stage-by-stage breakdown.
-#
 # IMPORTANT: OUTPUT_FILE below is deliberately a NEW filename, not the original
 # System_B_eval_results.csv. That file holds the binary-evaluator results already reported
 # in the write-up (V7) -- overwriting it would destroy that baseline and this script's own
@@ -42,8 +38,7 @@ if os.path.exists(OUTPUT_FILE):
 else:
     done_df = pd.DataFrame(columns=[
         'spec_id', 'topic_id', 'question', 'contexts', 'answer', 'ground_truth',
-        'crag_decision_1', 'rewritten_query', 'crag_decision_2', 'path_taken',
-        'response_time_sec'
+        'crag_decision_1', 'rewritten_query', 'crag_decision_2', 'path_taken'
     ])
     done_spec_ids = set()
     print("Starting fresh.")
@@ -53,20 +48,14 @@ sheet = workbook[SHEET_NAME]
 
 def process_one_row(question):
     """Run System B's bounded three-way routing for one question.
-    Returns (answer, context_list, crag_decision_1, rewritten_query, crag_decision_2, path_taken, response_time_sec).
+    Returns (answer, context_list, crag_decision_1, rewritten_query, crag_decision_2, path_taken).
 
     Routing (v2, three-way):
       - decision_1 == CORRECT             -> answer directly. path = "direct"
       - decision_1 in (AMBIGUOUS,INCORRECT) -> rewrite + retry ONCE (bounded, no further loops)
           - decision_2 in (CORRECT, AMBIGUOUS) -> answer from the second context. path = "rewritten"
           - decision_2 == INCORRECT             -> abstain. path = "fallback"
-
-    response_time_sec covers the ENTIRE call (all retrieval + evaluator + rewrite + generation
-    steps combined, whatever the path taken) -- not directly comparable row-by-row to System
-    A's timing, since B can take 1-4 LLM calls depending on path while A always takes exactly
-    1. That asymmetry is itself the point of measure_latency.py's stage-by-stage breakdown.
     """
-    t0 = time.perf_counter()
     # 1. Standard retrieval
     embedded_query = query_processor.vectorize_query(question)
     matches = response_processor.search_db(embedded_query)
@@ -88,7 +77,7 @@ def process_one_row(question):
         # still independently refuse. If that happened, relabel the path so it isn't counted
         # as a real answer downstream -- found live during manual testing (list/tuple queries).
         path = "direct_but_refused" if answer.strip() == config.REFUSAL_STRING else "direct"
-        return answer, context_list, decision_1, "", "", path, time.perf_counter() - t0
+        return answer, context_list, decision_1, "", "", path
 
     # 3. Corrective path: rewrite + second retrieval (AMBIGUOUS or INCORRECT both land here)
     rewritten = crag_evaluator.rewrite_query(question)
@@ -109,10 +98,10 @@ def process_one_row(question):
         assert finish_reason == "stop", f"HARD ABORT: finish_reason={finish_reason}, answer may be truncated"
         # v2 work -- same disguised-refusal check as the direct path above.
         path = "rewritten_but_refused" if answer.strip() == config.REFUSAL_STRING else "rewritten"
-        return answer, context_list_2, decision_1, rewritten, decision_2, path, time.perf_counter() - t0
+        return answer, context_list_2, decision_1, rewritten, decision_2, path
 
     # 5. Graceful fallback
-    return FALLBACK_MSG, context_list_2, decision_1, rewritten, decision_2, "fallback", time.perf_counter() - t0
+    return FALLBACK_MSG, context_list_2, decision_1, rewritten, decision_2, "fallback"
 
 
 print("Starting System B (three-way) evaluation loop...")
@@ -144,7 +133,7 @@ for row in sheet.iter_rows(min_row=2, max_row=sheet.max_row, values_only=True):
         print(f"{spec_id}: giving up after 3 retries. Progress saved; rerun to continue.")
         break
 
-    answer, context_list, decision_1, rewritten, decision_2, path, response_time_sec = result
+    answer, context_list, decision_1, rewritten, decision_2, path = result
 
     new_row = pd.DataFrame([{
         'spec_id': spec_id,
@@ -156,8 +145,7 @@ for row in sheet.iter_rows(min_row=2, max_row=sheet.max_row, values_only=True):
         'crag_decision_1': decision_1,
         'rewritten_query': rewritten,
         'crag_decision_2': decision_2,
-        'path_taken': path,
-        'response_time_sec': response_time_sec
+        'path_taken': path
     }])
     done_df = pd.concat([done_df, new_row], ignore_index=True)
     done_df.to_csv(OUTPUT_FILE, index=False)

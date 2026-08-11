@@ -39,39 +39,19 @@ class LLMResponseProcessor:
         stiched_context = " ".join(context_list)
         return stiched_context, context_list, chunk_id_list
 
-    # V2.5: removed the independent refusal judgment ("if insufficient, say sorry") from this
-    # prompt. Per the CRAG paper (Yan et al., 2024) and the original RAG architecture (Lewis
-    # et al., 2020) it builds on, plain RAG has no retrieval-quality gate at all -- it
-    # generates from whatever was retrieved, good or bad. A dedicated sufficiency check with
-    # abstention is specifically CRAG's contribution, not a standard RAG capability. This
-    # method previously had its own bundled, single-shot "is this enough? -> refuse" judgment
-    # baked into the same call that writes the answer -- a deliberate, disclosed anti-
-    # hallucination safety addition from earlier in the project (already documented via the
-    # "disguised refusal" investigation), but one that blurred the A-vs-B contrast this whole
-    # study exists to measure. Fixed by keeping only the grounding rule (stay faithful to the
-    # given Context, no outside facts -- standard RAG hygiene, not CRAG's contribution) and
-    # dropping the sufficiency judgment and canned refusal message entirely. System A will now
-    # do its best to answer from whatever context it's given, however weak -- this is the
-    # textbook vanilla-RAG failure mode CRAG exists to correct, and demonstrating it (e.g. on
-    # off-topic or irrelevant queries) is itself useful evidence for the comparison.
-    # Verified before making this change: zero of the 72 keep_top-ablation rows (k=7/15/20)
-    # ever triggered the old refusal string, so this does not invalidate the keep_top=15
-    # decision or require rerunning that ablation. The hard `if not stiched_context` guard in
-    # respond_to_user() below is untouched -- that's a code-level empty-input guard (can't
-    # call the LLM with zero context), not a sufficiency judgment, and stays regardless.
     def LLM_prompt(self, user_prompt, detail_level, context_string):
         system_persona = "You are a highly intelligent, helpful university teaching assistant."
-        grounding_rule = '''
-        GROUNDING RULE: Answer the user's question using ONLY facts, definitions, and
-        explanations that are actually present in the Context below.
-        - Do not add outside knowledge (dates, version numbers, historical facts, or extra
-          detail) that is not visible in the Context.
-        - Answer as accurately and completely as you can using what IS in the Context, even
-          if it only partially covers the question.
+        critical_rule = '''
+        CRITICAL RULE: Your answer must come ENTIRELY from the Context below.
+        - If the Context contains the answer, use ONLY facts from the Context.
+        - If the Context only mentions the topic name without explaining it, that is NOT sufficient -- reply with the sorry message below.
+        - If you find yourself using knowledge NOT visible in the Context (dates, version numbers, historical facts, extra detail), stop and reply with the sorry message instead.
+        Reply EXACTLY with the following if the Context is insufficient:
+        "Sorry, there are no relevant documents in the Database to answer your query. :("
         '''
         user_instruction = f'''
         Please answer the user's question. Provide the answer at {detail_level} level.
-        NOTE: Remember to strictly follow this: {grounding_rule}
+        NOTE: Remember to strictly follow this: {critical_rule}
         Context: {context_string}
         User prompt: {user_prompt}
         '''

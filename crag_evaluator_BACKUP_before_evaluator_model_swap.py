@@ -186,19 +186,10 @@ Test 4 (code-preserving rewrite):
 (.venv) admin@MacBookPro V1 % 
 '''
 # V2 work -- three-way CRAG evaluator (CORRECT / AMBIGUOUS / INCORRECT), replacing the
-# binary version above. The binary version's evaluate_context and the older rewrite_query
-# drafts are preserved untouched inside the docstring above (lines 1-187) for audit trail;
-# this is the only active class in the file.
-#
-# V2.1 work -- evaluate_context() now runs on config.EVALUATOR_MODEL_NAME (openai/gpt-oss-20b),
-# separate from the tutor's config.LLM_MODEL_NAME (llama-3.1-8b-instant). Originally the
-# evaluator shared the tutor's model ("no separate judge model, per the bounded three-way
-# scope decision") -- a disclosed limitation (REBUILD_SPEC: "V1 used the same 8B model for
-# both, so failure modes were correlated by construction"). See config.py for the full
-# rationale on the model choice. rewrite_query() below deliberately stays on
-# config.LLM_MODEL_NAME -- the same-model-bias concern is specific to the evaluator marking
-# its own homework (judging context it would itself generate from), not to query rewriting,
-# so narrowing the swap to evaluate_context() only keeps this change minimal and testable.
+# binary version above. Same model as the tutor (config.LLM_MODEL_NAME, llama-3.1-8b-instant
+# via Groq) -- no separate judge model, per the "bounded three-way" scope decision. The binary
+# version's evaluate_context and the older rewrite_query drafts are preserved untouched inside
+# the docstring above (lines 1-187) for audit trail; this is the only active class in the file.
 import config
 from app_init import llm_client
 
@@ -219,16 +210,6 @@ class CRAGEvaluator:
     # requiring CORRECT to directly answer the query, not just be topically detailed, and
     # (2) explicitly restoring the "only mentions the topic name" = INCORRECT language from
     # the original binary prompt, which had been dropped in the first 3-way draft.
-    # V2.2 recalibration (post gpt-oss-20b swap): first smoke test on the new model scored
-    # Test 2 (partial context -- mentions applications/tools, no definition) as INCORRECT
-    # instead of the expected AMBIGUOUS -- the mirror-image miscalibration direction from
-    # the original llama recalibration (that one was too lenient toward CORRECT/AMBIGUOUS;
-    # gpt-oss-20b leaned too strict toward INCORRECT on the same prompt). Test 1 and Test 3
-    # were unaffected. Fixed by adding an explicit "do not collapse AMBIGUOUS into INCORRECT"
-    # instruction and a second worked example mirroring Test 2's exact pattern (named
-    # applications/tools, no definition), rather than relying on the stack example alone to
-    # transfer. Confirms prompt calibration is genuinely model-specific, as flagged before
-    # making this swap -- not a sign the model choice itself is unusable.
     def evaluate_context(self, user_query, context_string):
         system_persona = """You are a strict retrieval evaluator for an Intelligent Tutoring System.
 Your job is to judge whether the Context is sufficient to accurately and completely answer the User Query.
@@ -240,15 +221,10 @@ Choose ONE of three verdicts:
 
 Before answering, check yourself: does the Context actually STATE the specific thing the Query asks for? If it only talks around the topic (uses, examples, related tools) without ever stating the core answer, that is AMBIGUOUS, not CORRECT. If it is just a title, heading, or topic name with no explanatory content, that is INCORRECT, not AMBIGUOUS.
 
-Do NOT mark AMBIGUOUS content as INCORRECT just because it fails to state the core answer. INCORRECT is reserved for content with NO real substantive connection to the query at all -- bare headings, off-topic material, or content that only name-drops the topic. If the context names real, specific applications, tools, related concepts, or examples connected to the query's topic, that is substantive content and must be AMBIGUOUS, even though it does not answer the query directly.
-
 Example: Query "What is a stack?"
 - Context "Stacks are used in undo systems, expression evaluation, and function call management." -> AMBIGUOUS (real, relevant content, but never defines what a stack actually is).
 - Context "3.2 Stacks and Queues" -> INCORRECT (just a heading, no explanation at all).
 - Context "A stack is a linear data structure that follows Last-In-First-Out (LIFO) order, where elements are added and removed from the same end." -> CORRECT (directly states the definition).
-
-Example: Query "What is machine learning?"
-- Context "Machine learning is used in many applications including recommendation systems and image recognition. Popular ML libraries include scikit-learn and TensorFlow." -> AMBIGUOUS (names real, specific applications and tools -- genuinely substantive and on-topic -- but never states what machine learning actually is). This is NOT INCORRECT: it is more than a bare mention of the topic name.
 
 CRITICAL: Output ONLY one single word: CORRECT, AMBIGUOUS, or INCORRECT. No punctuation, no explanations."""
 
@@ -257,38 +233,16 @@ CRITICAL: Output ONLY one single word: CORRECT, AMBIGUOUS, or INCORRECT. No punc
         Context: {context_string}
         """
         try:
-            # V2.1: openai/gpt-oss-20b is a REASONING model (unlike llama-3.1-8b-instant) --
-            # by default it spends part of its token budget on an internal reasoning pass
-            # before the final word. The old max_tokens=10 was tuned for a non-reasoning
-            # model and would very likely get silently eaten by reasoning tokens here,
-            # leaving .content empty -> falls through to the INCORRECT failsafe below ->
-            # CRAG would silently reject every context. Fixed with reasoning_effort="low"
-            # (this is a one-word classification, not a task that needs deep reasoning),
-            # include_reasoning=False (keeps .content to just the verdict word, so the
-            # parsing logic below doesn't need to change), and max_tokens raised to 200 as
-            # headroom (Groq-specific params passed via extra_body since the official
-            # openai SDK's typed create() doesn't recognize them as top-level kwargs).
             response = self.llm_client.chat.completions.create(
-                model=config.EVALUATOR_MODEL_NAME,
+                model=config.LLM_MODEL_NAME,
                 messages=[
                     {"role": "system", "content": system_persona},
                     {"role": "user", "content": user_instruction}
                 ],
                 temperature=0.0,  # zero creativity -- this is a classification call, not generation
-                max_tokens=200,   # raised from 10 -- see reasoning-model note above
-                extra_body={
-                    "reasoning_effort": "low",
-                    "include_reasoning": False,
-                }
+                max_tokens=10     # hard cutoff, same rationale as V1: prevent rambling
             )
             evaluator_decision = response.choices[0].message.content.strip().upper()
-
-            # V2.1 defensive check: make the exact failure mode described above visible
-            # instead of silently defaulting to INCORRECT with no trace.
-            if not evaluator_decision:
-                print("Evaluator WARNING: empty response content from "
-                      f"{config.EVALUATOR_MODEL_NAME} -- likely reasoning tokens consumed "
-                      "the token budget before the verdict word. Defaulting to INCORRECT.")
 
             # Order matters: check AMBIGUOUS and INCORRECT first, since a hallucinated
             # response containing multiple words could otherwise match "CORRECT" as a
@@ -317,16 +271,10 @@ CRITICAL: Output ONLY one single word: CORRECT, AMBIGUOUS, or INCORRECT. No punc
 
 Original query:
 {user_query}"""
-        # V2.3: temperature 0.2 -> 0.0. Missed in the original reproducibility sweep
-        # (TEMP_TUTOR=0.0 on the tutor) because this method was added later, as part of the
-        # CRAG build. Confirmed live impact: same original query run twice produced two
-        # different rewrites, which pulled different second-pass context and produced a
-        # different evaluator verdict (AMBIGUOUS vs CORRECT) on an otherwise identical
-        # question -- exactly the kind of run-to-run noise TEMP_TUTOR was meant to eliminate.
         response = self.llm_client.chat.completions.create(
             model=config.LLM_MODEL_NAME,
             messages=[{"role": "user", "content": prompt}],
-            temperature=0.0
+            temperature=0.2
         )
         return response.choices[0].message.content.strip()
 
