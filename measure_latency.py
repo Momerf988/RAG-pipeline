@@ -12,10 +12,23 @@
 #      (System B's actual production prompt, built later than this script). Fixed so the
 #      timed call matches what System B really runs -- otherwise this would time a call B
 #      never actually makes.
+#
+# V2.11: this script was the one piece of the pipeline with no resume/retry safety net --
+# confirmed live when it hit the account's daily token cap (429, tokens-per-day) and crashed
+# uncaught, losing every row it had already timed since results were only written to disk
+# once, at the very end of main(). Now matches the same pattern already used in
+# generate_evaluation_dataset.py / _B.py: reads its own OUTPUT_FILE on startup and skips
+# spec_ids already timed, saves after every row (not just at the end), retries RateLimitError
+# 3x with backoff then stops cleanly (progress kept) instead of crashing, and skips
+# (not crashes on) AssertionError/APIStatusError the same way the generation scripts do. This
+# is what makes it safe to run as its own separate step -- interrupt it any time (deadline,
+# quota, closing the laptop) and rerunning just continues from wherever it left off.
 import time
 import random
+import os
 import openpyxl
 import pandas as pd
+from openai import RateLimitError, APIStatusError
 from app_init import llm_client, db_index, embedder_model, reranker_model
 from user_query_processor import UserQueryProcessor
 from RAG_response_processor import LLMResponseProcessor
@@ -139,35 +152,82 @@ def time_system_b(question):
 
 def main():
     sample = select_latency_sample()
-    print(f"Timing {len(sample)} rows across both systems...\n")
 
-    results = []
-    for spec_id, topic_id, question, retrieval_level in sample:
+    # Resume: load already-timed spec_ids if the file exists (same pattern as the two
+    # generation scripts) -- running this script again after any interruption continues
+    # instead of re-timing rows or losing what's already saved.
+    if os.path.exists(OUTPUT_FILE):
+        existing_df = pd.read_csv(OUTPUT_FILE)
+        done_spec_ids = set(existing_df['spec_id'].tolist())
+        results = existing_df.to_dict('records')
+        print(f"Resuming -- {len(done_spec_ids)} rows already timed.")
+    else:
+        done_spec_ids = set()
+        results = []
+        print("Starting fresh.")
+
+    remaining = [row for row in sample if row[0] not in done_spec_ids]
+    print(f"Timing {len(sample)} rows total across both systems ({len(remaining)} remaining)...\n")
+
+    for spec_id, topic_id, question, retrieval_level in remaining:
         print(f"Timing {spec_id} ({retrieval_level})...")
 
-        a_timing = time_system_a(question)
-        b_timing = time_system_b(question)
+        retries = 0
+        row_result = None
+        skipped = False
+        while retries < 3:
+            try:
+                a_timing = time_system_a(question)
+                b_timing = time_system_b(question)
+                row_result = {
+                    "spec_id": spec_id,
+                    "topic_id": topic_id,
+                    "retrieval_level": retrieval_level,
+                    "A_retrieval_ms": a_timing["retrieval_ms"],
+                    "A_generation_ms": a_timing["generation_ms"],
+                    "A_total_ms": a_timing["total_ms"],
+                    "B_retrieval_ms": b_timing["retrieval_ms"],
+                    "B_evaluator_ms": b_timing["evaluator_ms"],
+                    "B_rewrite_cycle_ms": b_timing.get("rewrite_cycle_ms", 0),
+                    "B_generation_ms": b_timing["generation_ms"],
+                    "B_total_ms": b_timing["total_ms"],
+                    "B_path": b_timing["path"],
+                }
+                break
+            except RateLimitError as e:
+                wait_seconds = 30 * (retries + 1)   # 30s, 60s, 90s
+                print(f"{spec_id}: rate limit hit, sleeping {wait_seconds}s...")
+                time.sleep(wait_seconds)
+                retries += 1
+            except AssertionError as e:
+                print(f"{spec_id}: SKIPPED -- {e}")
+                skipped = True
+                break
+            except APIStatusError as e:
+                print(f"{spec_id}: SKIPPED -- request too large for this account's TPM limit: {e}")
+                skipped = True
+                break
 
-        results.append({
-            "spec_id": spec_id,
-            "topic_id": topic_id,
-            "retrieval_level": retrieval_level,
-            "A_retrieval_ms": a_timing["retrieval_ms"],
-            "A_generation_ms": a_timing["generation_ms"],
-            "A_total_ms": a_timing["total_ms"],
-            "B_retrieval_ms": b_timing["retrieval_ms"],
-            "B_evaluator_ms": b_timing["evaluator_ms"],
-            "B_rewrite_cycle_ms": b_timing.get("rewrite_cycle_ms", 0),
-            "B_generation_ms": b_timing["generation_ms"],
-            "B_total_ms": b_timing["total_ms"],
-            "B_path": b_timing["path"],
-        })
+        if skipped:
+            continue
+        if row_result is None:
+            print(f"{spec_id}: giving up after 3 retries (likely daily quota). "
+                  f"Progress saved -- rerun this script to continue.")
+            break
+
+        results.append(row_result)
+        pd.DataFrame(results).to_csv(OUTPUT_FILE, index=False)   # save after every row
+        done_spec_ids.add(spec_id)
         time.sleep(T)  # long pause -- must fully clear the per-minute token budget between rows,
                          # since each row can issue up to 5 LLM calls with large context payloads
+
     df = pd.DataFrame(results)
+    if len(df) == 0:
+        print("\nNo rows timed yet -- nothing to summarize.")
+        return
     df.to_csv(OUTPUT_FILE, index=False)
 
-    print(f"\n=== Latency summary (n={len(df)}) ===\n")
+    print(f"\n=== Latency summary (n={len(df)} of {len(sample)} planned) ===\n")
     print("System A:")
     print(f"  retrieval:  mean={df['A_retrieval_ms'].mean():.0f}ms")
     print(f"  generation: mean={df['A_generation_ms'].mean():.0f}ms")

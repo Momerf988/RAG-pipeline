@@ -100,7 +100,7 @@ import pandas as pd
 import time
 import os
 import openpyxl
-from openai import RateLimitError
+from openai import RateLimitError, APIStatusError
 from app_init import llm_client, db_index, embedder_model, reranker_model
 from user_query_processor import UserQueryProcessor
 from RAG_response_processor import LLMResponseProcessor
@@ -149,6 +149,7 @@ for row in sheet.iter_rows(min_row=2, max_row=sheet.max_row, values_only=True):
 
     # rate-limit-safe call with one retry
     retries = 0
+    truncated = False
     while retries < 3:
         try:
             embedded_query = user_query_processing_init.vectorize_query(question)
@@ -168,9 +169,34 @@ for row in sheet.iter_rows(min_row=2, max_row=sheet.max_row, values_only=True):
             print(f"{spec_id}: rate limit hit, sleeping {wait_seconds}s...")
             time.sleep(wait_seconds)
             retries += 1
+        except AssertionError as e:
+            # V2.7: this used to crash the whole overnight run on a single truncated answer
+            # (finish_reason == "length", from respond_to_user's own hard-abort check). Now
+            # logged loudly and SKIPPED (not marked done) instead of halting everything --
+            # spec_id stays out of done_spec_ids, so it's automatically picked up the next
+            # time this script is run, same as any other unfinished row. Nothing is silently
+            # lost: this line is your visible flag that TUTOR_MAX_TOKENS may need raising
+            # further if this keeps happening.
+            print(f"{spec_id}: SKIPPED -- {e}")
+            truncated = True
+            break
+        except APIStatusError as e:
+            # V2.10: this is what actually crashed the overnight run -- a 413 "request too
+            # large" error (this account's real ceiling: 6000 TPM, prompt + completion
+            # combined). Unlike RateLimitError, waiting and retrying the SAME request would
+            # fail again identically every time -- it's not a "too fast" problem, it's a
+            # "this exact request is structurally too big" problem. So: log it, skip the row
+            # (not marked done, picked up automatically next run), and move on immediately
+            # rather than wasting retries on something retrying can't fix.
+            print(f"{spec_id}: SKIPPED -- request too large for this account's TPM limit: {e}")
+            truncated = True
+            break
     else:
         print(f"{spec_id}: giving up after 3 retries. Saved progress so far; rerun script to continue.")
         break
+
+    if truncated:
+        continue
 
     new_row = pd.DataFrame([{
         'spec_id': spec_id,

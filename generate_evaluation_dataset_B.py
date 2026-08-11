@@ -16,7 +16,7 @@ import pandas as pd
 import time
 import os
 import openpyxl
-from openai import RateLimitError
+from openai import RateLimitError, APIStatusError
 from app_init import llm_client, db_index, embedder_model, reranker_model
 from user_query_processor import UserQueryProcessor
 from RAG_response_processor import LLMResponseProcessor
@@ -131,6 +131,7 @@ for row in sheet.iter_rows(min_row=2, max_row=sheet.max_row, values_only=True):
     # rate-limit-safe call with retry
     retries = 0
     result = None
+    truncated = False
     while retries < 3:
         try:
             result = process_one_row(question)
@@ -140,6 +141,24 @@ for row in sheet.iter_rows(min_row=2, max_row=sheet.max_row, values_only=True):
             print(f"{spec_id}: rate limit hit, sleeping {wait_seconds}s...")
             time.sleep(wait_seconds)
             retries += 1
+        except AssertionError as e:
+            # V2.7: same fix as generate_evaluation_dataset.py -- a truncated answer
+            # (finish_reason == "length") used to crash the whole run. Logged and SKIPPED
+            # instead; spec_id stays unmarked, so a later rerun picks it up automatically.
+            print(f"{spec_id}: SKIPPED -- {e}")
+            truncated = True
+            break
+        except APIStatusError as e:
+            # V2.10: real cause of tonight's crash -- a 413 "request too large" error (this
+            # account's actual ceiling: 6000 TPM, prompt + completion combined). System B can
+            # stack retrieval + evaluator + rewrite + a second retrieval on top of generation,
+            # so it's if anything more exposed to this than System A. Retrying the same
+            # request won't help (it's not a timing issue), so skip and move on immediately.
+            print(f"{spec_id}: SKIPPED -- request too large for this account's TPM limit: {e}")
+            truncated = True
+            break
+    if truncated:
+        continue
     if result is None:
         print(f"{spec_id}: giving up after 3 retries. Progress saved; rerun to continue.")
         break

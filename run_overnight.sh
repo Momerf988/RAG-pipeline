@@ -14,6 +14,12 @@
 #
 # Everything printed also gets saved to a timestamped log file so you have a full record to
 # check in the morning even if the terminal window itself gets closed.
+#
+# V2.9: added `python -u` (unbuffered) to every step. Piping output through tee (below)
+# changes how Python buffers stdout -- without -u, print() statements can sit in a buffer
+# and not actually appear on screen for a while, even though the script is working
+# correctly. That's almost certainly why the terminal looked frozen. -u forces every print
+# to appear immediately, both on screen and in the log file.
 
 set -eo pipefail   # stop immediately on any real crash -- loud failure, not a silent skip.
                     # pipefail matters here specifically because output is piped through tee
@@ -33,19 +39,19 @@ LOGFILE="overnight_run_$(date +%Y%m%d_%H%M%S).log"
 
     echo ""
     echo "=== [1/4] $(date +%H:%M:%S) -- Generating System A answers ==="
-    python generate_evaluation_dataset.py
+    python -u generate_evaluation_dataset.py
 
     echo ""
     echo "=== [2/4] $(date +%H:%M:%S) -- Generating System B answers ==="
-    python generate_evaluation_dataset_B.py
+    python -u generate_evaluation_dataset_B.py
 
     echo ""
     echo "=== [3/4] $(date +%H:%M:%S) -- RAGAS scoring both systems ==="
-    python run_ragas_eval.py
+    python -u run_ragas_eval.py
 
     echo ""
     echo "=== [4/4] $(date +%H:%M:%S) -- Measuring latency (System A vs B) ==="
-    python measure_latency.py
+    python -u measure_latency.py
 
     echo ""
     echo "=================================================================="

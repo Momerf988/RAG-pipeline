@@ -1,0 +1,51 @@
+==================================================================
+Overnight run started: Tue Aug 11 03:37:56 BST 2026
+==================================================================
+
+=== [1/4] 03:37:56 -- Generating System A answers ===
+/Users/admin/Data/UK/Ulster University/Curriculum/Semester 3/Dissertation/3. Technical Implementation/System A - LPITutor/My Implementation/V1/.venv/lib/python3.9/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+/Users/admin/Data/UK/Ulster University/Curriculum/Semester 3/Dissertation/3. Technical Implementation/System A - LPITutor/My Implementation/V1/generate_evaluation_dataset.py:184: FutureWarning: The behavior of DataFrame concatenation with empty or all-NA entries is deprecated. In a future version, this will no longer exclude empty or all-NA columns when determining the result dtypes. To retain the old behavior, exclude the relevant entries before the concat operation.
+  done_df = pd.concat([done_df, new_row], ignore_index=True)
+Starting fresh.
+Starting evaluation loop...
+Processed T1_001. Total done: 1
+Processed T1_002. Total done: 2
+Processed T1_003. Total done: 3
+Processed T1_004. Total done: 4
+Processed T1_005. Total done: 5
+Processed T1_006. Total done: 6
+Processed T1_007. Total done: 7
+Processed T1_008. Total done: 8
+Processed T1_009. Total done: 9
+Processed T1_010. Total done: 10
+Processed T1_011. Total done: 11
+Processed T2_001. Total done: 12
+Processed T2_002. Total done: 13
+Processed T2_003. Total done: 14
+Processed T2_004. Total done: 15
+Processed T2_005. Total done: 16
+Processed T2_006. Total done: 17
+Processed T2_007. Total done: 18
+Processed T2_008. Total done: 19
+Processed T2_009. Total done: 20
+Processed T2_010. Total done: 21
+T2_011: rate limit hit, sleeping 30s...
+Processed T2_011. Total done: 22
+Processed T2_012. Total done: 23
+Processed T2_013. Total done: 24
+Processed T2_014. Total done: 25
+Processed T2_015. Total done: 26
+Processed T2_016. Total done: 27
+Processed T2_017. Total done: 28
+Processed T2_018. Total done: 29
+Processed T2_019. Total done: 30
+Processed T3_001. Total done: 31
+Processed T3_002. Total done: 32
+Processed T3_003. Total done: 33
+Traceback (most recent call last):
+  File "/Users/admin/Data/UK/Ulster University/Curriculum/Semester 3/Dissertation/3. Technical Implementation/System A - LPITutor/My Implementation/V1/generate_evaluation_dataset.py", line 159, in <module>
+    final_answer, context_list, chunk_id_list = LLM_response_processing_init.respond_to_user(
+  File "/Users/admin/Data/UK/Ulster University/Curriculum/Semester 3/Dissertation/3. Technical Implementation/System A - LPITutor/My Implementation/V1/RAG_response_processor.py", line 140, in respond_to_user
+    assert finish_reason == "stop", f"HARD ABORT: finish_reason={finish_reason}, answer may be truncated"
+AssertionError: HARD ABORT: finish_reason=length, answer may be truncated

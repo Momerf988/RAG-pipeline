@@ -1,0 +1,481 @@
+==================================================================
+Overnight run started: Tue Aug 11 04:36:49 BST 2026
+==================================================================
+
+=== [1/4] 04:36:49 -- Generating System A answers ===
+/Users/admin/Data/UK/Ulster University/Curriculum/Semester 3/Dissertation/3. Technical Implementation/System A - LPITutor/My Implementation/V1/.venv/lib/python3.9/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+Initializing clients and models (this can take up to ~30s, especially the first time)...
+  LLM client ready.
+  Pinecone index connected.
+  Loading embedder model...
+  Loading reranker model...
+Initialization complete.
+
+Resuming — 45 rows already done.
+Starting evaluation loop...
+  NOTE: response truncated at 2048 tokens, retrying once with max_tokens=2560...
+T3_004: SKIPPED -- HARD ABORT: finish_reason=length, answer may be truncated
+Processed T3_017. Total done: 46
+Processed T3_018. Total done: 47
+Processed T3_019. Total done: 48
+Processed T4_001. Total done: 49
+Processed T4_002. Total done: 50
+Processed T4_003. Total done: 51
+Processed T4_004. Total done: 52
+Processed T4_005. Total done: 53
+Processed T4_006. Total done: 54
+Processed T4_007. Total done: 55
+Processed T4_008. Total done: 56
+Processed T4_009. Total done: 57
+Processed T4_010. Total done: 58
+Processed T4_011. Total done: 59
+Processed T4_012. Total done: 60
+Processed T5_001. Total done: 61
+Processed T5_002. Total done: 62
+Processed T5_003. Total done: 63
+Processed T5_004. Total done: 64
+Processed T5_005. Total done: 65
+Processed T5_006. Total done: 66
+Processed T5_007. Total done: 67
+Processed T5_008. Total done: 68
+Processed T5_009. Total done: 69
+Processed T6_001. Total done: 70
+Processed T6_002. Total done: 71
+Processed T6_003. Total done: 72
+Processed T6_004. Total done: 73
+Processed T6_005. Total done: 74
+Processed T6_006. Total done: 75
+Processed T6_007. Total done: 76
+Processed T6_008. Total done: 77
+Processed T6_009. Total done: 78
+Processed T6_010. Total done: 79
+Processed T6_011. Total done: 80
+Processed T6_012. Total done: 81
+Processed T6_013. Total done: 82
+T6_014: rate limit hit, sleeping 30s...
+T6_014: rate limit hit, sleeping 60s...
+T6_014: rate limit hit, sleeping 90s...
+T6_014: giving up after 3 retries. Saved progress so far; rerun script to continue.
+
+Done. 82 rows saved to System_A_final_eval_results.csv.
+
+=== [2/4] 05:01:03 -- Generating System B answers ===
+/Users/admin/Data/UK/Ulster University/Curriculum/Semester 3/Dissertation/3. Technical Implementation/System A - LPITutor/My Implementation/V1/.venv/lib/python3.9/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+Initializing clients and models (this can take up to ~30s, especially the first time)...
+  LLM client ready.
+  Pinecone index connected.
+  Loading embedder model...
+  Loading reranker model...
+Initialization complete.
+
+Starting fresh.
+Starting System B (three-way) evaluation loop...
+T1_001: rate limit hit, sleeping 30s...
+T1_001: rate limit hit, sleeping 60s...
+T1_001: rate limit hit, sleeping 90s...
+T1_001: giving up after 3 retries. Progress saved; rerun to continue.
+
+Done. 0 rows saved to System_B_3way_eval_results.csv.
+
+=== [3/4] 05:04:19 -- RAGAS scoring both systems ===
+/Users/admin/Data/UK/Ulster University/Curriculum/Semester 3/Dissertation/3. Technical Implementation/System A - LPITutor/My Implementation/V1/.venv/lib/python3.9/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+/Users/admin/Data/UK/Ulster University/Curriculum/Semester 3/Dissertation/3. Technical Implementation/System A - LPITutor/My Implementation/V1/run_ragas_eval.py:7: DeprecationWarning: Importing faithfulness from 'ragas.metrics' is deprecated and will be removed in v1.0. Please use 'ragas.metrics.collections' instead. Example: from ragas.metrics.collections import faithfulness
+  from ragas.metrics import faithfulness, answer_relevancy, context_precision, context_recall
+/Users/admin/Data/UK/Ulster University/Curriculum/Semester 3/Dissertation/3. Technical Implementation/System A - LPITutor/My Implementation/V1/run_ragas_eval.py:7: DeprecationWarning: Importing answer_relevancy from 'ragas.metrics' is deprecated and will be removed in v1.0. Please use 'ragas.metrics.collections' instead. Example: from ragas.metrics.collections import answer_relevancy
+  from ragas.metrics import faithfulness, answer_relevancy, context_precision, context_recall
+/Users/admin/Data/UK/Ulster University/Curriculum/Semester 3/Dissertation/3. Technical Implementation/System A - LPITutor/My Implementation/V1/run_ragas_eval.py:7: DeprecationWarning: Importing context_precision from 'ragas.metrics' is deprecated and will be removed in v1.0. Please use 'ragas.metrics.collections' instead. Example: from ragas.metrics.collections import context_precision
+  from ragas.metrics import faithfulness, answer_relevancy, context_precision, context_recall
+/Users/admin/Data/UK/Ulster University/Curriculum/Semester 3/Dissertation/3. Technical Implementation/System A - LPITutor/My Implementation/V1/run_ragas_eval.py:7: DeprecationWarning: Importing context_recall from 'ragas.metrics' is deprecated and will be removed in v1.0. Please use 'ragas.metrics.collections' instead. Example: from ragas.metrics.collections import context_recall
+  from ragas.metrics import faithfulness, answer_relevancy, context_precision, context_recall
+
+======================================================================
+SCORING SYSTEM A
+======================================================================
+1. Loading System_A_final_eval_results.csv...
+   82 rows loaded
+2. Parsing contexts...
+3. Initializing OpenAI judge (gpt-4o-mini)...
+Starting fresh.
+
+4. Scoring 82 rows on 4 metrics each...
+
+--- Scoring T1_001 (1/82) ---
+Evaluating:   0%|          | 0/4 [00:00<?, ?it/s]LLM returned 1 generations instead of requested 3. Proceeding with 1 generations.
+Evaluating:  25%|██▌       | 1/4 [00:02<00:06,  2.12s/it]Evaluating:  50%|█████     | 2/4 [00:05<00:06,  3.12s/it]Evaluating:  75%|███████▌  | 3/4 [00:20<00:08,  8.37s/it]Evaluating: 100%|██████████| 4/4 [00:21<00:00,  5.44s/it]Evaluating: 100%|██████████| 4/4 [00:21<00:00,  5.38s/it]
+  saved.
+--- Scoring T1_002 (2/82) ---
+Evaluating:   0%|          | 0/4 [00:00<?, ?it/s]LLM returned 1 generations instead of requested 3. Proceeding with 1 generations.
+Evaluating:  25%|██▌       | 1/4 [00:01<00:04,  1.56s/it]Evaluating:  50%|█████     | 2/4 [00:02<00:01,  1.02it/s]Evaluating:  75%|███████▌  | 3/4 [00:10<00:04,  4.27s/it]Evaluating: 100%|██████████| 4/4 [00:18<00:00,  5.70s/it]Evaluating: 100%|██████████| 4/4 [00:18<00:00,  4.55s/it]
+  saved.
+--- Scoring T1_003 (3/82) ---
+Evaluating:   0%|          | 0/4 [00:00<?, ?it/s]LLM returned 1 generations instead of requested 3. Proceeding with 1 generations.
+Evaluating:  25%|██▌       | 1/4 [00:01<00:03,  1.29s/it]Evaluating:  50%|█████     | 2/4 [00:03<00:03,  1.99s/it]Evaluating:  75%|███████▌  | 3/4 [00:12<00:05,  5.25s/it]Evaluating: 100%|██████████| 4/4 [00:20<00:00,  6.01s/it]Evaluating: 100%|██████████| 4/4 [00:20<00:00,  5.02s/it]
+  saved.
+--- Scoring T1_004 (4/82) ---
+Evaluating:   0%|          | 0/4 [00:00<?, ?it/s]LLM returned 1 generations instead of requested 3. Proceeding with 1 generations.
+Evaluating:  25%|██▌       | 1/4 [00:01<00:03,  1.27s/it]Evaluating:  50%|█████     | 2/4 [00:06<00:07,  3.51s/it]Evaluating:  75%|███████▌  | 3/4 [00:16<00:06,  6.44s/it]Evaluating: 100%|██████████| 4/4 [00:22<00:00,  6.35s/it]Evaluating: 100%|██████████| 4/4 [00:22<00:00,  5.62s/it]
+  saved.
+--- Scoring T1_005 (5/82) ---
+Evaluating:   0%|          | 0/4 [00:00<?, ?it/s]LLM returned 1 generations instead of requested 3. Proceeding with 1 generations.
+Evaluating:  25%|██▌       | 1/4 [00:01<00:04,  1.42s/it]Evaluating:  50%|█████     | 2/4 [00:05<00:05,  2.78s/it]Evaluating:  75%|███████▌  | 3/4 [00:15<00:06,  6.42s/it]Evaluating: 100%|██████████| 4/4 [00:23<00:00,  6.86s/it]Evaluating: 100%|██████████| 4/4 [00:23<00:00,  5.86s/it]
+  saved.
+--- Scoring T1_006 (6/82) ---
+Evaluating:   0%|          | 0/4 [00:00<?, ?it/s]LLM returned 1 generations instead of requested 3. Proceeding with 1 generations.
+Evaluating:  25%|██▌       | 1/4 [00:01<00:03,  1.04s/it]Evaluating:  50%|█████     | 2/4 [00:03<00:03,  1.82s/it]Evaluating:  75%|███████▌  | 3/4 [00:13<00:05,  5.53s/it]Evaluating: 100%|██████████| 4/4 [00:19<00:00,  5.93s/it]Evaluating: 100%|██████████| 4/4 [00:19<00:00,  4.97s/it]
+  saved.
+--- Scoring T1_007 (7/82) ---
+Evaluating:   0%|          | 0/4 [00:00<?, ?it/s]LLM returned 1 generations instead of requested 3. Proceeding with 1 generations.
+Evaluating:  25%|██▌       | 1/4 [00:01<00:03,  1.03s/it]Evaluating:  50%|█████     | 2/4 [00:03<00:04,  2.15s/it]Evaluating:  75%|███████▌  | 3/4 [00:11<00:04,  4.69s/it]Evaluating: 100%|██████████| 4/4 [00:17<00:00,  5.26s/it]Evaluating: 100%|██████████| 4/4 [00:17<00:00,  4.45s/it]
+  saved.
+--- Scoring T1_008 (8/82) ---
+Evaluating:   0%|          | 0/4 [00:00<?, ?it/s]LLM returned 1 generations instead of requested 3. Proceeding with 1 generations.
+Evaluating:  25%|██▌       | 1/4 [00:01<00:03,  1.13s/it]Evaluating:  50%|█████     | 2/4 [00:03<00:03,  1.66s/it]Evaluating:  75%|███████▌  | 3/4 [00:17<00:07,  7.26s/it]Evaluating: 100%|██████████| 4/4 [00:18<00:00,  5.14s/it]Evaluating: 100%|██████████| 4/4 [00:18<00:00,  4.75s/it]
+  saved.
+--- Scoring T1_009 (9/82) ---
+Evaluating:   0%|          | 0/4 [00:00<?, ?it/s]LLM returned 1 generations instead of requested 3. Proceeding with 1 generations.
+Evaluating:  25%|██▌       | 1/4 [00:01<00:05,  1.90s/it]Evaluating:  50%|█████     | 2/4 [00:09<00:09,  4.99s/it]Evaluating:  75%|███████▌  | 3/4 [00:16<00:05,  5.96s/it]Evaluating: 100%|██████████| 4/4 [00:26<00:00,  7.55s/it]Evaluating: 100%|██████████| 4/4 [00:26<00:00,  6.54s/it]
+  saved.
+--- Scoring T1_010 (10/82) ---
+Evaluating:   0%|          | 0/4 [00:00<?, ?it/s]LLM returned 1 generations instead of requested 3. Proceeding with 1 generations.
+Evaluating:  25%|██▌       | 1/4 [00:01<00:03,  1.17s/it]Evaluating:  50%|█████     | 2/4 [00:07<00:08,  4.42s/it]Evaluating:  75%|███████▌  | 3/4 [00:21<00:08,  8.49s/it]Evaluating: 100%|██████████| 4/4 [00:30<00:00,  8.77s/it]Evaluating: 100%|██████████| 4/4 [00:30<00:00,  7.60s/it]
+  saved.
+--- Scoring T1_011 (11/82) ---
+Evaluating:   0%|          | 0/4 [00:00<?, ?it/s]LLM returned 1 generations instead of requested 3. Proceeding with 1 generations.
+Evaluating:  25%|██▌       | 1/4 [00:01<00:03,  1.05s/it]Evaluating:  50%|█████     | 2/4 [00:09<00:11,  5.61s/it]Evaluating:  75%|███████▌  | 3/4 [00:15<00:05,  5.57s/it]Evaluating: 100%|██████████| 4/4 [00:19<00:00,  5.03s/it]Evaluating: 100%|██████████| 4/4 [00:19<00:00,  4.89s/it]
+  saved.
+--- Scoring T2_001 (12/82) ---
+Evaluating:   0%|          | 0/4 [00:00<?, ?it/s]LLM returned 1 generations instead of requested 3. Proceeding with 1 generations.
+Evaluating:  25%|██▌       | 1/4 [00:01<00:04,  1.45s/it]Evaluating:  50%|█████     | 2/4 [00:01<00:01,  1.30it/s]Evaluating:  75%|███████▌  | 3/4 [00:09<00:03,  3.86s/it]Evaluating: 100%|██████████| 4/4 [00:18<00:00,  6.15s/it]Evaluating: 100%|██████████| 4/4 [00:18<00:00,  4.74s/it]
+  saved.
+--- Scoring T2_002 (13/82) ---
+Evaluating:   0%|          | 0/4 [00:00<?, ?it/s]LLM returned 1 generations instead of requested 3. Proceeding with 1 generations.
+Evaluating:  25%|██▌       | 1/4 [00:01<00:03,  1.06s/it]Evaluating:  50%|█████     | 2/4 [00:05<00:06,  3.28s/it]Evaluating:  75%|███████▌  | 3/4 [00:17<00:06,  6.87s/it]Evaluating: 100%|██████████| 4/4 [00:19<00:00,  5.20s/it]Evaluating: 100%|██████████| 4/4 [00:19<00:00,  4.92s/it]
+  saved.
+--- Scoring T2_003 (14/82) ---
+Evaluating:   0%|          | 0/4 [00:00<?, ?it/s]LLM returned 1 generations instead of requested 3. Proceeding with 1 generations.
+Evaluating:  25%|██▌       | 1/4 [00:01<00:04,  1.40s/it]Evaluating:  50%|█████     | 2/4 [00:07<00:07,  3.90s/it]Evaluating:  75%|███████▌  | 3/4 [00:17<00:06,  6.77s/it]Evaluating: 100%|██████████| 4/4 [00:18<00:00,  4.44s/it]Evaluating: 100%|██████████| 4/4 [00:18<00:00,  4.53s/it]
+  saved.
+--- Scoring T2_004 (15/82) ---
+Evaluating:   0%|          | 0/4 [00:00<?, ?it/s]LLM returned 1 generations instead of requested 3. Proceeding with 1 generations.
+Evaluating:  25%|██▌       | 1/4 [00:01<00:04,  1.52s/it]Evaluating:  50%|█████     | 2/4 [00:03<00:03,  1.96s/it]Evaluating:  75%|███████▌  | 3/4 [00:16<00:06,  6.73s/it]Evaluating: 100%|██████████| 4/4 [00:18<00:00,  4.91s/it]Evaluating: 100%|██████████| 4/4 [00:18<00:00,  4.58s/it]
+  saved.
+--- Scoring T2_005 (16/82) ---
+Evaluating:   0%|          | 0/4 [00:00<?, ?it/s]LLM returned 1 generations instead of requested 3. Proceeding with 1 generations.
+Evaluating:  25%|██▌       | 1/4 [00:01<00:04,  1.53s/it]Evaluating:  50%|█████     | 2/4 [00:05<00:06,  3.12s/it]Evaluating:  75%|███████▌  | 3/4 [00:14<00:05,  5.53s/it]Evaluating: 100%|██████████| 4/4 [00:22<00:00,  6.71s/it]Evaluating: 100%|██████████| 4/4 [00:22<00:00,  5.67s/it]
+  saved.
+--- Scoring T2_006 (17/82) ---
+Evaluating:   0%|          | 0/4 [00:00<?, ?it/s]LLM returned 1 generations instead of requested 3. Proceeding with 1 generations.
+Evaluating:  25%|██▌       | 1/4 [00:01<00:03,  1.13s/it]Evaluating:  50%|█████     | 2/4 [00:07<00:08,  4.23s/it]Evaluating:  75%|███████▌  | 3/4 [00:14<00:05,  5.26s/it]Evaluating: 100%|██████████| 4/4 [00:20<00:00,  5.81s/it]Evaluating: 100%|██████████| 4/4 [00:20<00:00,  5.17s/it]
+  saved.
+--- Scoring T2_007 (18/82) ---
+Evaluating:   0%|          | 0/4 [00:00<?, ?it/s]LLM returned 1 generations instead of requested 3. Proceeding with 1 generations.
+Evaluating:  25%|██▌       | 1/4 [00:01<00:04,  1.45s/it]Evaluating:  50%|█████     | 2/4 [00:14<00:16,  8.41s/it]Evaluating:  75%|███████▌  | 3/4 [00:19<00:06,  6.91s/it]Evaluating: 100%|██████████| 4/4 [00:22<00:00,  5.03s/it]Evaluating: 100%|██████████| 4/4 [00:22<00:00,  5.50s/it]
+  saved.
+--- Scoring T2_008 (19/82) ---
+Evaluating:   0%|          | 0/4 [00:00<?, ?it/s]LLM returned 1 generations instead of requested 3. Proceeding with 1 generations.
+Evaluating:  25%|██▌       | 1/4 [00:01<00:03,  1.06s/it]Evaluating:  50%|█████     | 2/4 [00:03<00:03,  1.96s/it]Evaluating:  75%|███████▌  | 3/4 [00:08<00:03,  3.44s/it]Evaluating: 100%|██████████| 4/4 [00:18<00:00,  5.94s/it]Evaluating: 100%|██████████| 4/4 [00:18<00:00,  4.65s/it]
+  saved.
+--- Scoring T2_009 (20/82) ---
+Evaluating:   0%|          | 0/4 [00:00<?, ?it/s]LLM returned 1 generations instead of requested 3. Proceeding with 1 generations.
+Evaluating:  25%|██▌       | 1/4 [00:01<00:04,  1.65s/it]Evaluating:  50%|█████     | 2/4 [00:05<00:06,  3.14s/it]Evaluating:  75%|███████▌  | 3/4 [00:08<00:03,  3.06s/it]Evaluating: 100%|██████████| 4/4 [00:20<00:00,  6.46s/it]Evaluating: 100%|██████████| 4/4 [00:20<00:00,  5.12s/it]
+  saved.
+--- Scoring T2_010 (21/82) ---
+Evaluating:   0%|          | 0/4 [00:00<?, ?it/s]LLM returned 1 generations instead of requested 3. Proceeding with 1 generations.
+Evaluating:  25%|██▌       | 1/4 [00:01<00:03,  1.23s/it]Evaluating:  50%|█████     | 2/4 [00:09<00:10,  5.12s/it]Evaluating:  75%|███████▌  | 3/4 [00:18<00:07,  7.20s/it]Evaluating: 100%|██████████| 4/4 [00:28<00:00,  8.28s/it]Evaluating: 100%|██████████| 4/4 [00:28<00:00,  7.17s/it]
+  saved.
+--- Scoring T2_011 (22/82) ---
+Evaluating:   0%|          | 0/4 [00:00<?, ?it/s]LLM returned 1 generations instead of requested 3. Proceeding with 1 generations.
+Evaluating:  25%|██▌       | 1/4 [00:01<00:04,  1.34s/it]Evaluating:  50%|█████     | 2/4 [00:09<00:10,  5.48s/it]Evaluating:  75%|███████▌  | 3/4 [00:19<00:07,  7.27s/it]Evaluating: 100%|██████████| 4/4 [00:21<00:00,  5.25s/it]Evaluating: 100%|██████████| 4/4 [00:21<00:00,  5.32s/it]
+  saved.
+--- Scoring T2_012 (23/82) ---
+Evaluating:   0%|          | 0/4 [00:00<?, ?it/s]LLM returned 1 generations instead of requested 3. Proceeding with 1 generations.
+Evaluating:  25%|██▌       | 1/4 [00:01<00:04,  1.53s/it]Evaluating:  50%|█████     | 2/4 [00:11<00:12,  6.29s/it]Evaluating:  75%|███████▌  | 3/4 [00:16<00:05,  5.71s/it]Evaluating: 100%|██████████| 4/4 [00:19<00:00,  4.91s/it]Evaluating: 100%|██████████| 4/4 [00:19<00:00,  4.96s/it]
+  saved.
+--- Scoring T2_013 (24/82) ---
+Evaluating:   0%|          | 0/4 [00:00<?, ?it/s]LLM returned 1 generations instead of requested 3. Proceeding with 1 generations.
+Evaluating:  25%|██▌       | 1/4 [00:01<00:04,  1.39s/it]Evaluating:  50%|█████     | 2/4 [00:05<00:06,  3.24s/it]Evaluating:  75%|███████▌  | 3/4 [00:11<00:04,  4.09s/it]Evaluating: 100%|██████████| 4/4 [00:22<00:00,  7.02s/it]Evaluating: 100%|██████████| 4/4 [00:22<00:00,  5.63s/it]
+  saved.
+--- Scoring T2_014 (25/82) ---
+Evaluating:   0%|          | 0/4 [00:00<?, ?it/s]LLM returned 1 generations instead of requested 3. Proceeding with 1 generations.
+Evaluating:  25%|██▌       | 1/4 [00:00<00:02,  1.03it/s]Evaluating:  50%|█████     | 2/4 [00:06<00:07,  3.72s/it]Evaluating:  75%|███████▌  | 3/4 [00:13<00:04,  4.97s/it]Evaluating: 100%|██████████| 4/4 [00:19<00:00,  5.63s/it]Evaluating: 100%|██████████| 4/4 [00:19<00:00,  4.93s/it]
+  saved.
+--- Scoring T2_015 (26/82) ---
+Evaluating:   0%|          | 0/4 [00:00<?, ?it/s]LLM returned 1 generations instead of requested 3. Proceeding with 1 generations.
+Evaluating:  25%|██▌       | 1/4 [00:01<00:03,  1.05s/it]Evaluating:  50%|█████     | 2/4 [00:05<00:05,  2.91s/it]Evaluating:  75%|███████▌  | 3/4 [00:10<00:04,  4.10s/it]Evaluating: 100%|██████████| 4/4 [00:18<00:00,  5.59s/it]Evaluating: 100%|██████████| 4/4 [00:18<00:00,  4.66s/it]
+  saved.
+--- Scoring T2_016 (27/82) ---
+Evaluating:   0%|          | 0/4 [00:00<?, ?it/s]LLM returned 1 generations instead of requested 3. Proceeding with 1 generations.
+Evaluating:  25%|██▌       | 1/4 [00:01<00:03,  1.01s/it]Evaluating:  50%|█████     | 2/4 [00:06<00:06,  3.37s/it]Evaluating:  75%|███████▌  | 3/4 [00:20<00:08,  8.33s/it]Evaluating: 100%|██████████| 4/4 [00:23<00:00,  6.38s/it]Evaluating: 100%|██████████| 4/4 [00:23<00:00,  5.91s/it]
+  saved.
+--- Scoring T2_017 (28/82) ---
+Evaluating:   0%|          | 0/4 [00:00<?, ?it/s]LLM returned 1 generations instead of requested 3. Proceeding with 1 generations.
+Evaluating:  25%|██▌       | 1/4 [00:01<00:04,  1.37s/it]Evaluating:  50%|█████     | 2/4 [00:06<00:06,  3.36s/it]Evaluating:  75%|███████▌  | 3/4 [00:11<00:04,  4.07s/it]Evaluating: 100%|██████████| 4/4 [00:18<00:00,  5.54s/it]Evaluating: 100%|██████████| 4/4 [00:18<00:00,  4.71s/it]
+  saved.
+--- Scoring T2_018 (29/82) ---
+Evaluating:   0%|          | 0/4 [00:00<?, ?it/s]LLM returned 1 generations instead of requested 3. Proceeding with 1 generations.
+Evaluating:  25%|██▌       | 1/4 [00:01<00:03,  1.07s/it]Evaluating:  50%|█████     | 2/4 [00:07<00:08,  4.19s/it]Evaluating:  75%|███████▌  | 3/4 [00:18<00:07,  7.51s/it]Evaluating: 100%|██████████| 4/4 [00:21<00:00,  5.72s/it]Evaluating: 100%|██████████| 4/4 [00:21<00:00,  5.47s/it]
+  saved.
+--- Scoring T2_019 (30/82) ---
+Evaluating:   0%|          | 0/4 [00:00<?, ?it/s]LLM returned 1 generations instead of requested 3. Proceeding with 1 generations.
+Evaluating:  25%|██▌       | 1/4 [00:01<00:04,  1.51s/it]Evaluating:  50%|█████     | 2/4 [00:11<00:13,  6.51s/it]Evaluating:  75%|███████▌  | 3/4 [00:19<00:06,  6.95s/it]Evaluating: 100%|██████████| 4/4 [00:19<00:00,  4.58s/it]Evaluating: 100%|██████████| 4/4 [00:19<00:00,  4.99s/it]
+  saved.
+--- Scoring T3_001 (31/82) ---
+Evaluating:   0%|          | 0/4 [00:00<?, ?it/s]LLM returned 1 generations instead of requested 3. Proceeding with 1 generations.
+Evaluating:  25%|██▌       | 1/4 [00:01<00:04,  1.39s/it]Evaluating:  50%|█████     | 2/4 [00:04<00:04,  2.40s/it]Evaluating:  75%|███████▌  | 3/4 [00:05<00:01,  1.68s/it]Evaluating: 100%|██████████| 4/4 [00:18<00:00,  6.15s/it]Evaluating: 100%|██████████| 4/4 [00:18<00:00,  4.58s/it]
+  saved.
+--- Scoring T3_002 (32/82) ---
+Evaluating:   0%|          | 0/4 [00:00<?, ?it/s]LLM returned 1 generations instead of requested 3. Proceeding with 1 generations.
+Evaluating:  25%|██▌       | 1/4 [00:01<00:03,  1.10s/it]Evaluating:  50%|█████     | 2/4 [00:04<00:05,  2.74s/it]Evaluating:  75%|███████▌  | 3/4 [00:14<00:05,  5.74s/it]Evaluating: 100%|██████████| 4/4 [00:20<00:00,  6.03s/it]Evaluating: 100%|██████████| 4/4 [00:20<00:00,  5.19s/it]
+  saved.
+--- Scoring T3_003 (33/82) ---
+Evaluating:   0%|          | 0/4 [00:00<?, ?it/s]LLM returned 1 generations instead of requested 3. Proceeding with 1 generations.
+Evaluating:  25%|██▌       | 1/4 [00:01<00:03,  1.21s/it]Evaluating:  50%|█████     | 2/4 [00:04<00:04,  2.48s/it]Evaluating:  75%|███████▌  | 3/4 [00:19<00:08,  8.32s/it]Evaluating: 100%|██████████| 4/4 [00:26<00:00,  7.74s/it]Evaluating: 100%|██████████| 4/4 [00:26<00:00,  6.68s/it]
+  saved.
+--- Scoring T3_005 (34/82) ---
+Evaluating:   0%|          | 0/4 [00:00<?, ?it/s]LLM returned 1 generations instead of requested 3. Proceeding with 1 generations.
+Evaluating:  25%|██▌       | 1/4 [00:01<00:03,  1.00s/it]Evaluating:  50%|█████     | 2/4 [00:01<00:01,  1.28it/s]Evaluating:  75%|███████▌  | 3/4 [00:10<00:04,  4.40s/it]Evaluating: 100%|██████████| 4/4 [00:19<00:00,  6.10s/it]Evaluating: 100%|██████████| 4/4 [00:19<00:00,  4.76s/it]
+  saved.
+--- Scoring T3_006 (35/82) ---
+Evaluating:   0%|          | 0/4 [00:00<?, ?it/s]LLM returned 1 generations instead of requested 3. Proceeding with 1 generations.
+Evaluating:  25%|██▌       | 1/4 [00:01<00:03,  1.31s/it]Evaluating:  50%|█████     | 2/4 [00:05<00:06,  3.11s/it]Evaluating:  75%|███████▌  | 3/4 [00:09<00:03,  3.40s/it]Evaluating: 100%|██████████| 4/4 [00:19<00:00,  5.89s/it]Evaluating: 100%|██████████| 4/4 [00:19<00:00,  4.78s/it]
+  saved.
+--- Scoring T3_007 (36/82) ---
+Evaluating:   0%|          | 0/4 [00:00<?, ?it/s]LLM returned 1 generations instead of requested 3. Proceeding with 1 generations.
+Evaluating:  25%|██▌       | 1/4 [00:01<00:03,  1.01s/it]Evaluating:  50%|█████     | 2/4 [00:04<00:04,  2.48s/it]Evaluating:  75%|███████▌  | 3/4 [00:09<00:03,  3.71s/it]Evaluating: 100%|██████████| 4/4 [00:20<00:00,  6.50s/it]Evaluating: 100%|██████████| 4/4 [00:20<00:00,  5.12s/it]
+  saved.
+--- Scoring T3_008 (37/82) ---
+Evaluating:   0%|          | 0/4 [00:00<?, ?it/s]LLM returned 1 generations instead of requested 3. Proceeding with 1 generations.
+Evaluating:  25%|██▌       | 1/4 [00:01<00:03,  1.00s/it]Evaluating:  50%|█████     | 2/4 [00:05<00:05,  2.82s/it]Evaluating:  75%|███████▌  | 3/4 [00:12<00:04,  4.99s/it]Evaluating: 100%|██████████| 4/4 [00:21<00:00,  6.54s/it]Evaluating: 100%|██████████| 4/4 [00:21<00:00,  5.40s/it]
+  saved.
+--- Scoring T3_009 (38/82) ---
+Evaluating:   0%|          | 0/4 [00:00<?, ?it/s]LLM returned 1 generations instead of requested 3. Proceeding with 1 generations.
+Evaluating:  25%|██▌       | 1/4 [00:01<00:03,  1.11s/it]Evaluating:  50%|█████     | 2/4 [00:09<00:10,  5.21s/it]Evaluating:  75%|███████▌  | 3/4 [00:19<00:07,  7.69s/it]Evaluating: 100%|██████████| 4/4 [00:19<00:00,  4.97s/it]
+  saved.
+--- Scoring T3_010 (39/82) ---
+Evaluating:   0%|          | 0/4 [00:00<?, ?it/s]LLM returned 1 generations instead of requested 3. Proceeding with 1 generations.
+Evaluating:  25%|██▌       | 1/4 [00:01<00:04,  1.38s/it]Evaluating:  50%|█████     | 2/4 [00:08<00:09,  4.77s/it]Evaluating:  75%|███████▌  | 3/4 [00:19<00:07,  7.60s/it]Evaluating: 100%|██████████| 4/4 [00:31<00:00,  9.38s/it]Evaluating: 100%|██████████| 4/4 [00:31<00:00,  7.90s/it]
+  saved.
+--- Scoring T3_011 (40/82) ---
+Evaluating:   0%|          | 0/4 [00:00<?, ?it/s]LLM returned 1 generations instead of requested 3. Proceeding with 1 generations.
+Evaluating:  25%|██▌       | 1/4 [00:01<00:03,  1.12s/it]Evaluating:  50%|█████     | 2/4 [00:09<00:10,  5.33s/it]Evaluating:  75%|███████▌  | 3/4 [00:20<00:07,  7.99s/it]Evaluating: 100%|██████████| 4/4 [00:23<00:00,  5.97s/it]Evaluating: 100%|██████████| 4/4 [00:23<00:00,  5.86s/it]
+  saved.
+--- Scoring T3_012 (41/82) ---
+Evaluating:   0%|          | 0/4 [00:00<?, ?it/s]LLM returned 1 generations instead of requested 3. Proceeding with 1 generations.
+Evaluating:  25%|██▌       | 1/4 [00:01<00:04,  1.41s/it]Evaluating:  50%|█████     | 2/4 [00:05<00:05,  2.99s/it]Evaluating:  75%|███████▌  | 3/4 [00:13<00:05,  5.12s/it]Evaluating: 100%|██████████| 4/4 [00:18<00:00,  5.21s/it]Evaluating: 100%|██████████| 4/4 [00:18<00:00,  4.63s/it]
+  saved.
+--- Scoring T3_013 (42/82) ---
+Evaluating:   0%|          | 0/4 [00:00<?, ?it/s]LLM returned 1 generations instead of requested 3. Proceeding with 1 generations.
+Evaluating:  25%|██▌       | 1/4 [00:01<00:03,  1.22s/it]Evaluating:  50%|█████     | 2/4 [00:06<00:07,  3.75s/it]Evaluating:  75%|███████▌  | 3/4 [00:21<00:08,  8.68s/it]Evaluating: 100%|██████████| 4/4 [00:22<00:00,  5.73s/it]Evaluating: 100%|██████████| 4/4 [00:22<00:00,  5.63s/it]
+  saved.
+--- Scoring T3_014 (43/82) ---
+Evaluating:   0%|          | 0/4 [00:00<?, ?it/s]LLM returned 1 generations instead of requested 3. Proceeding with 1 generations.
+Evaluating:  25%|██▌       | 1/4 [00:01<00:04,  1.64s/it]Evaluating:  75%|███████▌  | 3/4 [00:12<00:04,  4.44s/it]Evaluating: 100%|██████████| 4/4 [00:19<00:00,  5.39s/it]Evaluating: 100%|██████████| 4/4 [00:19<00:00,  4.91s/it]
+  saved.
+--- Scoring T3_015 (44/82) ---
+Evaluating:   0%|          | 0/4 [00:00<?, ?it/s]LLM returned 1 generations instead of requested 3. Proceeding with 1 generations.
+Evaluating:  25%|██▌       | 1/4 [00:01<00:03,  1.09s/it]Evaluating:  50%|█████     | 2/4 [00:04<00:04,  2.38s/it]Evaluating:  75%|███████▌  | 3/4 [00:10<00:04,  4.28s/it]Evaluating: 100%|██████████| 4/4 [00:20<00:00,  6.52s/it]Evaluating: 100%|██████████| 4/4 [00:20<00:00,  5.21s/it]
+  saved.
+--- Scoring T3_016 (45/82) ---
+Evaluating:   0%|          | 0/4 [00:00<?, ?it/s]LLM returned 1 generations instead of requested 3. Proceeding with 1 generations.
+Evaluating:  25%|██▌       | 1/4 [00:01<00:03,  1.31s/it]Evaluating:  50%|█████     | 2/4 [00:12<00:14,  7.29s/it]Evaluating:  75%|███████▌  | 3/4 [00:17<00:06,  6.16s/it]Evaluating: 100%|██████████| 4/4 [00:18<00:00,  3.93s/it]Evaluating: 100%|██████████| 4/4 [00:18<00:00,  4.53s/it]
+  saved.
+--- Scoring T3_017 (46/82) ---
+Evaluating:   0%|          | 0/4 [00:00<?, ?it/s]LLM returned 1 generations instead of requested 3. Proceeding with 1 generations.
+Evaluating:  25%|██▌       | 1/4 [00:01<00:05,  1.79s/it]Evaluating:  50%|█████     | 2/4 [00:06<00:07,  3.64s/it]Evaluating:  75%|███████▌  | 3/4 [00:11<00:04,  4.09s/it]Evaluating: 100%|██████████| 4/4 [00:18<00:00,  5.18s/it]Evaluating: 100%|██████████| 4/4 [00:18<00:00,  4.55s/it]
+  saved.
+--- Scoring T3_018 (47/82) ---
+Evaluating:   0%|          | 0/4 [00:00<?, ?it/s]LLM returned 1 generations instead of requested 3. Proceeding with 1 generations.
+Evaluating:  25%|██▌       | 1/4 [00:00<00:02,  1.02it/s]Evaluating:  50%|█████     | 2/4 [00:05<00:06,  3.30s/it]Evaluating:  75%|███████▌  | 3/4 [00:18<00:07,  7.61s/it]Evaluating: 100%|██████████| 4/4 [00:20<00:00,  5.49s/it]Evaluating: 100%|██████████| 4/4 [00:20<00:00,  5.22s/it]
+  saved.
+--- Scoring T3_019 (48/82) ---
+Evaluating:   0%|          | 0/4 [00:00<?, ?it/s]LLM returned 1 generations instead of requested 3. Proceeding with 1 generations.
+Evaluating:  25%|██▌       | 1/4 [00:01<00:04,  1.50s/it]Evaluating:  50%|█████     | 2/4 [00:05<00:06,  3.07s/it]Evaluating:  75%|███████▌  | 3/4 [00:20<00:08,  8.38s/it]Evaluating: 100%|██████████| 4/4 [00:21<00:00,  5.67s/it]Evaluating: 100%|██████████| 4/4 [00:21<00:00,  5.47s/it]
+  saved.
+--- Scoring T4_001 (49/82) ---
+Evaluating:   0%|          | 0/4 [00:00<?, ?it/s]LLM returned 1 generations instead of requested 3. Proceeding with 1 generations.
+Evaluating:  25%|██▌       | 1/4 [00:01<00:05,  1.89s/it]Evaluating:  50%|█████     | 2/4 [00:02<00:02,  1.02s/it]Evaluating:  75%|███████▌  | 3/4 [00:10<00:04,  4.42s/it]Evaluating: 100%|██████████| 4/4 [00:17<00:00,  5.22s/it]Evaluating: 100%|██████████| 4/4 [00:17<00:00,  4.30s/it]
+  saved.
+--- Scoring T4_002 (50/82) ---
+Evaluating:   0%|          | 0/4 [00:00<?, ?it/s]LLM returned 1 generations instead of requested 3. Proceeding with 1 generations.
+Evaluating:  25%|██▌       | 1/4 [00:01<00:03,  1.12s/it]Evaluating:  50%|█████     | 2/4 [00:04<00:05,  2.62s/it]Evaluating:  75%|███████▌  | 3/4 [00:19<00:08,  8.34s/it]Evaluating: 100%|██████████| 4/4 [00:21<00:00,  5.54s/it]Evaluating: 100%|██████████| 4/4 [00:21<00:00,  5.29s/it]
+  saved.
+--- Scoring T4_003 (51/82) ---
+Evaluating:   0%|          | 0/4 [00:00<?, ?it/s]LLM returned 1 generations instead of requested 3. Proceeding with 1 generations.
+Evaluating:  25%|██▌       | 1/4 [00:01<00:04,  1.38s/it]Evaluating:  50%|█████     | 2/4 [00:05<00:06,  3.17s/it]Evaluating:  75%|███████▌  | 3/4 [00:19<00:08,  8.08s/it]Evaluating: 100%|██████████| 4/4 [00:19<00:00,  4.96s/it]
+  saved.
+--- Scoring T4_004 (52/82) ---
+Evaluating:   0%|          | 0/4 [00:00<?, ?it/s]LLM returned 1 generations instead of requested 3. Proceeding with 1 generations.
+Evaluating:  25%|██▌       | 1/4 [00:01<00:04,  1.65s/it]Evaluating:  50%|█████     | 2/4 [00:01<00:01,  1.15it/s]Evaluating:  75%|███████▌  | 3/4 [00:13<00:05,  5.60s/it]Evaluating: 100%|██████████| 4/4 [00:17<00:00,  5.25s/it]Evaluating: 100%|██████████| 4/4 [00:17<00:00,  4.48s/it]
+  saved.
+--- Scoring T4_005 (53/82) ---
+Evaluating:   0%|          | 0/4 [00:00<?, ?it/s]LLM returned 1 generations instead of requested 3. Proceeding with 1 generations.
+Evaluating:  25%|██▌       | 1/4 [00:01<00:05,  1.90s/it]Evaluating:  50%|█████     | 2/4 [00:06<00:06,  3.33s/it]Evaluating:  75%|███████▌  | 3/4 [00:15<00:05,  5.95s/it]Evaluating: 100%|██████████| 4/4 [00:22<00:00,  6.44s/it]Evaluating: 100%|██████████| 4/4 [00:22<00:00,  5.63s/it]
+  saved.
+--- Scoring T4_006 (54/82) ---
+Evaluating:   0%|          | 0/4 [00:00<?, ?it/s]LLM returned 1 generations instead of requested 3. Proceeding with 1 generations.
+Evaluating:  25%|██▌       | 1/4 [00:01<00:03,  1.13s/it]Evaluating:  50%|█████     | 2/4 [00:03<00:03,  1.83s/it]Evaluating:  75%|███████▌  | 3/4 [00:14<00:06,  6.22s/it]Evaluating: 100%|██████████| 4/4 [00:18<00:00,  5.03s/it]Evaluating: 100%|██████████| 4/4 [00:18<00:00,  4.53s/it]
+  saved.
+--- Scoring T4_007 (55/82) ---
+Evaluating:   0%|          | 0/4 [00:00<?, ?it/s]LLM returned 1 generations instead of requested 3. Proceeding with 1 generations.
+Evaluating:  25%|██▌       | 1/4 [00:01<00:04,  1.64s/it]Evaluating:  50%|█████     | 2/4 [00:04<00:04,  2.34s/it]Evaluating:  75%|███████▌  | 3/4 [00:10<00:03,  3.98s/it]Evaluating: 100%|██████████| 4/4 [00:20<00:00,  6.33s/it]Evaluating: 100%|██████████| 4/4 [00:20<00:00,  5.09s/it]
+  saved.
+--- Scoring T4_008 (56/82) ---
+Evaluating:   0%|          | 0/4 [00:00<?, ?it/s]LLM returned 1 generations instead of requested 3. Proceeding with 1 generations.
+Evaluating:  25%|██▌       | 1/4 [00:01<00:03,  1.02s/it]Evaluating:  50%|█████     | 2/4 [00:08<00:10,  5.03s/it]Evaluating:  75%|███████▌  | 3/4 [00:18<00:07,  7.23s/it]Evaluating: 100%|██████████| 4/4 [00:21<00:00,  5.39s/it]Evaluating: 100%|██████████| 4/4 [00:21<00:00,  5.32s/it]
+  saved.
+--- Scoring T4_009 (57/82) ---
+Evaluating:   0%|          | 0/4 [00:00<?, ?it/s]LLM returned 1 generations instead of requested 3. Proceeding with 1 generations.
+Evaluating:  25%|██▌       | 1/4 [00:01<00:04,  1.60s/it]Evaluating:  50%|█████     | 2/4 [00:08<00:09,  4.64s/it]Evaluating:  75%|███████▌  | 3/4 [00:19<00:07,  7.38s/it]Evaluating: 100%|██████████| 4/4 [00:19<00:00,  4.75s/it]Evaluating: 100%|██████████| 4/4 [00:19<00:00,  4.93s/it]
+  saved.
+--- Scoring T4_010 (58/82) ---
+Evaluating:   0%|          | 0/4 [00:00<?, ?it/s]LLM returned 1 generations instead of requested 3. Proceeding with 1 generations.
+Evaluating:  25%|██▌       | 1/4 [00:01<00:03,  1.11s/it]Evaluating:  50%|█████     | 2/4 [00:03<00:03,  1.96s/it]Evaluating:  75%|███████▌  | 3/4 [00:08<00:03,  3.34s/it]Evaluating: 100%|██████████| 4/4 [00:19<00:00,  6.11s/it]Evaluating: 100%|██████████| 4/4 [00:19<00:00,  4.76s/it]
+  saved.
+--- Scoring T4_011 (59/82) ---
+Evaluating:   0%|          | 0/4 [00:00<?, ?it/s]LLM returned 1 generations instead of requested 3. Proceeding with 1 generations.
+Evaluating:  25%|██▌       | 1/4 [00:01<00:03,  1.06s/it]Evaluating:  50%|█████     | 2/4 [00:04<00:05,  2.64s/it]Evaluating:  75%|███████▌  | 3/4 [00:16<00:06,  6.73s/it]Evaluating: 100%|██████████| 4/4 [00:20<00:00,  5.52s/it]Evaluating: 100%|██████████| 4/4 [00:20<00:00,  5.02s/it]
+  saved.
+--- Scoring T4_012 (60/82) ---
+Evaluating:   0%|          | 0/4 [00:00<?, ?it/s]LLM returned 1 generations instead of requested 3. Proceeding with 1 generations.
+Evaluating:  25%|██▌       | 1/4 [00:01<00:04,  1.47s/it]Evaluating:  50%|█████     | 2/4 [00:04<00:04,  2.37s/it]Evaluating:  75%|███████▌  | 3/4 [00:14<00:05,  5.99s/it]Evaluating: 100%|██████████| 4/4 [00:21<00:00,  6.19s/it]Evaluating: 100%|██████████| 4/4 [00:21<00:00,  5.31s/it]
+  saved.
+--- Scoring T5_001 (61/82) ---
+Evaluating:   0%|          | 0/4 [00:00<?, ?it/s]LLM returned 1 generations instead of requested 3. Proceeding with 1 generations.
+Evaluating:  25%|██▌       | 1/4 [00:00<00:02,  1.14it/s]Evaluating:  50%|█████     | 2/4 [00:02<00:02,  1.04s/it]Evaluating:  75%|███████▌  | 3/4 [00:08<00:03,  3.74s/it]Evaluating: 100%|██████████| 4/4 [00:17<00:00,  5.57s/it]Evaluating: 100%|██████████| 4/4 [00:17<00:00,  4.34s/it]
+  saved.
+--- Scoring T5_002 (62/82) ---
+Evaluating:   0%|          | 0/4 [00:00<?, ?it/s]LLM returned 1 generations instead of requested 3. Proceeding with 1 generations.
+Evaluating:  25%|██▌       | 1/4 [00:00<00:02,  1.10it/s]Evaluating:  50%|█████     | 2/4 [00:07<00:08,  4.47s/it]Evaluating:  75%|███████▌  | 3/4 [00:09<00:03,  3.13s/it]Evaluating: 100%|██████████| 4/4 [00:19<00:00,  5.89s/it]Evaluating: 100%|██████████| 4/4 [00:19<00:00,  4.88s/it]
+  saved.
+--- Scoring T5_003 (63/82) ---
+Evaluating:   0%|          | 0/4 [00:00<?, ?it/s]LLM returned 1 generations instead of requested 3. Proceeding with 1 generations.
+Evaluating:  25%|██▌       | 1/4 [00:01<00:03,  1.13s/it]Evaluating:  50%|█████     | 2/4 [00:04<00:05,  2.74s/it]Evaluating:  75%|███████▌  | 3/4 [00:14<00:05,  5.79s/it]Evaluating: 100%|██████████| 4/4 [00:19<00:00,  5.63s/it]Evaluating: 100%|██████████| 4/4 [00:19<00:00,  4.95s/it]
+  saved.
+--- Scoring T5_004 (64/82) ---
+Evaluating:   0%|          | 0/4 [00:00<?, ?it/s]LLM returned 1 generations instead of requested 3. Proceeding with 1 generations.
+Evaluating:  25%|██▌       | 1/4 [00:01<00:03,  1.17s/it]Evaluating:  50%|█████     | 2/4 [00:01<00:01,  1.06it/s]Evaluating:  75%|███████▌  | 3/4 [00:17<00:07,  7.80s/it]Evaluating: 100%|██████████| 4/4 [00:33<00:00, 10.95s/it]Evaluating: 100%|██████████| 4/4 [00:33<00:00,  8.43s/it]
+  saved.
+--- Scoring T5_005 (65/82) ---
+Evaluating:   0%|          | 0/4 [00:00<?, ?it/s]LLM returned 1 generations instead of requested 3. Proceeding with 1 generations.
+Evaluating:  25%|██▌       | 1/4 [00:00<00:02,  1.00it/s]Evaluating:  50%|█████     | 2/4 [00:03<00:04,  2.10s/it]Evaluating:  75%|███████▌  | 3/4 [00:09<00:03,  3.80s/it]Evaluating: 100%|██████████| 4/4 [00:18<00:00,  5.86s/it]Evaluating: 100%|██████████| 4/4 [00:18<00:00,  4.68s/it]
+  saved.
+--- Scoring T5_006 (66/82) ---
+Evaluating:   0%|          | 0/4 [00:00<?, ?it/s]LLM returned 1 generations instead of requested 3. Proceeding with 1 generations.
+Evaluating:  25%|██▌       | 1/4 [00:01<00:03,  1.11s/it]Evaluating:  50%|█████     | 2/4 [00:02<00:02,  1.31s/it]Evaluating:  75%|███████▌  | 3/4 [00:08<00:03,  3.60s/it]Evaluating: 100%|██████████| 4/4 [00:18<00:00,  5.94s/it]Evaluating: 100%|██████████| 4/4 [00:18<00:00,  4.60s/it]
+  saved.
+--- Scoring T5_007 (67/82) ---
+Evaluating:   0%|          | 0/4 [00:00<?, ?it/s]LLM returned 1 generations instead of requested 3. Proceeding with 1 generations.
+Evaluating:  25%|██▌       | 1/4 [00:01<00:03,  1.20s/it]Evaluating:  50%|█████     | 2/4 [00:06<00:07,  3.81s/it]Evaluating:  75%|███████▌  | 3/4 [00:21<00:08,  8.94s/it]Evaluating: 100%|██████████| 4/4 [00:23<00:00,  6.10s/it]Evaluating: 100%|██████████| 4/4 [00:23<00:00,  5.91s/it]
+  saved.
+--- Scoring T5_008 (68/82) ---
+Evaluating:   0%|          | 0/4 [00:00<?, ?it/s]LLM returned 1 generations instead of requested 3. Proceeding with 1 generations.
+Evaluating:  25%|██▌       | 1/4 [00:01<00:04,  1.62s/it]Evaluating:  50%|█████     | 2/4 [00:11<00:13,  6.51s/it]Evaluating:  75%|███████▌  | 3/4 [00:17<00:06,  6.48s/it]Evaluating: 100%|██████████| 4/4 [00:20<00:00,  5.05s/it]Evaluating: 100%|██████████| 4/4 [00:20<00:00,  5.22s/it]
+  saved.
+--- Scoring T5_009 (69/82) ---
+Evaluating:   0%|          | 0/4 [00:00<?, ?it/s]LLM returned 1 generations instead of requested 3. Proceeding with 1 generations.
+Evaluating:  25%|██▌       | 1/4 [00:01<00:04,  1.51s/it]Evaluating:  50%|█████     | 2/4 [00:05<00:05,  2.91s/it]Evaluating:  75%|███████▌  | 3/4 [00:16<00:06,  6.87s/it]Evaluating: 100%|██████████| 4/4 [00:21<00:00,  5.77s/it]Evaluating: 100%|██████████| 4/4 [00:21<00:00,  5.27s/it]
+  saved.
+--- Scoring T6_001 (70/82) ---
+Evaluating:   0%|          | 0/4 [00:00<?, ?it/s]LLM returned 1 generations instead of requested 3. Proceeding with 1 generations.
+Evaluating:  25%|██▌       | 1/4 [00:01<00:04,  1.38s/it]Evaluating:  50%|█████     | 2/4 [00:02<00:02,  1.21s/it]Evaluating:  75%|███████▌  | 3/4 [00:14<00:06,  6.12s/it]Evaluating: 100%|██████████| 4/4 [00:19<00:00,  5.60s/it]Evaluating: 100%|██████████| 4/4 [00:19<00:00,  4.81s/it]
+  saved.
+--- Scoring T6_002 (71/82) ---
+Evaluating:   0%|          | 0/4 [00:00<?, ?it/s]LLM returned 1 generations instead of requested 3. Proceeding with 1 generations.
+Evaluating:  25%|██▌       | 1/4 [00:01<00:04,  1.62s/it]Evaluating:  50%|█████     | 2/4 [00:04<00:04,  2.35s/it]Evaluating:  75%|███████▌  | 3/4 [00:14<00:05,  5.96s/it]Evaluating: 100%|██████████| 4/4 [00:18<00:00,  5.18s/it]Evaluating: 100%|██████████| 4/4 [00:18<00:00,  4.68s/it]
+  saved.
+--- Scoring T6_003 (72/82) ---
+Evaluating:   0%|          | 0/4 [00:00<?, ?it/s]LLM returned 1 generations instead of requested 3. Proceeding with 1 generations.
+Evaluating:  25%|██▌       | 1/4 [00:01<00:04,  1.44s/it]Evaluating:  50%|█████     | 2/4 [00:04<00:04,  2.29s/it]Evaluating:  75%|███████▌  | 3/4 [00:20<00:08,  8.56s/it]Evaluating: 100%|██████████| 4/4 [00:20<00:00,  5.30s/it]Evaluating: 100%|██████████| 4/4 [00:20<00:00,  5.16s/it]
+  saved.
+--- Scoring T6_004 (73/82) ---
+Evaluating:   0%|          | 0/4 [00:00<?, ?it/s]LLM returned 1 generations instead of requested 3. Proceeding with 1 generations.
+Evaluating:  25%|██▌       | 1/4 [00:01<00:04,  1.53s/it]Evaluating:  50%|█████     | 2/4 [00:03<00:03,  1.76s/it]Evaluating:  75%|███████▌  | 3/4 [00:10<00:04,  4.29s/it]Evaluating: 100%|██████████| 4/4 [00:19<00:00,  6.18s/it]Evaluating: 100%|██████████| 4/4 [00:19<00:00,  4.96s/it]
+  saved.
+--- Scoring T6_005 (74/82) ---
+Evaluating:   0%|          | 0/4 [00:00<?, ?it/s]LLM returned 1 generations instead of requested 3. Proceeding with 1 generations.
+Evaluating:  25%|██▌       | 1/4 [00:01<00:03,  1.21s/it]Evaluating:  50%|█████     | 2/4 [00:02<00:02,  1.34s/it]Evaluating:  75%|███████▌  | 3/4 [00:08<00:03,  3.20s/it]Evaluating: 100%|██████████| 4/4 [00:24<00:00,  8.57s/it]Evaluating: 100%|██████████| 4/4 [00:24<00:00,  6.21s/it]
+  saved.
+--- Scoring T6_006 (75/82) ---
+Evaluating:   0%|          | 0/4 [00:00<?, ?it/s]LLM returned 1 generations instead of requested 3. Proceeding with 1 generations.
+Evaluating:  25%|██▌       | 1/4 [00:01<00:03,  1.03s/it]Evaluating:  50%|█████     | 2/4 [00:05<00:05,  2.78s/it]Evaluating:  75%|███████▌  | 3/4 [00:10<00:03,  3.83s/it]Evaluating: 100%|██████████| 4/4 [00:19<00:00,  5.96s/it]Evaluating: 100%|██████████| 4/4 [00:19<00:00,  4.83s/it]
+  saved.
+--- Scoring T6_007 (76/82) ---
+Evaluating:   0%|          | 0/4 [00:00<?, ?it/s]LLM returned 1 generations instead of requested 3. Proceeding with 1 generations.
+Evaluating:  25%|██▌       | 1/4 [00:01<00:04,  1.49s/it]Evaluating:  50%|█████     | 2/4 [00:07<00:08,  4.23s/it]Evaluating:  75%|███████▌  | 3/4 [00:14<00:05,  5.48s/it]Evaluating: 100%|██████████| 4/4 [00:20<00:00,  5.62s/it]Evaluating: 100%|██████████| 4/4 [00:20<00:00,  5.11s/it]
+  saved.
+--- Scoring T6_008 (77/82) ---
+Evaluating:   0%|          | 0/4 [00:00<?, ?it/s]LLM returned 1 generations instead of requested 3. Proceeding with 1 generations.
+Evaluating:  25%|██▌       | 1/4 [00:01<00:03,  1.12s/it]Evaluating:  50%|█████     | 2/4 [00:03<00:03,  1.77s/it]Evaluating:  75%|███████▌  | 3/4 [00:08<00:03,  3.34s/it]Evaluating: 100%|██████████| 4/4 [00:19<00:00,  6.39s/it]Evaluating: 100%|██████████| 4/4 [00:19<00:00,  4.91s/it]
+  saved.
+--- Scoring T6_009 (78/82) ---
+Evaluating:   0%|          | 0/4 [00:00<?, ?it/s]LLM returned 1 generations instead of requested 3. Proceeding with 1 generations.
+Evaluating:  25%|██▌       | 1/4 [00:01<00:03,  1.32s/it]Evaluating:  50%|█████     | 2/4 [00:04<00:04,  2.22s/it]Evaluating:  75%|███████▌  | 3/4 [00:13<00:05,  5.27s/it]Evaluating: 100%|██████████| 4/4 [00:19<00:00,  5.82s/it]Evaluating: 100%|██████████| 4/4 [00:19<00:00,  4.93s/it]
+  saved.
+--- Scoring T6_010 (79/82) ---
+Evaluating:   0%|          | 0/4 [00:00<?, ?it/s]LLM returned 1 generations instead of requested 3. Proceeding with 1 generations.
+Evaluating:  25%|██▌       | 1/4 [00:00<00:02,  1.00it/s]Evaluating:  50%|█████     | 2/4 [00:04<00:05,  2.52s/it]Evaluating:  75%|███████▌  | 3/4 [00:10<00:04,  4.08s/it]Evaluating: 100%|██████████| 4/4 [00:19<00:00,  6.19s/it]Evaluating: 100%|██████████| 4/4 [00:19<00:00,  4.98s/it]
+  saved.
+--- Scoring T6_011 (80/82) ---
+Evaluating:   0%|          | 0/4 [00:00<?, ?it/s]LLM returned 1 generations instead of requested 3. Proceeding with 1 generations.
+Evaluating:  25%|██▌       | 1/4 [00:01<00:04,  1.53s/it]Evaluating:  50%|█████     | 2/4 [00:15<00:17,  8.63s/it]Evaluating:  75%|███████▌  | 3/4 [00:20<00:07,  7.26s/it]Evaluating: 100%|██████████| 4/4 [00:25<00:00,  6.33s/it]Evaluating: 100%|██████████| 4/4 [00:25<00:00,  6.42s/it]
+  saved.
+--- Scoring T6_012 (81/82) ---
+Evaluating:   0%|          | 0/4 [00:00<?, ?it/s]LLM returned 1 generations instead of requested 3. Proceeding with 1 generations.
+Evaluating:  25%|██▌       | 1/4 [00:01<00:04,  1.40s/it]Evaluating:  50%|█████     | 2/4 [00:16<00:18,  9.25s/it]Evaluating:  75%|███████▌  | 3/4 [00:21<00:07,  7.46s/it]Evaluating: 100%|██████████| 4/4 [00:22<00:00,  4.95s/it]Evaluating: 100%|██████████| 4/4 [00:22<00:00,  5.64s/it]
+  saved.
+--- Scoring T6_013 (82/82) ---
+Evaluating:   0%|          | 0/4 [00:00<?, ?it/s]LLM returned 1 generations instead of requested 3. Proceeding with 1 generations.
+Evaluating:  25%|██▌       | 1/4 [00:01<00:04,  1.49s/it]Evaluating:  50%|█████     | 2/4 [00:08<00:09,  4.98s/it]Evaluating:  75%|███████▌  | 3/4 [00:19<00:07,  7.56s/it]Evaluating: 100%|██████████| 4/4 [00:21<00:00,  5.18s/it]Evaluating: 100%|██████████| 4/4 [00:21<00:00,  5.27s/it]
+  saved.
+
+5. Final averages for System A:
+
+faithfulness         0.510884
+answer_relevancy     0.613362
+context_precision    0.732499
+context_recall       0.921080
+dtype: float64
+
+Saved to System_A_final_scorecard.csv
+SKIPPING System B: System_B_3way_eval_results.csv not found yet (generation for this system hasn't produced output). Run the matching generate_evaluation_dataset*.py script first, then rerun this script.
+
+======================================================================
+ALL SYSTEMS SCORED
+======================================================================
+
+=== [4/4] 05:35:57 -- Measuring latency (System A vs B) ===
+/Users/admin/Data/UK/Ulster University/Curriculum/Semester 3/Dissertation/3. Technical Implementation/System A - LPITutor/My Implementation/V1/.venv/lib/python3.9/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+Initializing clients and models (this can take up to ~30s, especially the first time)...
+  LLM client ready.
+  Pinecone index connected.
+  Loading embedder model...
+  Loading reranker model...
+Initialization complete.
+
+Timing 20 rows across both systems...
+
+Timing T3_023 (R1)...
+Timing T1_004 (R1)...
+Timing T1_001 (R1)...
+Traceback (most recent call last):
+  File "/Users/admin/Data/UK/Ulster University/Curriculum/Semester 3/Dissertation/3. Technical Implementation/System A - LPITutor/My Implementation/V1/measure_latency.py", line 190, in <module>
+    main()
+  File "/Users/admin/Data/UK/Ulster University/Curriculum/Semester 3/Dissertation/3. Technical Implementation/System A - LPITutor/My Implementation/V1/measure_latency.py", line 148, in main
+    a_timing = time_system_a(question)
+  File "/Users/admin/Data/UK/Ulster University/Curriculum/Semester 3/Dissertation/3. Technical Implementation/System A - LPITutor/My Implementation/V1/measure_latency.py", line 66, in time_system_a
+    final_answer, finish_reason = response_processor.generate_response(system_persona, user_instruction)
+  File "/Users/admin/Data/UK/Ulster University/Curriculum/Semester 3/Dissertation/3. Technical Implementation/System A - LPITutor/My Implementation/V1/RAG_response_processor.py", line 136, in generate_response
+    response = self.llm_client.chat.completions.create(
+  File "/Users/admin/Data/UK/Ulster University/Curriculum/Semester 3/Dissertation/3. Technical Implementation/System A - LPITutor/My Implementation/V1/.venv/lib/python3.9/site-packages/openai/_utils/_utils.py", line 298, in wrapper
+    return func(*args, **kwargs)
+  File "/Users/admin/Data/UK/Ulster University/Curriculum/Semester 3/Dissertation/3. Technical Implementation/System A - LPITutor/My Implementation/V1/.venv/lib/python3.9/site-packages/openai/resources/chat/completions/completions.py", line 1251, in create
+    return self._post(
+  File "/Users/admin/Data/UK/Ulster University/Curriculum/Semester 3/Dissertation/3. Technical Implementation/System A - LPITutor/My Implementation/V1/.venv/lib/python3.9/site-packages/openai/_base_client.py", line 1332, in post
+    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
+  File "/Users/admin/Data/UK/Ulster University/Curriculum/Semester 3/Dissertation/3. Technical Implementation/System A - LPITutor/My Implementation/V1/.venv/lib/python3.9/site-packages/openai/_base_client.py", line 1105, in request
+    raise self._make_status_error_from_response(err.response) from None
+openai.RateLimitError: Error code: 429 - {'error': {'message': 'Rate limit reached for model `llama-3.1-8b-instant` in organization `org_01ktvxh78vef5a9rfx1h15q3ak` service tier `on_demand` on tokens per day (TPD): Limit 500000, Used 499959, Requested 3164. Please try again in 8m59.6544s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}

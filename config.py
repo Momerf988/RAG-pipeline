@@ -27,7 +27,15 @@ TEMP_TUTOR = 0.0
 
 # HANDOFF limitation: "No max_tokens; 6 items lost" -- V1 never set this, so long answers
 # were silently truncated with no error. v2 sets it explicitly.
-TUTOR_MAX_TOKENS = 1024
+# V2.7: raised 1024 -> 2048 after the real overnight run hit the hard-abort
+# (finish_reason == "length") on row 34/150 -- keep_top 7 -> 15 gives the tutor more context
+# on "elaborate" answers, which increases how often a full answer needs more than 1024
+# tokens. The model itself supports up to 131,072 completion tokens (Groq's own limit for
+# llama-3.1-8b-instant), so 2048 has huge headroom above this and isn't close to any real
+# ceiling. The hard-abort itself stays -- see generate_evaluation_dataset.py /
+# generate_evaluation_dataset_B.py for how the batch scripts now handle it without losing a
+# whole overnight run to one row.
+TUTOR_MAX_TOKENS = 2048
 
 # Rule 2 (HANDOFF + your instructions): "Add a hard abort on any count != 317."
 EXPECTED_CHUNKS = 317

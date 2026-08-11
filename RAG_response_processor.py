@@ -113,18 +113,55 @@ class LLMResponseProcessor:
 
     # v2 fix (HANDOFF limitation: "Tutor T = 0.1" -> T = 0.0; and "No max_tokens; 6 items
     # lost" -> max_tokens set explicitly, finish_reason returned so the caller can assert it).
+    #
+    # V2.8: added a self-healing retry on truncation, fixed here (the one shared method every
+    # generation call goes through -- System A's respond_to_user, System B's direct and
+    # rewritten paths, interactive and batch alike) rather than in each caller separately.
+    # Found live during the overnight run: finish_reason == "length" on row 34/150 even after
+    # raising TUTOR_MAX_TOKENS to 2048, because keep_top=15 gives the tutor more to work with
+    # on "elaborate" answers. Rather than have the batch scripts' AssertionError-skip logic
+    # (see generate_evaluation_dataset*.py) be the first line of defence -- which means losing
+    # rows from the final dataset silently unless someone notices the SKIPPED lines in a long
+    # log -- this retries ONCE at 4x the configured budget before ever returning a truncated
+    # result. The model supports up to 131,072 completion tokens (Groq's limit for
+    # llama-3.1-8b-instant), so 4x headroom on a 2048 base is nowhere near any real ceiling.
+    # The batch scripts' skip-on-AssertionError logic stays in place as a last-resort safety
+    # net for the (should be near-impossible) case where even this doesn't produce finish_
+    # reason == "stop" -- so no row silently vanishes without at least a visible log line.
     def generate_response(self, system_persona, user_instruction):
+        messages = [
+            {"role": "system", "content": system_persona},
+            {"role": "user", "content": user_instruction}
+        ]
         response = self.llm_client.chat.completions.create(
             model = config.LLM_MODEL_NAME,
-            messages = [
-                {"role": "system", "content": system_persona},
-                {"role": "user", "content": user_instruction}
-            ],
+            messages = messages,
             temperature = config.TEMP_TUTOR,          # was 0.1 in V1
             max_tokens = config.TUTOR_MAX_TOKENS       # V1 set no limit at all
         )
         final_answer = response.choices[0].message.content
         finish_reason = response.choices[0].finish_reason
+
+        if finish_reason == "length":
+            # V2.10: 4x was wrong -- confirmed live via a real 413 error that this Groq
+            # account's actual ceiling is 6000 TPM total (prompt + completion combined), not
+            # the much larger figure Groq's general docs page shows (that's for a paid tier
+            # this account doesn't have). With keep_top=15, retrieved context alone is
+            # already ~2,600-3,000 tokens, so 4x (8192) on top of that guaranteed a 413 and
+            # crashed the run. +512 is a modest, safe bump that stays well under 6000 even
+            # with the largest realistic context.
+            retry_budget = config.TUTOR_MAX_TOKENS + 512
+            print(f"  NOTE: response truncated at {config.TUTOR_MAX_TOKENS} tokens, "
+                  f"retrying once with max_tokens={retry_budget}...")
+            response = self.llm_client.chat.completions.create(
+                model = config.LLM_MODEL_NAME,
+                messages = messages,
+                temperature = config.TEMP_TUTOR,
+                max_tokens = retry_budget
+            )
+            final_answer = response.choices[0].message.content
+            finish_reason = response.choices[0].finish_reason
+
         return final_answer, finish_reason
 
     # v2 fix: propagates chunk_id_list, and hard-asserts finish_reason == "stop" (HANDOFF
