@@ -30,8 +30,8 @@ SHEET_NAME = "Benchmark Spec Matrix"
 GOLD_SPANS_FILE = "data/gold_spans.json"
 
 RERANKER_MODEL = "cross-encoder/ms-marco-MiniLM-L-6-v2"  # unchanged, same as production
-TOP_K_CANDIDATES = 20   # pre-rerank pool size, matches RAG_response_processor.search_db
-K_VALUES = [3, 5, 7, 10, 15, 20]   # prefixes of the single reranked list
+TOP_K_CANDIDATES = 60   # pre-rerank pool size, matches RAG_response_processor.search_db
+K_VALUES = [3, 5, 7, 10, 15, 20, 60]   # prefixes of the single reranked list
 CURRENT_KEEP_TOP = 7    # what's live in RAG_response_processor.rerank right now
 
 

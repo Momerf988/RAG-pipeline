@@ -15,13 +15,7 @@ class LLMResponseProcessor:
             include_metadata = True)
         return search_result['matches']
 
-    # V2 work -- keep_top raised 7 -> 15 per 09_tune_retrieval.py (span-recall) +
-    # 10_tune_keep_top_quality.py (RAGAS quality ablation, n=24, System A). k=15 clears the
-    # pre-declared +0.05 recall materiality bar by a wide margin AND wins on faithfulness
-    # (0.476) and answer_relevancy (0.668) vs both k=7 and k=20 -- k=20 has higher raw
-    # recall but measurably worse generated-answer quality (dilution), so it was rejected
-    # despite the bigger recall number. See keep_top_ablation_summary.csv for full figures.
-    def rerank(self, user_prompt, matches, keep_top = 15):
+    def rerank(self, user_prompt, matches, keep_top = 7):
         if not matches:
             return matches
         pairs = [(user_prompt, match['metadata']['line']) for match in matches]
