@@ -33,7 +33,7 @@ from app_init import llm_client, db_index, embedder_model, reranker_model
 from user_query_processor import UserQueryProcessor
 from RAG_response_processor import LLMResponseProcessor
 from crag_evaluator import CRAGEvaluator
-T = 1
+T = 70
 BENCHMARK_FILE = "data/benchmark_specification_matrix.xlsx"
 SHEET_NAME = "Benchmark Spec Matrix"
 OUTPUT_FILE = f"Latency_Results_t{T}.csv"
@@ -88,6 +88,23 @@ def time_system_a(question):
     }
 
 
+# V2.12: fixed the same instrumentation fault the V7 report already documented and had to
+# correct for after the fact (Section 4.7/5.3 of V7.docx: "fixed five-second pauses inserted
+# between chained model calls fall inside whichever window brackets them"). It was never
+# actually fixed in the code -- V7 subtracted known pause constants post-hoc instead -- so it
+# silently carried forward into this rebuild. Confirmed live against Latency_Results_t1.csv:
+# direct-path total_ms residual was 5005ms (std 2.9ms) and rewritten-path rewrite_cycle_ms
+# carried an extra ~10,000ms -- both dead-on matches for V7's own reported 5,004ms / 10,010ms
+# figures. Root cause: every time.sleep(5) here was placed to pace API calls against the
+# provider's rate limit, but several of them sat BETWEEN a segment's start and end timestamp
+# (e.g. generation_ms = t3-t2 while a sleep(5) ran between t2 being captured and generate_
+# response() actually being called), so the pacing delay got silently counted as model work.
+# System A's timing was never affected because its one sleep(5) already came after its final
+# timestamp was captured -- the fix here is to make System B's do the same: capture every
+# timestamp immediately around its real API call, and move ALL pacing sleeps to run only
+# after every timestamp for the row has already been taken, right before returning. total_ms
+# is also now the sum of the clean components rather than a fresh wall-clock read, so it can
+# never re-absorb a pacing delay no matter where one is placed.
 def time_system_b(question):
     t0 = time.perf_counter()
     embedded_query = query_processor.vectorize_query(question)
@@ -98,7 +115,6 @@ def time_system_b(question):
 
     decision_1 = crag_evaluator.evaluate_context(question, context_string)
     t2 = time.perf_counter()
-    time.sleep(5)
 
     retrieval_ms = (t1 - t0) * 1000
     evaluator_ms = (t2 - t1) * 1000
@@ -111,21 +127,21 @@ def time_system_b(question):
         system_persona, user_instruction = response_processor.LLM_prompt_crag(question, 'elaborate', context_string)
         response_processor.generate_response(system_persona, user_instruction)
         t3 = time.perf_counter()
-        time.sleep(5)
         generation_ms = (t3 - t2) * 1000
     else:
         path = "rewritten_or_fallback"
-        t2b = time.perf_counter()
         rewritten = crag_evaluator.rewrite_query(question)
-        time.sleep(5)
+        t_rewrite_done = time.perf_counter()
         embedded_rewritten = query_processor.vectorize_query(rewritten)
         matches_2 = response_processor.search_db(embedded_rewritten)
         reranked_2 = response_processor.rerank(rewritten, matches_2)
         context_string_2, context_list_2, chunk_ids_2 = response_processor.stich_context(reranked_2)
         decision_2 = crag_evaluator.evaluate_context(rewritten, context_string_2)
-        time.sleep(5)
         t3 = time.perf_counter()
-        rewrite_ms = (t3 - t2b) * 1000
+        # rewrite_ms = time from right after the evaluator's first verdict to the second
+        # verdict landing -- rewrite call + second retrieval + second evaluator call, no
+        # sleeps anywhere inside this span now.
+        rewrite_ms = (t3 - t2) * 1000
 
         if decision_2 in ("CORRECT", "AMBIGUOUS"):
             # matches production routing (system_b_main.py / generate_evaluation_dataset_B.py):
@@ -134,13 +150,15 @@ def time_system_b(question):
             system_persona, user_instruction = response_processor.LLM_prompt_crag(question, 'elaborate', context_string_2)
             response_processor.generate_response(system_persona, user_instruction)
             t4 = time.perf_counter()
-            time.sleep(5)
             generation_ms = (t4 - t3) * 1000
         else:
             t4 = t3
 
-    total_ms = (time.perf_counter() - t0) * 1000
-    return {
+    # total_ms is derived from the already-clean components, not a fresh wall-clock read --
+    # this is what actually guarantees it can't reabsorb the pacing sleep below, regardless
+    # of where that sleep is placed.
+    total_ms = retrieval_ms + evaluator_ms + rewrite_ms + generation_ms
+    result = {
         "retrieval_ms": retrieval_ms,
         "evaluator_ms": evaluator_ms,
         "rewrite_cycle_ms": rewrite_ms,
@@ -148,6 +166,9 @@ def time_system_b(question):
         "total_ms": total_ms,
         "path": path,
     }
+    time.sleep(5)  # rate-limit pacing before the next row -- runs after every timestamp for
+                    # this row has already been captured, so it can't contaminate anything above
+    return result
 
 
 def main():
