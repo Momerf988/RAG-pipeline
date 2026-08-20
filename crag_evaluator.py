@@ -281,12 +281,20 @@ CRITICAL: Output ONLY one single word: CORRECT, AMBIGUOUS, or INCORRECT. No punc
                     "include_reasoning": False,
                 }
             )
-            evaluator_decision = response.choices[0].message.content.strip().upper()
+            # V2.13: response.choices[0].message.content can come back as literal None (not
+            # just ""), observed live as "Evaluator Error: 'NoneType' object has no attribute
+            # 'strip'" during the OpenRouter System B run -- OpenRouter/some backend providers
+            # return content: null rather than content: "" when a reasoning model burns its
+            # whole budget on reasoning tokens and never emits a verdict word. That crashed
+            # straight into the except block below (still fails safe to INCORRECT either way,
+            # but skipped the more informative warning this defensive check was meant to give).
+            # `or ""` normalizes both cases so the warning below always fires.
+            evaluator_decision = (response.choices[0].message.content or "").strip().upper()
 
             # V2.1 defensive check: make the exact failure mode described above visible
             # instead of silently defaulting to INCORRECT with no trace.
             if not evaluator_decision:
-                print("Evaluator WARNING: empty response content from "
+                print("Evaluator WARNING: empty/None response content from "
                       f"{config.EVALUATOR_MODEL_NAME} -- likely reasoning tokens consumed "
                       "the token budget before the verdict word. Defaulting to INCORRECT.")
 

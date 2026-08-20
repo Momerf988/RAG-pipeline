@@ -33,6 +33,17 @@ from app_init import llm_client, db_index, embedder_model, reranker_model
 from user_query_processor import UserQueryProcessor
 from RAG_response_processor import LLMResponseProcessor
 from crag_evaluator import CRAGEvaluator
+# V2.14: T (inter-row pacing delay) was run at 1, 30 and 70s. This is NOT an architecture
+# parameter -- it only controls request spacing against OpenRouter, and all three runs
+# target the identical 20-row sample (random.seed(42) below). T=1 showed heavy contention
+# (single evaluator calls up to 33s; 4-5 LLM calls fired per row with almost no gap), which
+# eased substantially by T=70 -- consistent with provider-side queueing/throttling, not a
+# change in what either system computes. T=70 is used as the primary reported run since it
+# has the least contention, but even it isn't fully clean (still real outliers), so report
+# MEDIAN alongside mean when writing this up -- the median overhead (~0.9s) lines up closely
+# with V7's own ~1s finding, while the mean is pulled up by remaining API-side variance.
+# Do not describe T=70 as "clearing the rate limit" -- it only reduces the likelihood of
+# contention, it doesn't guarantee it.
 T = 70
 BENCHMARK_FILE = "data/benchmark_specification_matrix.xlsx"
 SHEET_NAME = "Benchmark Spec Matrix"
