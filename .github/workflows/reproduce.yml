@@ -1,0 +1,74 @@
+# Checks on every push that the article's statistics still regenerate exactly from the
+# files in results/ (no API keys, no cost). On a version tag such as v1.1 it also builds
+# the archive zip for Zenodo and attaches it to a GitHub release.
+name: Reproduce article statistics
+
+on:
+  push:
+    branches: ['**']
+    tags: ['v*']
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  study-environment:
+    name: Python 3.9 (as in the study), exact output
+    runs-on: ubuntu-latest
+    container: python:3.9-slim
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install the analysis packages
+        run: pip install --quiet -r requirements-analysis.txt
+      - name: Script 15 output matches the reference exactly
+        run: |
+          python src/15_reproduce_article_statistics.py > out15.txt
+          diff -u tests/expected/15_output.txt out15.txt
+      - name: Script 17, once the second judge's scores are committed
+        shell: bash
+        run: |
+          if [ -f results/System_A_judge2_faithfulness.csv ] && [ -f results/System_B_judge2_faithfulness.csv ]; then
+            python src/17_compare_judges.py > out17.txt
+            if [ -f tests/expected/17_output.txt ]; then
+              diff -u tests/expected/17_output.txt out17.txt
+            else
+              cat out17.txt
+            fi
+          else
+            echo "Second-judge scores are not committed yet, so script 17 is skipped."
+          fi
+      - name: Every script compiles
+        run: python -m compileall -q src tests
+
+  current-python:
+    name: Current Python, headline numbers
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - name: Install the analysis packages
+        run: pip install --quiet "pandas<3.1" numpy scipy openpyxl
+      - name: Script 15 still gives the article's headline numbers
+        run: |
+          python src/15_reproduce_article_statistics.py > out15.txt
+          python tests/check_headline_numbers.py out15.txt
+
+  release:
+    name: Build the Zenodo zip and attach it to a release
+    if: startsWith(github.ref, 'refs/tags/v')
+    needs: [study-environment, current-python]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build the archive zip
+        run: git archive --format=zip --prefix=rag-tutor-interlock/ -o "rag-tutor-interlock-${GITHUB_REF_NAME}.zip" HEAD
+      - name: Create the GitHub release with the zip attached
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: >
+          gh release create "$GITHUB_REF_NAME" "rag-tutor-interlock-${GITHUB_REF_NAME}.zip"
+          --title "rag-tutor-interlock $GITHUB_REF_NAME"
+          --notes "Archive for upload to Zenodo as a new version of https://doi.org/10.5281/zenodo.23539479"

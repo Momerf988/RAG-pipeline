@@ -1,0 +1,161 @@
+
+==============================================================================
+Section 3.3 - context-size ablation (24-item sample)
+==============================================================================
+ keep_top  faithfulness  answer_relevancy  context_precision  context_recall
+        7         0.465             0.664              0.800           0.695
+       15         0.476             0.668              0.726           0.842
+       20         0.462             0.638              0.698           0.894
+
+==============================================================================
+Section 3.5 - benchmark
+==============================================================================
+Items: 150; items with an audit note: 18
+Retrieval_Level  R1  R2  R3  R4
+Bloom_Level                    
+Remember          9   0   0   0
+Understand        8  11   8   8
+Apply             0  32   0   0
+Analyse           0   0  31   0
+Evaluate          8   8  10  17
+
+==============================================================================
+Section 4.1 - data integrity and the resolution of the instrument
+==============================================================================
+Items: A 150, B 150; paired 150
+Missing scores: A {'faithfulness': 1, 'answer_relevancy': 0, 'context_precision': 0, 'context_recall': 0}, B {'faithfulness': 0, 'answer_relevancy': 0, 'context_precision': 0, 'context_recall': 0}
+First-pass verdicts: {'CORRECT': 77, 'AMBIGUOUS': 56, 'INCORRECT': 17}
+Routing: {'direct': 77, 'rewritten': 48, 'fallback': 25}
+Direct-path items with byte-identical retrieved context: 77/77
+
+Table 1 - disagreement on the items with identical retrieved context
+Metric              Identical  Mean|d|  Max|d|  Signed      p
+faithfulness            13/77    0.168   0.833  +0.005  0.851
+answer_relevancy        17/77    0.082   0.682  -0.025  0.193
+context_precision       56/77    0.024   0.270  -0.004  0.862
+context_recall          68/77    0.043   0.667  +0.001  0.953
+
+==============================================================================
+Section 4.2 - where the baseline fails (System A)
+==============================================================================
+Table 2 - Spearman rho (p) of each System A metric with the stratification dimensions
+  Bloom level    faithfulness: -0.503 (7e-11)  answer_relevancy: -0.543 (7e-13)  context_precision: -0.043 (0.601)  context_recall: -0.191 (0.019)
+  Difficulty     faithfulness: -0.424 (7e-08)  answer_relevancy: -0.575 (1e-14)  context_precision: -0.043 (0.605)  context_recall: -0.126 (0.124)
+  Evidence span  faithfulness: -0.222 (0.006)  answer_relevancy: -0.329 (4e-05)  context_precision: -0.107 (0.194)  context_recall: -0.034 (0.678)
+
+Partial rank correlations with faithfulness (n = 149)
+  Bloom | span controlled        rho = -0.463  p = 3e-09
+  Span | Bloom controlled        rho = -0.031  p = 0.712
+  Difficulty | span controlled   rho = -0.371  p = 3e-06
+  Span | difficulty controlled   rho = +0.019  p = 0.817
+
+Within-stratum tests (Spearman rho with faithfulness)
+  span, within Understand (n=35): rho = -0.120  p = 0.493
+  span, within Evaluate   (n=42): rho = -0.223  p = 0.156
+  span, within Hard items      (n=73): rho = -0.194  p = 0.100
+  Bloom, within R1             (n=25): rho = -0.736  p = 3e-05
+  Bloom, within R2             (n=50): rho = -0.350  p = 0.013
+  Bloom, within R3             (n=49): rho = -0.179  p = 0.218
+  Bloom, within R4             (n=25): rho = -0.628  p = 8e-04
+
+System A means by Bloom level (Fig. 2a)
+            faithfulness_A      context_recall_A     
+                      mean size             mean size
+Bloom_Level                                          
+Remember             0.975    9            0.889    9
+Understand           0.827   35            0.945   35
+Apply                0.342   32            0.910   32
+Analyse              0.451   31            0.962   31
+Evaluate             0.369   43            0.848   43
+
+System A means by evidence span (Fig. 2b)
+                 faithfulness_A  context_recall_A
+Retrieval_Level                                  
+R1                        0.753             0.880
+R2                        0.487             0.917
+R3                        0.494             0.921
+R4                        0.431             0.904
+
+==============================================================================
+Section 4.3 - effect of the corrective interlock
+==============================================================================
+Table 3 - aggregate comparison (Wilcoxon signed-rank, Holm across the eight tests)
+           metric        view   n            A            B  delta               ci     r     p holm_alpha   sig
+     faithfulness         all 149 0.524 (0.36) 0.488 (0.38) -0.036 [-0.086, +0.013] -0.16 0.136      0.010 False
+     faithfulness substantive 124 0.587 (0.35) 0.587 (0.34) -0.000 [-0.054, +0.054] -0.01 0.945      0.050 False
+ answer_relevancy         all 150 0.614 (0.18) 0.527 (0.29) -0.086 [-0.128, -0.045] -0.31 0.002      0.006  True
+ answer_relevancy substantive 125 0.626 (0.18) 0.633 (0.19) +0.007 [-0.020, +0.034] +0.04 0.757      0.025 False
+context_precision         all 150 0.737 (0.25) 0.699 (0.29) -0.038 [-0.068, -0.009] -0.24 0.048      0.007 False
+context_precision substantive 125 0.772 (0.22) 0.761 (0.23) -0.010 [-0.029, +0.008] -0.16 0.260      0.013 False
+   context_recall         all 150 0.910 (0.21) 0.880 (0.25) -0.030 [-0.069, +0.007] -0.32 0.113      0.008 False
+   context_recall substantive 125 0.918 (0.19) 0.903 (0.20) -0.015 [-0.053, +0.024] -0.20 0.367      0.017 False
+Substantive faithfulness in more detail: delta = -0.0001, rank-biserial r = -0.008
+
+Rewritten and re-retrieved items (n = 48)
+  faithfulness    change = -0.009  p = 0.893  (n = 47)
+  context_recall  change = -0.040  p = 0.246  (n = 48)
+Judge-free check: reference-vocabulary coverage of the retrieved context, first retrieval vs after rewriting, 71 of 73 corrective-path items: change = +0.018, p = 0.628
+
+==============================================================================
+Section 4.4 - the abstention policy
+==============================================================================
+System A faithfulness on withheld items: mean 0.216, median 0.050 (n = 25)
+System A faithfulness on answered items: mean 0.587, median 0.628 (n = 124)
+Mann-Whitney U = 618.0, p = 2.03e-06, rank-biserial r = +0.601 (withheld group first)
+Withheld items where System A also refused: 0 of 25
+Withheld items with System A faithfulness of exactly 0: 11; above .70: 0; maximum 0.682
+
+System A means by System B's first-pass verdict (Fig. 3b)
+                 faithfulness_A  context_recall_A
+crag_decision_1                                  
+CORRECT                   0.655             0.950
+AMBIGUOUS                 0.415             0.879
+INCORRECT                 0.287             0.833
+
+Coverage: 125/150 = 83.3%; mean System A faithfulness 0.524 over all items, 0.587 over the answered items
+Share of items withheld, by Bloom level
+             sum  size   mean
+Bloom_Level                  
+Remember       0     9  0.000
+Understand     1    35  0.029
+Apply         12    32  0.375
+Analyse        5    31  0.161
+Evaluate       7    43  0.163
+Withheld items and System A faithfulness, by question type
+                 withheld   n  faithfulness_A
+Question_Type                                
+Scenario                5  25           0.303
+Code Tracing            6  11           0.380
+Best Practice           6  38           0.388
+Code Completion         2  12           0.458
+Debugging               2  13           0.464
+Comparison              3  14           0.618
+Enumeration             1  16           0.767
+Explanation             0  12           0.898
+Definition              0   9           0.975
+
+The gate as a classifier (positive = withheld)
+  retrieval insufficiency (A recall < 1.000)   precision 0.240  recall 0.182  specificity 0.838  balanced accuracy 0.510  Fisher p = 0.794  (TP, FP, FN, TN) = (6, 19, 27, 98)
+  generation risk (A faithfulness < .50)       precision 0.760  recall 0.275  specificity 0.925  balanced accuracy 0.600  Fisher p = 0.002  (TP, FP, FN, TN) = (19, 6, 50, 74)
+  generation risk (A faithfulness < .70)       precision 1.000  recall 0.269  specificity 1.000  balanced accuracy 0.634  Fisher p = 2e-06  (TP, FP, FN, TN) = (25, 0, 68, 56)
+Withheld items with System A context recall of 1.000: 19 of 25
+
+==============================================================================
+Section 4.5 - latency (run with a 70-second pause between items)
+==============================================================================
+Items: 20 (12 direct, 8 corrective), {'R1': 5, 'R2': 5, 'R3': 5, 'R4': 5}
+Median retrieval time: A 901 ms (timed first), B 459 ms (timed second); retrieval is excluded below
+Median within-item overhead: direct 1334 ms, corrective 1943 ms
+System A median total on the direct-path items: 4232 ms
+Weighted by the benchmark routing split (0.513 direct): 1630 ms per query
+
+==============================================================================
+Section 5.4 - routing consistency across runs
+==============================================================================
+Profiled items routed differently in at least one of the four runs: 4 of 20
+               main          t1         t30     t70
+spec_id                                            
+T3_005   corrective  corrective  corrective  direct
+T3_019       direct      direct  corrective  direct
+T4_017   corrective      direct      direct  direct
+T6_018   corrective      direct  corrective  direct
