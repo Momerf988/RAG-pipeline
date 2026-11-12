@@ -2,7 +2,7 @@
 faithfulness findings still holds when the second judge's scores are used instead.
 
 Inputs: the gpt-4o-mini scores from 11_run_ragas_evaluation.py and the second judge's scores
-from 16_second_judge_faithfulness.py, plus the same files 15_reproduce_article_statistics.py
+from 16_second_judge.py, plus the same files 15_reproduce_article_statistics.py
 reads. It makes no API calls. The statistics are computed exactly as in script 15, once for
 each judge, so the two columns can be compared line by line.
 
@@ -83,7 +83,7 @@ if tuple(int(x) for x in pd.__version__.split('.')[:2]) >= (3, 1):
 
 for f in ['results/System_A_judge2_faithfulness.csv', 'results/System_B_judge2_faithfulness.csv']:
     if not os.path.exists(f):
-        raise SystemExit(f"{f} not found. Run src/16_second_judge_faithfulness.py first, from "
+        raise SystemExit(f"{f} not found. Run src/16_second_judge.py first, from "
                          f"the top folder of the archive.")
 
 A = pd.read_csv('results/System_A_final_scorecard.csv')
@@ -103,7 +103,7 @@ d = (A[['spec_id', 'faithfulness']].rename(columns={'faithfulness': 'judge1_A'})
          columns={'faithfulness_judge2': 'judge2_A'}), on='spec_id', how='left')
      .merge(B2[['spec_id', 'faithfulness_judge2']].rename(
          columns={'faithfulness_judge2': 'judge2_B'}), on='spec_id', how='left')
-     .merge(EB[['spec_id', 'path_taken']], on='spec_id')
+     .merge(EB[['spec_id', 'path_taken', 'crag_decision_1']], on='spec_id')
      .merge(S[['spec_id', 'Bloom_Level', 'Difficulty', 'Retrieval_Level']], on='spec_id'))
 d['bloom'] = d.Bloom_Level.map(BLOOM)
 d['difficulty'] = d.Difficulty.map(DIFFICULTY)
@@ -237,8 +237,83 @@ for k, label in enumerate(['withheld mean / answered mean', 'Mann-Whitney p',
                            'rank-biserial r (withheld first)', 'withheld items above .70']):
     add('4.4 abstention audit', label, cells['judge1'][k], cells['judge2'][k])
 
-# ---------------------------------------------------------------- 3. verdict
-head("3. Does each finding hold under both judges?")
+# ---------------------------------------------------------------- 3. other quoted figures
+head("3. Other faithfulness figures quoted in the article, under each judge")
+J1, J2 = JUDGES['judge1'], JUDGES['judge2']
+
+print("\nFig. 2a - mean System A faithfulness by Bloom level")
+print(f"  {'Level':12s} {'n':>3s} {J1:>14s} {J2:>24s} {'judge2 - judge1':>16s}")
+for level in BLOOM:
+    g = d[d.Bloom_Level == level]
+    m1, m2 = g.judge1_A.mean(), g.judge2_A.mean()
+    print(f"  {level:12s} {len(g):3d} {m1:14.3f} {m2:24.3f} {m2 - m1:+16.3f}")
+    add('Fig. 2a', f'System A mean faithfulness, {level} (n={len(g)})', f"{m1:.3f}", f"{m2:.3f}")
+
+print("\nSection 4.3 - the corrective loop alone: B - A faithfulness on the rewritten items")
+rw = d[d.path_taken == 'rewritten']
+cells = []
+for j in ['judge1', 'judge2']:
+    g = rw[rw[j + '_A'].notna() & rw[j + '_B'].notna()]
+    p = stats.wilcoxon(g[j + '_A'], g[j + '_B']).pvalue
+    cells.append(f"n={len(g)} delta={(g[j + '_B'] - g[j + '_A']).mean():+.3f} p={p:.3f}")
+    print(f"  {JUDGES[j]:24s} {cells[-1]}")
+add('4.3 rewrite path', 'faithfulness change on rewritten items', *cells)
+
+print("\nSection 4.4 - mean System A faithfulness by System B's first-pass verdict (Fig. 3b)")
+for verdict in ['CORRECT', 'AMBIGUOUS', 'INCORRECT']:
+    g = d[d.crag_decision_1 == verdict]
+    m1, m2 = g.judge1_A.mean(), g.judge2_A.mean()
+    print(f"  {verdict:10s} n={len(g):3d}   {J1}: {m1:.3f}   {J2}: {m2:.3f}")
+    add('4.4 Fig. 3b', f'System A mean faithfulness, first-pass {verdict} (n={len(g)})',
+        f"{m1:.3f}", f"{m2:.3f}")
+
+print("\nSection 4.4 - selective prediction: mean System A faithfulness, all items vs answered")
+cells = []
+for j in ['judge1', 'judge2']:
+    cells.append(f"{d[j + '_A'].mean():.3f} -> {d.loc[~d.withheld, j + '_A'].mean():.3f}")
+    print(f"  {JUDGES[j]:24s} {cells[-1]}")
+add('4.4 selective prediction', 'System A mean faithfulness, all items -> answered items', *cells)
+
+print("\nSection 4.4 - the gate as a classifier of low-faithfulness answers (positive = withheld)")
+for cut in [0.50, 0.70]:
+    cells = []
+    for j in ['judge1', 'judge2']:
+        g = d[d[j + '_A'].notna()]
+        pred, truth = g.withheld.to_numpy(), (g[j + '_A'] < cut).to_numpy()
+        tp, fp_ = int((pred & truth).sum()), int((pred & ~truth).sum())
+        fn, tn = int((~pred & truth).sum()), int((~pred & ~truth).sum())
+        p = stats.fisher_exact([[tp, fp_], [fn, tn]])[1]
+        cells.append(f"precision {tp / (tp + fp_):.3f} recall {tp / (tp + fn):.3f} "
+                     f"Fisher p = {fp(p)} (TP, FP, FN, TN) = {(tp, fp_, fn, tn)}")
+        print(f"  faithfulness < {cut:.2f}  {JUDGES[j]:24s} {cells[-1]}")
+    add('4.4 gate as classifier', f'System A faithfulness < {cut:.2f}', *cells)
+
+print("\nWhere the two judges disagree (both systems pooled, judge2 - judge1)")
+long2 = pd.concat([d[['judge1_A', 'judge2_A', 'Bloom_Level']].set_axis(['j1', 'j2', 'level'], axis=1),
+                   d[['judge1_B', 'judge2_B', 'Bloom_Level']].set_axis(['j1', 'j2', 'level'], axis=1)]
+                  ).dropna(subset=['j1', 'j2'])
+long2['diff'] = long2.j2 - long2.j1
+for level in BLOOM:
+    g = long2[long2.level == level]
+    print(f"  {level:12s} n={len(g):3d}  mean difference {g['diff'].mean():+.3f}")
+    add_agreement(f'Mean difference judge2 - judge1, {level} (n={len(g)})', f"{g['diff'].mean():+.3f}")
+lower, higher = int((long2['diff'] < -0.5).sum()), int((long2['diff'] > 0.5).sum())
+p_shift = stats.wilcoxon(long2.j1, long2.j2).pvalue
+print(f"  Answers scored more than .50 apart: {lower + higher} of {len(long2)} "
+      f"({JUDGES['judge2']} lower in {lower}, higher in {higher})")
+print(f"  Shift between judges, Wilcoxon signed-rank p = {fp(p_shift)}")
+add_agreement('Answers scored more than .50 apart (judge2 lower / higher)',
+              f"{lower + higher} of {len(long2)} ({lower} / {higher})")
+add_agreement('Shift between judges, Wilcoxon signed-rank p', fp(p_shift))
+ok = direct.judge1_A.notna() & direct.judge2_A.notna()
+between = (direct.loc[ok, 'judge2_A'] - direct.loc[ok, 'judge1_A']).abs().mean()
+print(f"  Mean |judge2 - judge1| on the {ok.sum()} direct-path System A answers: {between:.3f} "
+      f"(compare the within-judge figures in Section 4.1 above)")
+add_agreement(f'Mean |judge2 - judge1|, direct-path System A answers (n={ok.sum()})',
+              f"{between:.3f}")
+
+# ---------------------------------------------------------------- 4. verdict
+head("4. Does each finding hold under both judges?")
 for finding in ['Faithfulness tracks cognitive demand, not evidence span',
                 'Interlock does not measurably improve substantive answers',
                 'Abstentions are selective']:

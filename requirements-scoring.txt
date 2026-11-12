@@ -1,11 +1,12 @@
-# Packages for RAGAS scoring: src/11_run_ragas_evaluation.py and
-# src/16_second_judge_faithfulness.py. Tested with Python 3.9 and 3.13.
+# Packages for RAGAS scoring: src/11_run_ragas_evaluation.py and src/16_second_judge.py.
+# Tested with Python 3.9 and 3.13.
 #   python3 -m venv .venv && source .venv/bin/activate
 #   pip install -r requirements-scoring.txt
-# Script 11 also needs sentence-transformers, from requirements.txt.
 # RAGAS 0.4.3 does not work with LangChain 0.4 or later, hence the upper limits.
 # pandas 3.1 reads decimal numbers from CSV files slightly differently, which moves a few
 # reported statistics in the third decimal, hence pandas<3.1.
+# sentence-transformers supplies the all-MiniLM-L6-v2 embeddings used by answer relevancy;
+# 5.1.2 is the version the study used, and it installs torch and transformers with it.
 ragas==0.4.3
 langchain<0.4
 langchain-core<0.4
@@ -18,3 +19,4 @@ scipy
 openpyxl
 python-dotenv
 openai
+sentence-transformers==5.1.2
